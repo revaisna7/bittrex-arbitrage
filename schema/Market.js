@@ -32,10 +32,10 @@ module.exports = class Market {
 		var price;
 		if(this.isBaseCurrency(currency)) {
 			price = this.getHighestBuyPrice();
-			price += price/100*Config.deviation;
+			price -= price/100*Config.deviation;
 		} else {
 			price = this.getLowestSellPrice();
-			price -= price/100*Config.deviation;
+			price += price/100*Config.deviation;
 		}
 		return price.toFixed(currency.getPrecision());
 	}
