@@ -12,9 +12,11 @@ module.exports = class Balances {
 
 	static list = [];
 	static startList = [];
+	static startAccumulate = [];
 
 	static get() {
 		bittrex.getbalances(Balances.update);
+		setTimeout(Balances.setAccumulateStart, 1000);
 	}
 
 	static update(data, err) {
@@ -31,6 +33,12 @@ module.exports = class Balances {
 			}
 		} else {
 			console.log(err);
+		}
+	}
+
+	static setAccumulateStart() {
+		for(var i in Balances.startList) {
+			Balances.startAccumulate.push(Balances.accumulate(Balances.startList[i].currency));
 		}
 	}
 

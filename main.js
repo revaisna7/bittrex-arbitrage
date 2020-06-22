@@ -149,13 +149,19 @@ function log() {
 			var btcNow = currency.convertTo(BTC, now);
 			var btcProfit = btcNow - btcStart;
 			var btcProfitFactor = btcProfit / btcStart * 100;
+
+			var accumulateStart = Balances.startAccumulate[i];
+			var accumulateNow = Balances.accumulate(currency);
+			var accimulateProfitNow = accumulateNow - accumulateStart;
+
 			btcTotalNow += btcNow;
 			balancesOutput += ("[" + currency.Currency + "]"
 				+ "\t\t" + pad(start.toFixed(8))
 				+ "\t" + pad(now.toFixed(8))
-				+ "\t" + pad(Balances.accumulateStart(currency).toFixed(8))
-				+ "\t" + pad(Balances.accumulate(currency).toFixed(8))
 				+ "\t" + addPlusOrSpace(profit,8)
+				+ "\t" + pad(accumulateStart.toFixed(8))
+				+ "\t" + pad(accumulateStart.toFixed(8))
+				+ "\t" + addPlusOrSpace(accimulateProfitNow.toFixed(8), 8)
 				+ "\t\t" + addPlusOrSpace(profitFactor) + '%'
 				+ "\t" + pad(btcNow.toFixed(8))
 				+ "\t\t" + addPlusOrSpace(btcProfit,8)
@@ -175,7 +181,7 @@ function log() {
 	ss = (ss < 10 ? '0' : '') + ss;
 
 	output += ("Time Running: " + hh + ":" + mm + ":" + ss + "\n\n");
-	output += ("[Currency]\tStart\t\tNow\t\tTotal Start\tTotal Now\tProfit\t\tProfit Factor\tCurrent BTC Value\tCurrency BTC Profit\tCurrency BTC Profit Factor\n");
+	output += ("[Currency]\tStart\t\tNow\t\tProfit\t\tTotal Start\tTotal Now\tTotal Profit Now\tProfit Factor\tCurrent BTC Value\tCurrency BTC Profit\tCurrency BTC Profit Factor\n");
 	output += (balancesOutput + "\n");
 	// output += ("\n" + totalsOutput + "\n");
 	output += ("Market conflicts:\n\n");
