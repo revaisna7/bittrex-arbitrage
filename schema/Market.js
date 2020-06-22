@@ -209,7 +209,7 @@ module.exports = class Market {
 			ConditionType: 'NONE',
 			Target: 0
 		};
-		if (!this.isBaseCurrency(currency)) {
+		if (!this.isBaseCurrency(outputCurrency)) {
 			trade.OrderType += '_BUY';
 			this.trading = true;
 			bittrex.tradebuy(trade, function(data, err){ _this.tradeCallback(data,err); });
