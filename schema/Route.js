@@ -79,15 +79,16 @@ module.exports = class Route {
 	}
 
 	getBalances() {
-		this.balanceX = Balances.getByCurrency(this.currencyX) ? Balances.getByCurrency(this.currencyX).Available : 0;
-		this.balanceY = Balances.getByCurrency(this.currencyY) ? Balances.getByCurrency(this.currencyY).Available : 0;
-		this.balanceZ = Balances.getByCurrency(this.currencyZ) ? Balances.getByCurrency(this.currencyZ).Available : 0;
+		var b;
+		this.balanceX = (b = Balances.getByCurrency(this.currencyX)) ? b.Available : 0;
+		this.balanceY = (b = Balances.getByCurrency(this.currencyY)) ? b.Available : 0;
+		this.balanceZ = (b = Balances.getByCurrency(this.currencyZ)) ? b.Available : 0;
 	}
 
 	getInputs() {
 		this.getBalances();
 
-		this.BTC = Currencies.getBtc();
+		this.BTC = this.BTC || Currencies.getBtc();
 
 		this.currencyXBtcBalance = this.currencyX.convertTo(this.BTC, this.balanceX);
 		this.currencyYBtcBalance = this.currencyY.convertTo(this.BTC, this.balanceY);
@@ -101,6 +102,8 @@ module.exports = class Route {
 		this.minBtcMarket = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
 
 		this.inputBtc = Math.max(Config.minInputBtc, Math.min(this.minBtcBalance, this.minBtcMarket));
+
+		this.inputBtc -= this.inputBtc/100*Config.deviation;
 
 		this.inputX = this.BTC.convertTo(this.currencyX, this.inputBtc);
 		this.inputY = this.BTC.convertTo(this.currencyY, this.inputBtc);

@@ -29,15 +29,11 @@ module.exports = class Market {
 	}
 
 	getPrice(currency) {
-		var price;
 		if(this.isBaseCurrency(currency)) {
-			price = this.getHighestBuyPrice();
-			price -= price/100*Config.deviation;
+			return this.getHighestBuyPrice().toFixed(currency.getPrecision());
 		} else {
-			price = this.getLowestSellPrice();
-			price += price/100*Config.deviation;
+			return this.getLowestSellPrice().toFixed(currency.getPrecision());
 		}
-		return price.toFixed(currency.getPrecision());
 	}
 
 	getQuantity(currency) {
@@ -200,6 +196,12 @@ module.exports = class Market {
 
 	trade(outputCurrency, quantity, rate) {
 		var _this = this;
+		var isBase = this.isBaseCurrency(outputCurrency);
+		if(!isBase) {
+			rate += rate/100*Config.deviation;
+		} else {
+			rate -= rate/100*Config.deviation;
+		}
 		var trade = {
 			MarketName: this.MarketName,
 			OrderType: 'LIMIT',
