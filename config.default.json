@@ -1,0 +1,26 @@
+{
+	"trade" : true,
+	"minProfitFactor": 0.05,
+	"minInputBtc": 0.00051,
+	"deviation" : 0.0,
+	"currencies" : [
+		"BTC",
+		"ETH",
+		"USDT",
+		"XRP",
+		"LTC",
+		"DASH"
+	],
+	"restricted" : [
+		"EUR",
+		"USD",
+		"BTXCRD"
+	],
+	"exchangeComission" : 0.2,
+	"bittrexoptions" : {
+		"apikey": "",
+		"apisecret": "",
+		"requestTimeoutInSeconds": 1,
+		"verbose" : false
+	}
+}

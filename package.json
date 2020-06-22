@@ -1,0 +1,33 @@
+{
+  "name": "bittrex-arbitrage",
+  "version": "0.1.0",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": "chris",
+  "contributors": [],
+  "dependencies": {
+    "clear": "0.0.1",
+    "node-bittrex-api": "^0.7.8",
+    "process": "^0.11.10",
+    "readline": "^1.3.0"
+  },
+  "description": "Bittrex arbitrage, automated triangular arbitrage on Bittrex.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisHemmens/bittrex-arbitrage.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChrisHemmens/bittrex-arbitrage/issues"
+  },
+  "homepage": "https://github.com/ChrisHemmens/bittrex-arbitrage#readme"
+}
