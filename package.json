@@ -6,9 +6,14 @@
     "functional",
     "server",
     "client",
-    "browser"
+    "browser",
+    "bittrex",
+    "crypto",
+    "bot",
+    "triangular",
+    "arbitrage"
   ],
-  "author": "chris",
+  "author": "Chris Hemmens",
   "contributors": [],
   "dependencies": {
     "clear": "0.0.1",
