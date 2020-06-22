@@ -160,7 +160,7 @@ function log() {
 				+ "\t" + pad(now.toFixed(8))
 				+ "\t" + addPlusOrSpace(profit,8)
 				+ "\t" + pad(accumulateStart.toFixed(8))
-				+ "\t" + pad(accumulateStart.toFixed(8))
+				+ "\t" + pad(accumulateNow.toFixed(8))
 				+ "\t" + addPlusOrSpace(accimulateProfitNow.toFixed(8), 8)
 				+ "\t\t" + addPlusOrSpace(profitFactor) + '%'
 				+ "\t" + pad(btcNow.toFixed(8))
