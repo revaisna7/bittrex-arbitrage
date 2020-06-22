@@ -6,7 +6,7 @@ Bittrex arbitrage, automated triangular arbitrage on Bittrex.
 * People who want an automated way of making more money, does not come without a certain aspect of risk. Be careful.
 
 ### How do I get set up? ###
-* `npm install bittrex-arbitrage`
+* `npm install`
 * Sign up to https://bittrex.com/
 * Set up two factor authentication
 * Create an API key
