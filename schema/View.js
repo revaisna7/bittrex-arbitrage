@@ -17,7 +17,7 @@ module.exports = class View {
 	static logInterval;
 
 	static start() {
-		View.logInterval = setInterval(View.update, 1000/15);
+		View.logInterval = setInterval(View.update, 1000/6);
 	}
 
 	static stop() {
@@ -49,7 +49,8 @@ module.exports = class View {
 		console.log(
 			View.title()
 			+ Balances.consoleOutput()
-			+ (Routes.isTrading() ? Trades.consoleOutput() : Routes.consoleOutput())
+			+ Routes.consoleOutput()
+			+ Trades.consoleOutput()
 			+ Orders.consoleOutput())
 		;
 	}

@@ -4,6 +4,7 @@ var fs = require('fs'),
 bittrex.options(Config.bittrexoptions);
 
 var Trade = require('./Trade.js');
+var Util = require('./Util.js');
 
 module.exports = class Market {
 	constructor(market) {
@@ -195,7 +196,7 @@ module.exports = class Market {
 			this.triggerRoutes();
 		}
 		if(err) {
-			console.log(err);
+			Util.logError(err);
 		}
 	}
 

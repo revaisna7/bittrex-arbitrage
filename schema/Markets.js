@@ -1,9 +1,10 @@
 var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
- 	bittrex = require('node-bittrex-api');
+Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
+bittrex = require('node-bittrex-api');
 bittrex.options(Config.bittrexoptions);
 
 var Market = require('./Market.js');
+var Util = require('./Util.js');
 
 module.exports = class Markets {
 
@@ -21,15 +22,16 @@ module.exports = class Markets {
 	}
 
 	static updateMarkets(data, err) {
-		if (err) {
-			console.log('!!!! Error: ' + err.message);
-			return;
-		}
-		for (var i in data.result) {
-			if(data.result[i].MarketName) {
-				var market = new Market(data.result[i]);
-				Markets.push(market);
+		if(data) {
+			for (var i in data.result) {
+				if(data.result[i].MarketName) {
+					var market = new Market(data.result[i]);
+					Markets.push(market);
+				}
 			}
+		}
+		if (err) {
+			Util.logError(err);
 		}
 	}
 
@@ -53,21 +55,18 @@ module.exports = class Markets {
 	static getUsedMarkets() {
 		var markets = [];
 		for(var i in Markets.list) {
-			if(Markets.list[i] instanceof Market
-				&& Markets.list[i].isAllowed()
-				&& !Markets.list[i].IsRestricted) {
+			if(Markets.list[i] instanceof Market && Markets.list[i].isAllowed() && !Markets.list[i].IsRestricted) {
 				markets.push(Markets.list[i]);
 			}
 		}
 		return markets;
 	}
 
+
 	static getUsedMarketNames() {
 		var marketNames = [];
 		for(var i in Markets.list) {
-			if(Markets.list[i] instanceof Market
-				&& Markets.list[i].isAllowed()
-				&& !Markets.list[i].IsRestricted) {
+			if(Markets.list[i] instanceof Market && Markets.list[i].isAllowed() && !Markets.list[i].IsRestricted) {
 				marketNames.push(Markets.list[i].MarketName);
 			}
 		}
@@ -94,8 +93,7 @@ module.exports = class Markets {
 
 	static getByCurrencies(currencyX, currencyY) {
 		for (var i in Markets.list) {
-			if (Markets.list[i].MarketName === currencyX.Currency + '-' + currencyY.Currency
-				|| Markets.list[i].MarketName === currencyY.Currency + '-' + currencyX.Currency) {
+			if (Markets.list[i].MarketName === currencyX.Currency + '-' + currencyY.Currency || Markets.list[i].MarketName === currencyY.Currency + '-' + currencyX.Currency) {
 				return Markets.list[i];
 			}
 		}

@@ -4,6 +4,7 @@ var fs = require('fs'),
 bittrex.options(Config.bittrexoptions);
 
 var Currency = require('./Currency.js');
+var Util = require('./Util.js');
 
 module.exports = class Currencies {
 
@@ -14,12 +15,13 @@ module.exports = class Currencies {
 	}
 
 	static update (data, err) {
-		if (err) {
-			console.log('!!!! Error: ' + err.message);
-			return;
+		if(data) {
+			for(var i in data.result) {
+				Currencies.list.push(new Currency(data.result[i]));
+			}
 		}
-		for(var i in data.result) {
-			Currencies.list.push(new Currency(data.result[i]));
+		if(err) {
+			Util.logError(err);
 		}
 	}
 

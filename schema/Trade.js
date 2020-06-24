@@ -53,14 +53,16 @@ module.exports = class Trade {
 	}
 
 	deviate(factor) {
-		if(this.market.isBaseCurrency(this.outputCurrency)) {
-			this.rate -= this.rate*factor;
-			//this.quantity += this.quantity*factor;
-		} else {
-			this.rate += this.rate*factor;
-			//this.quantity -= this.quantity*factor;
-		}
-		this.makeRequest();
+		// if(factor !== 0) {
+		// 	if(this.market.isBaseCurrency(this.outputCurrency)) {
+		// 		this.rate += this.rate/factor;
+		// 		this.quantity = this.quantity*factor;
+		// 	} else {
+		// 		this.rate = this.rate*factor;
+		// 		this.quantity = this.quantity/factor;
+		// 	}
+		// 	this.makeRequest();
+		// }
 	}
 
 	tradeCallback(data, err) {
@@ -68,7 +70,7 @@ module.exports = class Trade {
 		this.response = data || err;
 		this.logData();
 
-		if(err) throw err;
+		//if(err) throw err;
 
 		if(typeof this.callback === 'function') {
 			this.callback(this, data, err);

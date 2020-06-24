@@ -51,7 +51,7 @@ module.exports = class Balances {
 				Balances.list.push(balance);
 			}
 		} else {
-			console.log(err);
+			Util.logError(err);
 		}
 	}
 

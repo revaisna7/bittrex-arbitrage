@@ -1,4 +1,4 @@
-module.exports = class Balance {
+module.exports = class Util {
 	static addPlusOrSpace(number, decimals) {
 		var decimals = decimals || 3;
 		var number = Number.parseFloat(number);
@@ -44,5 +44,14 @@ module.exports = class Balance {
 				then();
 			}
 		}, timer);
+	}
+
+	static logError(data) {
+		Util.logFile('errorlog', "\n\n " + (new Date().toLocaleString()));
+		this.logFile('errorlog', JSON.stringify(this.request, null, 2));
+	}
+
+	static logFile(fileName, data) {
+		fs.appendFile(fileName, data, function(err) {  if (err) throw err; });
 	}
 }

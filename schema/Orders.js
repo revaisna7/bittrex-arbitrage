@@ -17,7 +17,7 @@ module.exports = class Orders {
 		if (!err) {
 			Orders.list = data.result;
 		} else {
-			throw err;
+			Util.logError(err);
 		}
 	}
 
