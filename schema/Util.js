@@ -1,3 +1,6 @@
+var fs = require('fs'),
+ 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+
 module.exports = class Util {
 	static addPlusOrSpace(number, decimals) {
 		var decimals = decimals || 3;
