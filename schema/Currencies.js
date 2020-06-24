@@ -37,6 +37,7 @@ module.exports = class Currencies {
 				return Currencies.list[i];
 			}
 		}
+		return null;
 	}
 
 }

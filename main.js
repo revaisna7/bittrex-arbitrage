@@ -4,6 +4,9 @@ var Currencies = require('./schema/Currencies.js');
 var Balances = require('./schema/Balances.js');
 var View = require('./schema/View.js');
 
+const fs = require('fs')
+fs.truncate('tradelog', 0, function(){console.log('Cleared trade log...')});
+
 console.log('Initiating...');
 setTimeout(function(){
 	console.log('Get currencies...');

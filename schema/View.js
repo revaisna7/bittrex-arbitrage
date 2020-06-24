@@ -17,7 +17,7 @@ module.exports = class View {
 	static logInterval;
 
 	static start() {
-		View.logInterval = setInterval(View.logOutput, 1000/10);
+		View.logInterval = setInterval(View.update, 1000/15);
 	}
 
 	static stop() {
@@ -46,13 +46,17 @@ module.exports = class View {
 	}
 
 	static logOutput() {
-		View.clearConsole();
 		console.log(
 			View.title()
-		  + Balances.consoleOutput()
-		  + (Routes.isTrading() ? Trades.consoleOutput() : Routes.consoleOutput())
-		  + Orders.consoleOutput())
+			+ Balances.consoleOutput()
+			+ (Routes.isTrading() ? Trades.consoleOutput() : Routes.consoleOutput())
+			+ Orders.consoleOutput())
 		;
+	}
+
+	static update() {
+		View.clearConsole();
+		View.logOutput();
 	}
 
 

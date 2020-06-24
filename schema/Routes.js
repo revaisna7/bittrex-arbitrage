@@ -8,46 +8,11 @@ var Balances = require('./Balances.js');
 var Currencies = require('./Currencies.js');
 var Currency = require('./Currency.js');
 
-var addPlusOrSpace = function(number, decimals) {
-	var decimals = decimals || 3;
-	var number = Number.parseFloat(number);
-	var str = '';
-	if (number === 0) {
-		str += ' ';
-	}
-	if (number < 0) {
-		str += "\x1b[31m";
-		str += '-';
-	}
-	if (number > 0) {
-		str += "\x1b[32m";
-		str += '+';
-	}
-	if (number < 10 && number > -10) {
-		str += '0';
-	}
-	return str + number.toFixed(decimals).replace('-', '') + "\x1b[0m";
-}
-var pad = function(number, decimals) {
-	var number = Number.parseFloat(number);
-	var decimals = decimals || 8;
-	var str = '';
-	if (number < 10 && number > -10) {
-		str += ' ';
-	}
-	if (number < 100 && number > -100) {
-		str += ' ';
-	}
-	if (number < 1000 && number > -1000) {
-		str += ' ';
-	}
-	return str + number.toFixed(decimals);
-}
-
 module.exports = class Routes {
 
 	static list = [];
 	static finding = false;
+	
 	static find() {
 		this.finding = true;
 		for (var x in Config.currencies) {
@@ -59,21 +24,10 @@ module.exports = class Routes {
 					if (Config.currencies[y] === Config.currencies[z] || Config.currencies[z] === Config.currencies[x]) {
 						continue;
 					}
-					var currencyX = Currencies.getByCode(Config.currencies[x]);
-					var currencyY = Currencies.getByCode(Config.currencies[y]);
-					var currencyZ = Currencies.getByCode(Config.currencies[z]);
-					if(currencyX instanceof Currency && currencyY instanceof Currency && currencyZ instanceof Currency) {
-						if (!Routes.routeExists(currencyX, currencyY, currencyZ)) {
-							if(currencyX.isAllowed() && currencyY.isAllowed() && currencyZ.isAllowed()) {
-								try {
-									var route = new Route(currencyX, currencyY, currencyZ);
-									if(route) {
-										Routes.push(route);
-									}
-								} catch(e) {
-									// route not possible
-								}
-							}
+					if (!Routes.routeExists(Config.currencies[x],Config.currencies[y],Config.currencies[z])) {
+						var route = Route.find(Config.currencies[x],Config.currencies[y],Config.currencies[z]);
+						if(route) {
+							Routes.push(route);
 						}
 					}
 				}
@@ -126,7 +80,7 @@ module.exports = class Routes {
 	}
 
 	static consoleOutput() {
-		var output = (" [Triangular Routes]\n");
+		var output = ("\n\n [Triangular Routes]\n");
 		Routes.sortRoutes();
 		for (var x in Routes.list) {
 			if(x == 30) break;

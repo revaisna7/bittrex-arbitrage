@@ -8,7 +8,7 @@ module.exports = class Trades {
 	static list = [];
 
 	static push(trade) {
-		this.list.push(trades);
+		Trades.list.push(trade);
 	}
 
 	static getCurrentTrades() {
@@ -25,7 +25,10 @@ module.exports = class Trades {
 	}
 
 	static consoleOutput() {
-		return ["Market","Currency","Quantity","Rate","Request","Responded"].join("\t") + "\n" 
-			 + Trades.list.join("\n");
+		var output = ["Market","Currency","Quantity","Rate","Request","Responded"].join("\t") + "\n";
+		for(var i in Trades.list) {
+			output += Trades.list[i].consoleOutput();
+		}
+		return output;
 	}
 }

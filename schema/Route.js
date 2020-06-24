@@ -6,55 +6,11 @@ bittrex.options(Config.bittrexoptions);
 var Markets = require('./Markets.js');
 var Balances = require('./Balances.js');
 var Currencies = require('./Currencies.js');
+var Currency = require('./Currency.js');
 var Trade = require('./Trade.js');
+var Util = require('./Util.js');
 
 var trading = false;
-
-function doThen(conditional,then,timer) {
-	var timer = timer || 1;
-	var interval = setInterval(function(){
-		if(conditional()) {
-			clearInterval(interval);
-			then();
-		}
-	}, timer);
-}
-
-var addPlusOrSpace = function(number, decimals) {
-	var decimals = decimals || 3;
-	var number = Number.parseFloat(number);
-	var str = '';
-	if (number === 0) {
-		str += ' ';
-	}
-	if (number < 0) {
-		str += "\x1b[31m";
-		str += '-';
-	}
-	if (number > 0) {
-		str += "\x1b[32m";
-		str += '+';
-	}
-	if (number < 10 && number > -10) {
-		str += '0';
-	}
-	return str + number.toFixed(decimals).replace('-', '') + "\x1b[0m";
-}
-var pad = function(number, decimals) {
-	var number = Number.parseFloat(number);
-	var decimals = decimals || 8;
-	var str = '';
-	if (number < 10 && number > -10) {
-		str += ' ';
-	}
-	if (number < 100 && number > -100) {
-		str += ' ';
-	}
-	if (number < 1000 && number > -1000) {
-		str += ' ';
-	}
-	return str + number.toFixed(decimals);
-}
 
 /**
  * Route logic
@@ -147,7 +103,8 @@ var pad = function(number, decimals) {
  		this.getInputs();
  		this.getOuputs();
  		this.calculateProfit();
- 		if(this.isProfitable()  && this.hasEnoughBalance() && this.isntTrading()) {
+
+ 		if(this.isProfitable() && this.hasEnoughBalance() && !this.isTrading()) {
  			this.trade();
  		}
  	}
@@ -172,85 +129,102 @@ var pad = function(number, decimals) {
  	}
 
  	isTrading() {
- 		return trading;
+ 		return this.tradeX
+ 		&& this.tradeY
+ 		&& this.tradeZ
+ 		&& this.tradeX.requested
+ 		&& !this.tradeX.responeded
+ 		&& this.tradeY.requested
+ 		&& !this.tradeY.responeded
+ 		&& this.tradeZ.requested
+ 		&& !this.tradeZ.responeded;
  	}
 
- 	isntTrading() {
- 		return !trading;
- 	}
+ 	static find(currencyCodeX,currencyCodeY,currencyCodeZ) {
+ 		var currencyX = Currencies.getByCode(currencyCodeX);
+ 		var currencyY = Currencies.getByCode(currencyCodeY);
+ 		var currencyZ = Currencies.getByCode(currencyCodeZ);
+ 		if(currencyX && currencyY && currencyZ) {
+ 			if(currencyX.isAllowed() && currencyY.isAllowed() && currencyZ.isAllowed()) {
+ 				try {
+ 					return new Route(currencyX, currencyY, currencyZ);
+ 				} catch(e) {
+					return false;
+				}
+			}
+		}
+	}
 
- 	trade() {
- 		if(Config.trade) {
- 			trading = true;
+	trade() {
+		if(Config.trade) {
+			trading = true;
 
- 			var inputX = this.isXBase ? this.inputY : this.inputX;
- 			var inputY = this.isYBase ? this.inputZ : this.inputY;
- 			var inputZ = this.isZBase ? this.inputX : this.inputZ;
+			var inputX = this.isXBase ? this.inputY : this.inputX;
+			var inputY = this.isYBase ? this.inputZ : this.inputY;
+			var inputZ = this.isZBase ? this.inputX : this.inputZ;
 
- 			var priceX = this.marketX.getPrice(this.currencyY);
- 			var priceY = this.marketY.getPrice(this.currencyZ);
- 			var priceZ = this.marketZ.getPrice(this.currencyX);
+			var priceX = this.marketX.getPrice(this.currencyY);
+			var priceY = this.marketY.getPrice(this.currencyZ);
+			var priceZ = this.marketZ.getPrice(this.currencyX);
 
- 			this.tradeX = new Trade(this.marketX, this.currencyY, inputX, priceX);
- 			this.tradeY = new Trade(this.marketY, this.currencyZ, inputY, priceY);
- 			this.tradeZ = new Trade(this.marketZ, this.currencyX, inputZ, priceZ);
+			this.tradeX = new Trade(this.marketX, this.currencyY, inputX, priceX);
+			this.tradeY = new Trade(this.marketY, this.currencyZ, inputY, priceY);
+			this.tradeZ = new Trade(this.marketZ, this.currencyX, inputZ, priceZ);
 
- 			this.tradeX.deviate(this.profitFactorX);
- 			this.tradeY.deviate(this.profitFactorY);
- 			this.tradeZ.deviate(this.profitFactorZ);
+			this.tradeX.deviate(this.profitFactorX);
+			this.tradeY.deviate(this.profitFactorY);
+			this.tradeZ.deviate(this.profitFactorZ);
 
- 			this.tradeX.execute();
- 			this.tradeY.execute();
- 			this.tradeZ.execute();
+			this.tradeX.execute();
+			this.tradeY.execute();
+			this.tradeZ.execute();
 
- 			var _this = this;			
- 			doThen(
- 				function() {
- 					return _this.tradeX.requested && !_this.tradeX.responeded
- 					&& _this.tradeY.requested && !_this.tradeY.responeded
- 					&& _this.tradeZ.requested && !_this.tradeZ.responeded
- 				},
- 				function(){
- 					Balances.get();
- 					setTimeout(function(){ trading = false; }, 5000);
- 				}
- 			);
- 		}
- 	}
+			var _this = this;			
+			Util.doThen(
+				function() {
+					return !_this.isTrading();
+				},
+				function(){
+					Balances.get();
+				},
+				1000
+			);
+		}
+	}
 
- 	routeString() {
- 		return this.currencyX.Currency + (this.currencyX.Currency.length < 4 ? ' ' : '') + ' > '
- 		+ this.currencyY.Currency + (this.currencyY.Currency.length < 4 ? ' ' : '') + ' > '
- 		+ this.currencyZ.Currency + (this.currencyZ.Currency.length < 4 ? ' ' : '') + ' > '
- 		+ this.currencyX.Currency + (this.currencyX.Currency.length < 4 ? ' ' : '') ;
+	routeString() {
+		return this.currencyX.Currency + (this.currencyX.Currency.length < 4 ? ' ' : '') + ' > '
+		+ this.currencyY.Currency + (this.currencyY.Currency.length < 4 ? ' ' : '') + ' > '
+		+ this.currencyZ.Currency + (this.currencyZ.Currency.length < 4 ? ' ' : '') + ' > '
+		+ this.currencyX.Currency + (this.currencyX.Currency.length < 4 ? ' ' : '') ;
 
 
- 	}
+	}
 
- 	marketRouteString() {
- 		return this.marketX.MarketName + (this.marketX.MarketName.length < 8 ? '  ' : ( this.marketX.MarketName.length < 9 ? ' ' : '')) + ' > '
- 		+ this.marketY.MarketName + (this.marketY.MarketName.length < 8 ? '  ' : ( this.marketY.MarketName.length < 9 ? ' ' : '')) + ' > '
- 		+ this.marketZ.MarketName + (this.marketZ.MarketName.length < 8 ? '  ' : ( this.marketZ.MarketName.length < 9 ? ' ' : ''));
- 	}
+	marketRouteString() {
+		return this.marketX.MarketName + (this.marketX.MarketName.length < 8 ? '  ' : ( this.marketX.MarketName.length < 9 ? ' ' : '')) + ' > '
+		+ this.marketY.MarketName + (this.marketY.MarketName.length < 8 ? '  ' : ( this.marketY.MarketName.length < 9 ? ' ' : '')) + ' > '
+		+ this.marketZ.MarketName + (this.marketZ.MarketName.length < 8 ? '  ' : ( this.marketZ.MarketName.length < 9 ? ' ' : ''));
+	}
 
- 	calculationString() {
- 		return pad(Number.parseFloat(this.inputX).toFixed(8))
- 		+ ' = ' + pad(Number.parseFloat(this.outputX).toFixed(8))
- 		+ " > " + pad(Number.parseFloat(this.inputY).toFixed(8))
- 		+ ' = ' + pad(Number.parseFloat(this.outputY).toFixed(8))
- 		+ " > " + pad(Number.parseFloat(this.inputZ).toFixed(8))
- 		+ ' = ' + pad(Number.parseFloat(this.outputZ).toFixed(8))
- 		+ "\t" + addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
- 		+ " " + addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%'
- 		+ " " + addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
- 		+ "\t" + addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
- 		+ "\t" + (this.hasEnoughBalance() ? "" : "No balance") + (this.isTrading() ? "Trade" : "");
- 	}
+	calculationString() {
+		return Util.pad(Number.parseFloat(this.inputX).toFixed(8))
+		+ ' = ' + Util.pad(Number.parseFloat(this.outputX).toFixed(8))
+		+ " > " + Util.pad(Number.parseFloat(this.inputY).toFixed(8))
+		+ ' = ' + Util.pad(Number.parseFloat(this.outputY).toFixed(8))
+		+ " > " + Util.pad(Number.parseFloat(this.inputZ).toFixed(8))
+		+ ' = ' + Util.pad(Number.parseFloat(this.outputZ).toFixed(8))
+		+ "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
+		+ " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%'
+		+ " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
+		+ "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
+		+ "\t" + (this.hasEnoughBalance() ? "" : "No balance") + (this.isTrading() ? "Trade" : "");
+	}
 
- 	consoleOutput() {
- 		return this.ouput = ' [' + new Date().toLocaleTimeString() + '] '
- 		+ this.routeString()
- 		+ "\t" + this.marketRouteString()
- 		+ "\t" + this.calculationString();
- 	}
- }
+	consoleOutput() {
+		return this.ouput = ' [' + new Date().toLocaleTimeString() + '] '
+		+ this.routeString()
+		+ "\t" + this.marketRouteString()
+		+ "\t" + this.calculationString();
+	}
+}

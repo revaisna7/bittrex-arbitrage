@@ -7,42 +7,7 @@ var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
 var Currencies = require('./Currencies.js');
 var Routes = require('./Routes.js');
-
-var addPlusOrSpace = function(number, decimals) {
-	var decimals = decimals || 3;
-	var number = Number.parseFloat(number);
-	var str = '';
-	if (number === 0) {
-		str += ' ';
-	}
-	if (number < 0) {
-		str += "\x1b[31m";
-		str += '-';
-	}
-	if (number > 0) {
-		str += "\x1b[32m";
-		str += '+';
-	}
-	if (number < 10 && number > -10) {
-		str += '0';
-	}
-	return str + number.toFixed(decimals).replace('-', '') + "\x1b[0m";
-}
-var pad = function(number, decimals) {
-	var number = Number.parseFloat(number);
-	var decimals = decimals || 8;
-	var str = '';
-	if (number < 10 && number > -10) {
-		str += ' ';
-	}
-	if (number < 100 && number > -100) {
-		str += ' ';
-	}
-	if (number < 1000 && number > -1000) {
-		str += ' ';
-	}
-	return str + number.toFixed(decimals);
-}
+var Util = require('./Util.js');
 
 module.exports = class Balances {
 
@@ -62,8 +27,8 @@ module.exports = class Balances {
 	}
 
 	static pulse() {
-		Balances.pulseStart();
 		Balances.pulseStop();
+		Balances.pulseStart();
 	}
 
 	static pulseStart() {
@@ -133,7 +98,7 @@ module.exports = class Balances {
 	}
 
 	static consoleOutput() {
-		var output =  (" [Currency]\tStart\t\tNow\t\tProfit\t\tTotal Start\tTotal Now\tTotal Profit Now\tProfit Factor\tCurrent BTC Value\tCurrency BTC Profit\tCurrency BTC Profit Factor\n");
+		var output =  (" [Balances]\n [Currency]\tStart\t\tNow\t\tProfit\t\tTotal Start\tTotal Now\tTotal Profit Now\tProfit Factor\tCurrent BTC Value\tCurrency BTC Profit\tCurrency BTC Profit Factor\n");
 		for (var i in Balances.list) {
 			var balance = Balances.list[i];
 			var currency = Currencies.getByCode(balance.Currency);
@@ -154,16 +119,16 @@ module.exports = class Balances {
 				var accimulateProfitNow = accumulateNow - accumulateStart;
 
 				output += (" [" + currency.Currency + "]"
-					+ "\t\t" + pad(start.toFixed(8))
-					+ "\t" + pad(now.toFixed(8))
-					+ "\t" + addPlusOrSpace(profit,8)
-					+ "\t" + pad(accumulateStart.toFixed(8))
-					+ "\t" + pad(accumulateNow.toFixed(8))
-					+ "\t" + addPlusOrSpace(accimulateProfitNow.toFixed(8), 8)
-					+ "\t\t" + addPlusOrSpace(profitFactor) + '%'
-					+ "\t" + pad(btcNow.toFixed(8))
-					+ "\t\t" + addPlusOrSpace(btcProfit,8)
-					+ "\t\t" + addPlusOrSpace(btcProfitFactor)+ '%' + "\n");
+					+ "\t\t" + Util.pad(start.toFixed(8))
+					+ "\t" + Util.pad(now.toFixed(8))
+					+ "\t" + Util.addPlusOrSpace(profit,8)
+					+ "\t" + Util.pad(accumulateStart.toFixed(8))
+					+ "\t" + Util.pad(accumulateNow.toFixed(8))
+					+ "\t" + Util.addPlusOrSpace(accimulateProfitNow.toFixed(8), 8)
+					+ "\t\t" + Util.addPlusOrSpace(profitFactor) + '%'
+					+ "\t" + Util.pad(btcNow.toFixed(8))
+					+ "\t\t" + Util.addPlusOrSpace(btcProfit,8)
+					+ "\t\t" + Util.addPlusOrSpace(btcProfitFactor)+ '%' + "\n");
 			}
 		}
 		return output;

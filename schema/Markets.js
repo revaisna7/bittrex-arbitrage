@@ -3,7 +3,7 @@ var fs = require('fs'),
  	bittrex = require('node-bittrex-api');
 bittrex.options(Config.bittrexoptions);
 
-const Market = require('./Market.js');
+var Market = require('./Market.js');
 
 module.exports = class Markets {
 

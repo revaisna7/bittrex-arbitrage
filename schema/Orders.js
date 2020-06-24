@@ -3,41 +3,7 @@ var fs = require('fs'),
  	bittrex = require('node-bittrex-api');
 bittrex.options(Config.bittrexoptions);
 
-var addPlusOrSpace = function(number, decimals) {
-	var decimals = decimals || 3;
-	var number = Number.parseFloat(number);
-	var str = '';
-	if (number === 0) {
-		str += ' ';
-	}
-	if (number < 0) {
-		str += "\x1b[31m";
-		str += '-';
-	}
-	if (number > 0) {
-		str += "\x1b[32m";
-		str += '+';
-	}
-	if (number < 10 && number > -10) {
-		str += '0';
-	}
-	return str + number.toFixed(decimals).replace('-', '') + "\x1b[0m";
-}
-var pad = function(number, decimals) {
-	var number = Number.parseFloat(number);
-	var decimals = decimals || 8;
-	var str = '';
-	if (number < 10 && number > -10) {
-		str += ' ';
-	}
-	if (number < 100 && number > -100) {
-		str += ' ';
-	}
-	if (number < 1000 && number > -1000) {
-		str += ' ';
-	}
-	return str + number.toFixed(decimals);
-}
+var Util = require('./Util.js');
 
 module.exports = class Orders {
 
@@ -56,7 +22,7 @@ module.exports = class Orders {
 	}
 
 	static consoleOutput() {
-		var output = "\n [Orders]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent value\tDifference";
+		var output = "\n\n [Orders]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent value\tDifference";
 		for (var i in Orders.list) {
 			var order = Orders.list;
 			if(typeof order == 'object') {
