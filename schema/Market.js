@@ -3,6 +3,8 @@ var fs = require('fs'),
  	bittrex = require('node-bittrex-api');
 bittrex.options(Config.bittrexoptions);
 
+var Trade = require('./Trade.js');
+
 module.exports = class Market {
 	constructor(market) {
 		Object.assign(this, market);
@@ -14,10 +16,7 @@ module.exports = class Market {
 		this.CurrencyCodes = this.MarketName.split('-');
 		this.BaseCurrencyCode = this.CurrencyCodes[0];
 		this.QuoteCurrencyCode = this.CurrencyCodes[1];
-		this.trading = false;
-
-		var _this = this;
-		this.orderBookInterval = setInterval(function() { _this.getOrderBook(); }, 60000);
+		this.getOrderBook();
 	}
 
 	isRestricted() {
@@ -121,13 +120,16 @@ module.exports = class Market {
 	}
 
 	updateExchangeState(data) {
-
-		// console.log(data);
-
 		for(var i in data.Buys) {
 			var orderBookBuy = this.getOrderBookBuy(data.Buys[i].Rate);
 			switch(data.Buys[i].Type) {
 				case 0 :
+					if(orderBookBuy) {
+						orderBookBuy = data.Buys[i];
+					} else {
+						this.addOrderBookBuy(data.Buys[i]);
+					}
+					break;
 				case 2 :
 					if(orderBookBuy) {
 						orderBookBuy.Quantity = data.Buys[i].Quantity;
@@ -147,6 +149,12 @@ module.exports = class Market {
 			var orderBookSell = this.getOrderBookSell(data.Sells[i].Rate);
 			switch(data.Sells[i].Type) {
 				case 0 :
+					if(orderBookSell) {
+						orderBookSell = data.Sells[i];
+					} else {
+						this.addOrderBookSell(data.Sells[i]);
+					}
+					break;
 				case 2 :
 					if(orderBookSell) {
 						orderBookSell.Quantity = data.Sells[i].Quantity;
@@ -162,9 +170,10 @@ module.exports = class Market {
 			}
 		}
 
-		// console.log(this.Buys, this.Sells);
+		this.triggerRoutes();
+	}
 
-		// trigger routes
+	triggerRoutes() {
 		for(var i in this.routes) {
 			if(typeof this.routes[i] === 'object') {
 				this.routes[i].calculate();
@@ -183,10 +192,10 @@ module.exports = class Market {
 		if(data && data.success) {
 			this.Buys = data.result.buy;
 			this.Sells = data.result.sell;
+			this.triggerRoutes();
 		}
 		if(err) {
 			console.log(err);
-			this.getOrderBook();
 		}
 	}
 
@@ -195,38 +204,8 @@ module.exports = class Market {
 	}
 
 	trade(outputCurrency, quantity, rate) {
-		var _this = this;
-		var isBase = this.isBaseCurrency(outputCurrency);
-		if(!isBase) {
-			rate += rate/100*Config.deviation;
-		} else {
-			rate -= rate/100*Config.deviation;
-		}
-		var trade = {
-			MarketName: this.MarketName,
-			OrderType: 'LIMIT',
-			Quantity: Number.parseFloat(quantity).toFixed(8),
-			Rate: Number.parseFloat(rate).toFixed(this.getPrecision()),
-			TimeInEffect: 'GOOD_TIL_CANCELLED',
-			ConditionType: 'NONE',
-			Target: 0
-		};
-		if (!this.isBaseCurrency(outputCurrency)) {
-			trade.OrderType += '_BUY';
-			this.trading = true;
-			bittrex.tradebuy(trade, function(data, err){ _this.tradeCallback(data,err); });
-		} else {
-			trade.OrderType += '_SELL';
-			this.trading = true;
-			bittrex.tradesell(trade, function(data, err){ _this.tradeCallback(data,err); });
-		}
-		console.log(trade);
-	}
-
-	tradeCallback(data, err) {
-		var _this = this;
-		setTimeout(function() { _this.trading = false; }, 10000);
-		console.log(data,err);
+		this.trade = new Trade(this, outputCurrency, quantity, rate);
+		this.trade.execute();
 	}
 
 	isBaseCurrency(currency) {

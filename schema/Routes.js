@@ -8,12 +8,48 @@ var Balances = require('./Balances.js');
 var Currencies = require('./Currencies.js');
 var Currency = require('./Currency.js');
 
+var addPlusOrSpace = function(number, decimals) {
+	var decimals = decimals || 3;
+	var number = Number.parseFloat(number);
+	var str = '';
+	if (number === 0) {
+		str += ' ';
+	}
+	if (number < 0) {
+		str += "\x1b[31m";
+		str += '-';
+	}
+	if (number > 0) {
+		str += "\x1b[32m";
+		str += '+';
+	}
+	if (number < 10 && number > -10) {
+		str += '0';
+	}
+	return str + number.toFixed(decimals).replace('-', '') + "\x1b[0m";
+}
+var pad = function(number, decimals) {
+	var number = Number.parseFloat(number);
+	var decimals = decimals || 8;
+	var str = '';
+	if (number < 10 && number > -10) {
+		str += ' ';
+	}
+	if (number < 100 && number > -100) {
+		str += ' ';
+	}
+	if (number < 1000 && number > -1000) {
+		str += ' ';
+	}
+	return str + number.toFixed(decimals);
+}
 
 module.exports = class Routes {
 
 	static list = [];
-
+	static finding = false;
 	static find() {
+		this.finding = true;
 		for (var x in Config.currencies) {
 			for (var y in Config.currencies) {
 				if (Config.currencies[x] === Config.currencies[y]) {
@@ -31,7 +67,9 @@ module.exports = class Routes {
 							if(currencyX.isAllowed() && currencyY.isAllowed() && currencyZ.isAllowed()) {
 								try {
 									var route = new Route(currencyX, currencyY, currencyZ);
-									Routes.push(route);
+									if(route) {
+										Routes.push(route);
+									}
 								} catch(e) {
 									// route not possible
 								}
@@ -41,6 +79,7 @@ module.exports = class Routes {
 				}
 			}
 		}
+		this.finding = false;
 	}
 
 	static push(route) {
@@ -56,6 +95,46 @@ module.exports = class Routes {
 			}
 		}
 		return false;
+	}
+
+	static sortRoutes() {
+		Routes.list.sort(Routes.sortComparer);
+	}
+
+	static sortComparer(a, b) {
+		if (a.profitFactor > b.profitFactor)
+			return -1;
+		if (a.profitFactor < b.profitFactor)
+			return 1;
+		return 0;
+	}
+
+	static getTradingRoutes() {
+		var routes = [];
+		for(var i in Routes.list) {
+			if(Routes.list[i] instanceof Route) {
+				if(Routes.list[i].isTrading()) {
+					routes.push(Routes.list[i]);
+				}
+			}
+		}
+		return routes;
+	}
+
+	static isTrading() {
+		return Routes.getTradingRoutes().length > 0;
+	}
+
+	static consoleOutput() {
+		var output = (" [Triangular Routes]\n");
+		Routes.sortRoutes();
+		for (var x in Routes.list) {
+			if(x == 30) break;
+			if(typeof Routes.list[x] == 'object') {
+				output += Routes.list[x].consoleOutput() + "\n";
+			}
+		}
+		return output;
 	}
 
 }

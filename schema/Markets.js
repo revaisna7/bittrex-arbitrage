@@ -9,16 +9,18 @@ module.exports = class Markets {
 
 	static list = [];
 	static socket;
+	static orderBookUpdateIndex = 0;
+	static orderBookUpdateInterval = 0;
 
 	static push(market) {
 		Markets.list.push(market);
 	}
 
 	static getSummaries() {
-		bittrex.getmarketsummaries(Markets.updateSummaries);
+		bittrex.getmarkets(Markets.updateMarkets);
 	}
 
-	static updateSummaries(data, err) {
+	static updateMarkets(data, err) {
 		if (err) {
 			console.log('!!!! Error: ' + err.message);
 			return;
@@ -27,16 +29,45 @@ module.exports = class Markets {
 			if(data.result[i].MarketName) {
 				var market = new Market(data.result[i]);
 				Markets.push(market);
-				market.getOrderBook();
 			}
 		}
+	}
+
+	static startOrderBooksUpdates() {
+		Markets.orderBookUpdateInterval = setInterval(Markets.getNextOrderBook, 100);
+	}
+
+	static stopOrderBooksUpdates() {
+		clearInterval(Markets.orderBookUpdateInterval);
+	}
+
+	static getNextOrderBook() {
+		var usedMarkets = Markets.getUsedMarkets();
+		if(Markets.orderBookUpdateIndex >= usedMarkets.length) {
+			Markets.orderBookUpdateIndex = 0;
+		}
+		usedMarkets[Markets.orderBookUpdateIndex].getOrderBook();
+		Markets.orderBookUpdateIndex++;
+	}
+
+	static getUsedMarkets() {
+		var markets = [];
+		for(var i in Markets.list) {
+			if(Markets.list[i] instanceof Market
+				&& Markets.list[i].isAllowed()
+				&& !Markets.list[i].IsRestricted) {
+				markets.push(Markets.list[i]);
+			}
+		}
+		return markets;
 	}
 
 	static getUsedMarketNames() {
 		var marketNames = [];
 		for(var i in Markets.list) {
 			if(Markets.list[i] instanceof Market
-				&& Markets.list[i].isAllowed()) {
+				&& Markets.list[i].isAllowed()
+				&& !Markets.list[i].IsRestricted) {
 				marketNames.push(Markets.list[i].MarketName);
 			}
 		}
