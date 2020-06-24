@@ -3,7 +3,7 @@ var fs = require('fs'),
 
 var Currencies = require('./Currencies.js');
 
-module.exports = class Balance {
+module.exports = class Order {
 	constructor(balance) {
 		Object.assign(this, balance);
 		return this;
