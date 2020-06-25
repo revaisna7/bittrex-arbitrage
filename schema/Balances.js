@@ -116,7 +116,7 @@ module.exports = class Balances {
 				var accimulateProfitNow = accumulateStart - accumulateNow;
 
 				var profit = accumulateNow - accumulateStart;
-				var profitFactor = (accumulateStart / profit * 100);
+				var profitFactor = (profit / accumulateStart * 100);
 
 				var btcStart = currency.convertToBtc(accumulateStart);
 				var btcBalance = currency.convertToBtc(balance.Balance);
