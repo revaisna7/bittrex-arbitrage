@@ -16,13 +16,14 @@ module.exports = class Config {
 	}
 
 	static getFile() {
+
 		Config.values = JSON.parse(fs.readFileSync(Config.fileName, 'utf8'));
 	}
 
 	static watchFile() {
 		fs.watch(Config.fileName, function(event, filename) {
 			if (filename && event ==='change') {
-				Config.getFile();
+				setTimeout(function() { Config.getFile(); }, 1000);
 			}
 		});
 	}
