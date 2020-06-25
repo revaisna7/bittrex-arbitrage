@@ -180,11 +180,29 @@ global.trading = false;
 			// this.tradeY.deviate(this.profitFactorY);
 			// this.tradeZ.deviate(this.profitFactorZ);
 
+			var _this = this;
 			this.tradeX.execute();
-			this.tradeY.execute();
 			this.tradeZ.execute();
 	
-			var _this = this;
+			Util.when(
+				function() {
+					return _this.tradeX.requested && !_this.tradeX.responeded;
+				},
+				function() {
+					_this.tradeY.execute();
+					Util.when(
+						function() {
+							return _this.tradeY.requested && !_this.tradeY.responeded;
+						},
+						function() {
+							_this.tradeZ.execute();
+						},
+						100
+					);
+				},
+				100
+			);
+
 			Util.when(
 				function() {
 					return _this.awaitingTrades();
