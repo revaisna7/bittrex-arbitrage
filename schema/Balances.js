@@ -105,7 +105,9 @@ module.exports = class Balances {
 	}
 
 	static consoleOutput() {
-		var output =  (" [Balances]\n Currency\tBalance\t\tTotal\t\tStart\t\tProfit\t\tFactor\t\tBTC balance\tBTC value\tBTC start\tBTC Profit\tBTC factor\n");
+		var output = " [Balances]\n Currency\tBalance\t\tTotal\t\tStart\t\tProfit\t\tFactor\t\tBTC balance\tBTC value\tBTC start\tBTC Profit\tBTC factor";
+		var totalProfitFactor = 0;
+		var balancesOutput = '';
 		for (var i in Balances.list) {
 			var balance = Balances.list[i];
 			var currency = Currencies.getByCode(balance.Currency);
@@ -124,7 +126,7 @@ module.exports = class Balances {
 				var btcProfit = btcNow - btcStart;
 				var btcProfitFactor = btcProfit / btcStart * 100;
 
-				output += [" [" + currency.Currency + "]\t"
+				balancesOutput += [" [" + currency.Currency + "]\t"
 					,Util.pad(balance.Balance)
 					,Util.pad(accumulateNow)
 					,Util.pad(accumulateStart)
@@ -138,9 +140,11 @@ module.exports = class Balances {
 					].join("\t")
 				 + "\n"
 				;
+
+				totalProfitFactor += profitFactor;
 			}
 		}
-		return output;
+		return output + "\t [ Overall factor: " + Util.addPlusOrSpace(totalProfitFactor) + "% ]\n" + balancesOutput;
 	}
 
 }
