@@ -2,7 +2,7 @@ var fs = require('fs');
 
 module.exports = class Config {
 	
-	static fileName = 'Config.json';
+	static fileName = 'config.json';
 
 	static values = {};
 
