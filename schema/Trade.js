@@ -40,12 +40,22 @@ module.exports = class Trade {
 		var _this = this;
 		this.requested = true;
 		this.callbacks = callback;
-		if (this.market.isBaseCurrency(this.outputCurrency) && Config.get('speculate')) {
-			this.request.OrderType += '_SELL';
-			bittrex.tradesell(this.request, function(data, err){ _this.tradeCallback(data,err); });
+		if(!Config.get('speculate')) {
+			if (this.market.isBaseCurrency(this.outputCurrency)) {
+				this.request.OrderType += '_SELL';
+				bittrex.tradesell(this.request, function(data, err){ _this.tradeCallback(data,err); });
+			} else {
+				this.request.OrderType += '_BUY';
+				bittrex.tradebuy(this.request, function(data, err){ _this.tradeCallback(data,err); });
+			}
 		} else {
-			this.request.OrderType += '_BUY';
-			bittrex.tradebuy(this.request, function(data, err){ _this.tradeCallback(data,err); });
+			if (!this.market.isBaseCurrency(this.outputCurrency)) {
+				this.request.OrderType += '_SELL';
+				bittrex.tradesell(this.request, function(data, err){ _this.tradeCallback(data,err); });
+			} else {
+				this.request.OrderType += '_BUY';
+				bittrex.tradebuy(this.request, function(data, err){ _this.tradeCallback(data,err); });
+			}
 		}
 		this.logData();
 		return this;
