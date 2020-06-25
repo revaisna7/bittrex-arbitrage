@@ -186,7 +186,7 @@ global.trading = false;
 			this.tradeY.execute();
 			this.tradeZ.execute();
 
-
+			var _this = this;
 			Util.when(
 				function() {
 					return _this.awaitingTrades();
