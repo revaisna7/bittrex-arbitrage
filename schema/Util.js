@@ -1,5 +1,5 @@
 var Config = require('./Config.js');
-
+var fs = require('fs');
 module.exports = class Util {
 	static addPlusOrSpace(number, decimals) {
 		var decimals = decimals || 3;
