@@ -186,23 +186,7 @@ global.trading = false;
 			this.tradeY.execute();
 			this.tradeZ.execute();
 
-			var _this = this;
-			Util.when(
-				function() {
-					return _this.awaitingTrades();
-				},
-				function() {
-					Balances.get();
-					Util.when(
-						function() {
-							return Balances.isGetting();
-						},
-						function() {
-							trading = false;
-						}
-					)
-				}
-			);
+			setTimeout(function(){ trading = false}, 2000);
 		}
 	}
 
