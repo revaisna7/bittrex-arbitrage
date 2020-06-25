@@ -42,7 +42,7 @@ module.exports = class Trade {
 		var _this = this;
 		this.requested = true;
 		this.callbacks = callback;
-		if (this.market.isBaseCurrency(this.outputCurrency)) {
+		if (this.market.isBaseCurrency(this.outputCurrency) && Config.speculate) {
 			this.request.OrderType += '_SELL';
 			bittrex.tradesell(this.request, function(data, err){ _this.tradeCallback(data,err); });
 		} else {
@@ -54,16 +54,12 @@ module.exports = class Trade {
 	}
 
 	deviate(factor) {
-		// if(factor !== 0) {
-		// 	if(this.market.isBaseCurrency(this.outputCurrency)) {
-		// 		this.rate += this.rate/factor;
-		// 		this.quantity = this.quantity*factor;
-		// 	} else {
-		// 		this.rate = this.rate*factor;
-		// 		this.quantity = this.quantity/factor;
-		// 	}
-		// 	this.makeRequest();
+		// if(this.market.isBaseCurrency(this.outputCurrency)) {
+		// 	this.rate -= this.rate*factor;
+		// } else {
+		// 	this.rate += this.rate*factor;
 		// }
+		this.makeRequest();
 	}
 
 	tradeCallback(data, err) {

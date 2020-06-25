@@ -1,15 +1,14 @@
 {
-	"trade" : true,
+	"trade" : false,
+	"speculate" : false,
 	"minProfitFactor": 0.05,
-	"minInputBtc": 0.00051,
-	"deviation" : 0.0,
+	"minInputBtc": 0.00055,
 	"currencies" : [
 		"BTC",
 		"ETH",
 		"USDT",
 		"XRP",
-		"LTC",
-		"DASH"
+		"LTC"
 	],
 	"restricted" : [
 		"EUR",

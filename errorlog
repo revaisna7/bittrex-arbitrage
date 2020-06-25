@@ -89,3 +89,3315 @@
     "connect": true
   }
 }
+
+ 6/25/2020, 13:55:40
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 13:59:07
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:09
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:11
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:12
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:13
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:14
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:16
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:17
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:18
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:22
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:23
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:24
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:25
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:26
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:28
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:29
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:30
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:32
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "errno": "ENOTFOUND",
+    "code": "ENOTFOUND",
+    "syscall": "getaddrinfo",
+    "hostname": "bittrex.com"
+  }
+}
+
+ 6/25/2020, 13:59:33
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 13:59:33
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 14:00:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 14:01:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 14:01:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:19
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:20
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:01:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 14:07:27
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 14:09:42
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 14:12:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 14:13:42
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 14:23:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 15:18:00
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 15:36:01
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 15:36:01
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 16:12:32
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}

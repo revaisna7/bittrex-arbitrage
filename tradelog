@@ -1,0 +1,114 @@
+
+
+ 6/25/2020, 16:15:12{
+  "MarketName": "BTC-ETH",
+  "OrderType": "LIMIT_BUY",
+  "Quantity": "0.02171980",
+  "Rate": "0.02531605",
+  "TimeInEffect": "GOOD_TIL_CANCELLED",
+  "ConditionType": "NONE",
+  "Target": 0
+}
+null
+null
+
+
+ 6/25/2020, 16:15:12{
+  "MarketName": "BTC-XRP",
+  "OrderType": "LIMIT_SELL",
+  "Quantity": "27.76320040",
+  "Rate": "0.00001981",
+  "TimeInEffect": "GOOD_TIL_CANCELLED",
+  "ConditionType": "NONE",
+  "Target": 0
+}
+{
+  "MarketName": "ETH-XRP",
+  "OrderType": "LIMIT_BUY",
+  "Quantity": "27.76320040",
+  "Rate": "0.00078104",
+  "TimeInEffect": "GOOD_TIL_CANCELLED",
+  "ConditionType": "NONE",
+  "Target": 0
+}
+null
+
+
+ 6/25/2020, 16:15:12{
+  "MarketName": "BTC-XRP",
+  "OrderType": "LIMIT_SELL",
+  "Quantity": "27.76320040",
+  "Rate": "0.00001981",
+  "TimeInEffect": "GOOD_TIL_CANCELLED",
+  "ConditionType": "NONE",
+  "Target": 0
+}
+
+
+ 6/25/2020, 16:15:12{
+  "success": true,
+  "message": "",
+  "result": {
+    "OrderId": "19b03ebb-45c3-42f5-8e9a-fc65a5c32cff",
+    "MarketName": "BTC-XRP",
+    "MarketCurrency": "XRP",
+    "BuyOrSell": "Sell",
+    "OrderType": "LIMIT_SELL",
+    "Quantity": 27.7632004,
+    "Rate": 0.00001981,
+    "Ceiling": null
+  },
+  "explanation": null
+}
+
+
+ 6/25/2020, 16:15:12{
+  "MarketName": "ETH-XRP",
+  "OrderType": "LIMIT_BUY",
+  "Quantity": "27.76320040",
+  "Rate": "0.00078104",
+  "TimeInEffect": "GOOD_TIL_CANCELLED",
+  "ConditionType": "NONE",
+  "Target": 0
+}
+{
+  "success": true,
+  "message": "",
+  "result": {
+    "OrderId": "daeeed96-74e5-402c-9d6f-faf0c6d64bfe",
+    "MarketName": "ETH-XRP",
+    "MarketCurrency": "XRP",
+    "BuyOrSell": "Buy",
+    "OrderType": "LIMIT_BUY",
+    "Quantity": 27.7632004,
+    "Rate": 0.00078104,
+    "Ceiling": null
+  },
+  "explanation": null
+}
+
+
+ 6/25/2020, 16:15:12{
+  "MarketName": "BTC-ETH",
+  "OrderType": "LIMIT_BUY",
+  "Quantity": "0.02171980",
+  "Rate": "0.02531605",
+  "TimeInEffect": "GOOD_TIL_CANCELLED",
+  "ConditionType": "NONE",
+  "Target": 0
+}
+{
+  "success": true,
+  "message": "",
+  "result": {
+    "OrderId": "6eaf4f5c-bd8c-47cd-a148-8341b57a1366",
+    "MarketName": "BTC-ETH",
+    "MarketCurrency": "ETH",
+    "BuyOrSell": "Buy",
+    "OrderType": "LIMIT_BUY",
+    "Quantity": 0.0217198,
+    "Rate": 0.02531605,
+    "Ceiling": null
+  },
+  "explanation": null
+}

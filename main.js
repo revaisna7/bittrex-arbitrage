@@ -2,9 +2,11 @@ var Markets = require('./schema/Markets.js');
 var Routes = require('./schema/Routes.js');
 var Currencies = require('./schema/Currencies.js');
 var Balances = require('./schema/Balances.js');
+var Orders = require('./schema/Orders.js');
 var View = require('./schema/View.js');
 
-const fs = require('fs')
+
+var fs = require('fs')
 fs.truncate('tradelog', 0, function(){console.log('Cleared trade log...')});
 
 console.log('Initiating...');
@@ -29,6 +31,7 @@ setTimeout(function(){
 						setTimeout(function(){
 							console.log('Init view...');
 							View.start();
+							Orders.init();
 						},2000);
 					},2000);
 				},2000);

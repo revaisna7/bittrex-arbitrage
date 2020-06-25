@@ -18,6 +18,8 @@ module.exports = class Market {
 		this.BaseCurrencyCode = this.CurrencyCodes[0];
 		this.QuoteCurrencyCode = this.CurrencyCodes[1];
 		this.getOrderBook();
+
+		return this;
 	}
 
 	isRestricted() {
@@ -30,6 +32,14 @@ module.exports = class Market {
 
 	getPrice(currency) {
 		if(this.isBaseCurrency(currency)) {
+			return this.getHighestBuyPrice().toFixed(currency.getPrecision());
+		} else {
+			return this.getLowestSellPrice().toFixed(currency.getPrecision());
+		}
+	}
+
+	getPotentialPrice(currency) {
+		if(!this.isBaseCurrency(currency)) {
 			return this.getHighestBuyPrice().toFixed(currency.getPrecision());
 		} else {
 			return this.getLowestSellPrice().toFixed(currency.getPrecision());
@@ -216,6 +226,14 @@ module.exports = class Market {
 	convert(outputCurrency, inputQuantity) {
 		var inputQuantity = inputQuantity;
 		var price = this.getPrice(outputCurrency);
+		var output = this.isBaseCurrency(outputCurrency) ? inputQuantity * price : inputQuantity / price;
+		return  output - (output/100*Config.exchangeComission/100);
+	}
+
+
+	convertPotential(outputCurrency, inputQuantity) {
+		var inputQuantity = inputQuantity;
+		var price = this.getPotentialPrice(outputCurrency);
 		var output = this.isBaseCurrency(outputCurrency) ? inputQuantity * price : inputQuantity / price;
 		return  output - (output/100*Config.exchangeComission/100);
 	}

@@ -15,6 +15,7 @@ module.exports = class View {
 
 	static startTime = Date.now();
 	static logInterval;
+	static output;
 
 	static start() {
 		View.logInterval = setInterval(View.update, 1000/6);

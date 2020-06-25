@@ -90,9 +90,9 @@ var trading = false;
  	}
 
  	getOuputs() {
- 		this.outputX = this.currencyX.convertTo(this.currencyY, this.inputX);
- 		this.outputY = this.currencyY.convertTo(this.currencyZ, this.inputY);
- 		this.outputZ = this.currencyZ.convertTo(this.currencyX, this.inputZ);
+ 		this.outputX = Config.speculate ? this.currencyX.convertToPotential(this.currencyY, this.inputX) : this.currencyX.convertTo(this.currencyY, this.inputX);
+ 		this.outputY = Config.speculate ? this.currencyY.convertToPotential(this.currencyZ, this.inputY) : this.currencyY.convertTo(this.currencyZ, this.inputY);
+ 		this.outputZ = Config.speculate ? this.currencyZ.convertToPotential(this.currencyX, this.inputZ) : this.currencyZ.convertTo(this.currencyX, this.inputZ);
  	}
 
  	isRestricted() {
@@ -172,9 +172,9 @@ var trading = false;
 			var inputY = this.isYBase ? this.inputZ : this.inputY;
 			var inputZ = this.isZBase ? this.inputX : this.inputZ;
 
-			var priceX = this.marketX.getPrice(this.currencyY);
-			var priceY = this.marketY.getPrice(this.currencyZ);
-			var priceZ = this.marketZ.getPrice(this.currencyX);
+			var priceX = Config.speculate ? this.marketX.getPotentialPrice(this.currencyY) : this.marketX.getPrice(this.currencyY);
+			var priceY = Config.speculate ? this.marketY.getPotentialPrice(this.currencyZ) : this.marketY.getPrice(this.currencyZ);
+			var priceZ = Config.speculate ? this.marketZ.getPotentialPrice(this.currencyX) : this.marketZ.getPrice(this.currencyX);
 
 			this.tradeX = new Trade(this.marketX, this.currencyY, inputX, priceX);
 			this.tradeY = new Trade(this.marketY, this.currencyZ, inputY, priceY);
@@ -198,7 +198,7 @@ var trading = false;
 					Util.when(
 						Balances.isGetting,
 						function() {
-							setTimeout(function() { trading = false; }, 2000);
+							setTimeout(function() { trading = false; }, 5000);
 						}
 					)
 				}

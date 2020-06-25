@@ -39,14 +39,21 @@ module.exports = class Util {
 		return str + number.toFixed(decimals);
 	}
 
-	static when(conditional,then,timer) {
+	static when(waitTill,then,timer) {
 		var timer = timer || 1;
 		var interval = setInterval(function(){
-			if(!conditional()) {
+			if(!waitTill()) {
 				clearInterval(interval);
 				then();
 			}
 		}, timer);
+	}
+
+	static createLogDirectory() {
+		var dir = './tmp';
+		if (!fs.existsSync(dir)){
+		    fs.mkdirSync(dir);
+		}
 	}
 
 	static logError(data) {
