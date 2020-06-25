@@ -72,13 +72,15 @@ global.trading = false;
  		this.marketZBtcQuantity = this.currencyZ.convertTo(this.BTC, this.marketZ.getQuantity(this.currencyX));
 
  		this.minBtcBalance = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance)*(1-Config.get('exchangeComission'))*(1-Config.get('dust'));
- 		this.minBtcMarket = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
+ 		
 
  		this.minBtcMarketX = Currencies.getByCode(this.marketX.MarketCurrency).convertTo(this.BTC, this.marketX.MinTradeSize);
  		this.minBtcMarketY = Currencies.getByCode(this.marketY.MarketCurrency).convertTo(this.BTC, this.marketY.MinTradeSize);
  		this.minBtcMarketZ = Currencies.getByCode(this.marketZ.MarketCurrency).convertTo(this.BTC, this.marketZ.MinTradeSize);
 
- 		this.inputBtc = Math.max(Config.get('maxInputBtc'), Config.get('minInputBtc'), this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, this.minBtcBalance, this.minBtcMarket);
+ 		this.minBtcMarket = Math.min(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
+
+ 		this.inputBtc = Math.min(Config.get('maxInputBtc'), Math.max(Config.get('minInputBtc'), this.minBtcMarket, this.minBtcBalance, this.minBtcMarket));
 
  		this.inputX = this.BTC.convertTo(this.currencyX, this.inputBtc);
  		this.inputY = this.BTC.convertTo(this.currencyY, this.inputBtc);
