@@ -50,8 +50,7 @@ module.exports = class Util {
 	}
 
 	static logError(data) {
-		Util.logFile('errorlog', "\n\n " + (new Date().toLocaleString()));
-		this.logFile('errorlog', JSON.stringify(this.request, null, 2));
+		Util.logFile('errorlog', "\n\n " + (new Date().toLocaleString()) + "\n" + JSON.stringify(data, null, 2));
 	}
 
 	static logFile(fileName, data) {

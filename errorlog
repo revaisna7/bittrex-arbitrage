@@ -1,0 +1,61 @@
+
+
+ 6/25/2020, 01:30:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/25/2020, 01:31:48
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 01:31:59
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 01:35:01
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 01:36:31
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/25/2020, 02:05:00
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}

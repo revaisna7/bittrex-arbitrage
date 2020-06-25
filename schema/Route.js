@@ -77,7 +77,7 @@ var trading = false;
  		this.minBtcMarketY = Currencies.getByCode(this.marketY.MarketCurrency).convertTo(this.BTC, this.marketY.MinTradeSize);
  		this.minBtcMarketZ = Currencies.getByCode(this.marketZ.MarketCurrency).convertTo(this.BTC, this.marketZ.MinTradeSize);
 
- 		this.inputBtc = Math.max(Config.minInputBtc, this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, Math.min(this.minBtcBalance, this.minBtcMarket));
+ 		this.inputBtc = Math.max(Config.minInputBtc, this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, Math.max(this.minBtcBalance, this.minBtcMarket));
 
  		this.inputX = this.BTC.convertTo(this.currencyX, this.inputBtc);
  		this.inputY = this.BTC.convertTo(this.currencyY, this.inputBtc);
@@ -124,8 +124,8 @@ var trading = false;
  	hasEnoughBalance() {
  		this.getBalances();
  		return this.balanceX >= this.inputX
- 		&& this.balanceY >= this.outputX
- 		&& this.balanceZ >= this.outputY;
+ 		&& this.balanceY >= this.inputY
+ 		&& this.balanceZ >= this.inputZ;
  	}
 
  	isTrading() {
@@ -218,7 +218,7 @@ var trading = false;
 		+ " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%'
 		+ " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
 		+ "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
-		+ "\t" + (this.hasEnoughBalance() ? "" : "No balance") + (this.isTrading() ? "Trade" : "");
+		+ "\t" + (this.hasEnoughBalance() ? "" : "No balance");
 	}
 
 	consoleOutput() {

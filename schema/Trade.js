@@ -4,6 +4,7 @@ var fs = require('fs'),
 bittrex.options(Config.bittrexoptions);
 
 var Trades = require('./Trades.js');
+var Util = require('./Util.js');
 
 module.exports = class Trade {
 	constructor(market, outputCurrency, quantity, rate) {
@@ -79,8 +80,8 @@ module.exports = class Trade {
 
 	logData() {
 		this.logFile("\n\n " + (new Date().toLocaleString()));
-		this.logFile(JSON.stringify(this.request, null, 2));
-		this.logFile(JSON.stringify(this.response, null, 2));
+		this.logFile(JSON.stringify(this.request, null, 2) + "\n");
+		this.logFile(JSON.stringify(this.response, null, 2) + "\n");
 	}
 
 	logFile(data) {
@@ -88,6 +89,6 @@ module.exports = class Trade {
 	}
 
 	consoleOutput() {
-		return [this.market, this.outputCurrency.Currency, this.quantity, this.rate, this.requested, this.responded].join("\t");
+		return [this.market.MarketName, this.outputCurrency.Currency, Util.pad(this.quantity), Util.pad(this.rate), this.requested, this.responded].join("\t");
 	}
 }
