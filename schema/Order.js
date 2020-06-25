@@ -1,5 +1,6 @@
-var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+var Config = require('./Config.js');
+var bittrex = require('node-bittrex-api');
+bittrex.options(Config.values.bittrexoptions);
 
 var Currencies = require('./Currencies.js');
 
@@ -10,6 +11,6 @@ module.exports = class Order {
 	}
 
 	isAllowed() {
-		return Config.currencies.indexOf(this.Currency) > -1;
+		return Config.get('currencies').indexOf(this.Currency) > -1;
 	}
 }

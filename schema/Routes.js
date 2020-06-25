@@ -1,8 +1,4 @@
-var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
- 	bittrex = require('node-bittrex-api');
-bittrex.options(Config.bittrexoptions);
-
+var Config = require('./Config.js');
 var Route = require('./Route.js');
 var Balances = require('./Balances.js');
 var Currencies = require('./Currencies.js');
@@ -15,17 +11,17 @@ module.exports = class Routes {
 	
 	static find() {
 		this.finding = true;
-		for (var x in Config.currencies) {
-			for (var y in Config.currencies) {
-				if (Config.currencies[x] === Config.currencies[y]) {
+		for (var x in Config.get('currencies')) {
+			for (var y in Config.get('currencies')) {
+				if (Config.get('currencies')[x] === Config.get('currencies')[y]) {
 					continue;
 				}
-				for (var z in Config.currencies) {
-					if (Config.currencies[y] === Config.currencies[z] || Config.currencies[z] === Config.currencies[x]) {
+				for (var z in Config.get('currencies')) {
+					if (Config.get('currencies')[y] === Config.get('currencies')[z] || Config.get('currencies')[z] === Config.get('currencies')[x]) {
 						continue;
 					}
-					if (!Routes.routeExists(Config.currencies[x],Config.currencies[y],Config.currencies[z])) {
-						var route = Route.find(Config.currencies[x],Config.currencies[y],Config.currencies[z]);
+					if (!Routes.routeExists(Config.get('currencies')[x],Config.get('currencies')[y],Config.get('currencies')[z])) {
+						var route = Route.find(Config.get('currencies')[x],Config.get('currencies')[y],Config.get('currencies')[z]);
 						if(route) {
 							Routes.push(route);
 						}

@@ -1,7 +1,6 @@
-var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
- 	bittrex = require('node-bittrex-api');
-bittrex.options(Config.bittrexoptions);
+var Config = require('./Config.js');
+var bittrex = require('node-bittrex-api');
+bittrex.options(Config.get('bittrexoptions'));
 
 var Trade = require('./Trade.js');
 var Util = require('./Util.js');
@@ -23,11 +22,11 @@ module.exports = class Market {
 	}
 
 	isRestricted() {
-		return Config.restricted.indexOf(this.BaseCurrencyCode) > -1 || Config.restricted.indexOf(this.QuoteCurrencyCode) > -1;
+		return Config.get('restricted').indexOf(this.BaseCurrencyCode) > -1 || Config.get('restricted').indexOf(this.QuoteCurrencyCode) > -1;
 	}
 
 	isAllowed() {
-		return Config.currencies.indexOf(this.BaseCurrencyCode) > -1 && Config.currencies.indexOf(this.QuoteCurrencyCode) > -1;
+		return Config.get('currencies').indexOf(this.BaseCurrencyCode) > -1 && Config.get('currencies').indexOf(this.QuoteCurrencyCode) > -1;
 	}
 
 	getPrice(currency) {
@@ -227,7 +226,7 @@ module.exports = class Market {
 		var inputQuantity = inputQuantity;
 		var price = this.getPrice(outputCurrency);
 		var output = this.isBaseCurrency(outputCurrency) ? inputQuantity * price : inputQuantity / price;
-		return  output - (output/100*Config.exchangeComission/100);
+		return  output - (output/100*Config.get('exchangeComission')/100);
 	}
 
 
@@ -235,6 +234,6 @@ module.exports = class Market {
 		var inputQuantity = inputQuantity;
 		var price = this.getPotentialPrice(outputCurrency);
 		var output = this.isBaseCurrency(outputCurrency) ? inputQuantity * price : inputQuantity / price;
-		return  output - (output/100*Config.exchangeComission/100);
+		return  output - (output/100*Config.get('exchangeComission')/100);
 	}
 };

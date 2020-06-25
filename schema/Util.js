@@ -1,5 +1,4 @@
-var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+var Config = require('./Config.js');
 
 module.exports = class Util {
 	static addPlusOrSpace(number, decimals) {

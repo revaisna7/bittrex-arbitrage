@@ -1,8 +1,4 @@
-var fs = require('fs'),
-Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
-bittrex = require('node-bittrex-api');
-bittrex.options(Config.bittrexoptions);
-
+var Config = require('./Config.js');
 var Markets = require('./Markets.js');
 var Balances = require('./Balances.js');
 var Currencies = require('./Currencies.js');
@@ -75,14 +71,14 @@ var trading = false;
  		this.marketYBtcQuantity = this.currencyY.convertTo(this.BTC, this.marketY.getQuantity(this.currencyZ));
  		this.marketZBtcQuantity = this.currencyZ.convertTo(this.BTC, this.marketZ.getQuantity(this.currencyX));
 
- 		this.minBtcBalance = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance)*(1-Config.exchangeComission);
+ 		this.minBtcBalance = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance)*(1-Config.get('exchangeComission'));
  		this.minBtcMarket = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
 
  		this.minBtcMarketX = Currencies.getByCode(this.marketX.MarketCurrency).convertTo(this.BTC, this.marketX.MinTradeSize);
  		this.minBtcMarketY = Currencies.getByCode(this.marketY.MarketCurrency).convertTo(this.BTC, this.marketY.MinTradeSize);
  		this.minBtcMarketZ = Currencies.getByCode(this.marketZ.MarketCurrency).convertTo(this.BTC, this.marketZ.MinTradeSize);
 
- 		this.inputBtc = Math.max(Config.minInputBtc, this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, this.minBtcBalance, this.minBtcMarket);
+ 		this.inputBtc = Math.max(Config.get('minInputBtc'), this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, this.minBtcBalance, this.minBtcMarket);
 
  		this.inputX = this.BTC.convertTo(this.currencyX, this.inputBtc);
  		this.inputY = this.BTC.convertTo(this.currencyY, this.inputBtc);
@@ -90,15 +86,15 @@ var trading = false;
  	}
 
  	getOuputs() {
- 		this.outputX = Config.speculate ? this.currencyX.convertToPotential(this.currencyY, this.inputX) : this.currencyX.convertTo(this.currencyY, this.inputX);
- 		this.outputY = Config.speculate ? this.currencyY.convertToPotential(this.currencyZ, this.inputY) : this.currencyY.convertTo(this.currencyZ, this.inputY);
- 		this.outputZ = Config.speculate ? this.currencyZ.convertToPotential(this.currencyX, this.inputZ) : this.currencyZ.convertTo(this.currencyX, this.inputZ);
+ 		this.outputX = Config.get('speculate') ? this.currencyX.convertToPotential(this.currencyY, this.inputX) : this.currencyX.convertTo(this.currencyY, this.inputX);
+ 		this.outputY = Config.get('speculate') ? this.currencyY.convertToPotential(this.currencyZ, this.inputY) : this.currencyY.convertTo(this.currencyZ, this.inputY);
+ 		this.outputZ = Config.get('speculate') ? this.currencyZ.convertToPotential(this.currencyX, this.inputZ) : this.currencyZ.convertTo(this.currencyX, this.inputZ);
  	}
 
  	isRestricted() {
- 		return Config.restricted.includes(this.currencyX.Currency)
- 		|| Config.restricted.includes(this.currencyY.Currency)
- 		|| Config.restricted.includes(this.currencyZ.Currency)
+ 		return Config.get('restricted').includes(this.currencyX.Currency)
+ 		|| Config.get('restricted').includes(this.currencyY.Currency)
+ 		|| Config.get('restricted').includes(this.currencyZ.Currency)
  		|| this.marketX.IsRestricted
  		|| this.marketY.IsRestricted
  		|| this.marketZ.IsRestricted;
@@ -123,7 +119,7 @@ var trading = false;
  	}
 
  	isProfitable() {
- 		return this.profitFactor > Config.minProfitFactor;
+ 		return this.profitFactor > Config.get('minProfitFactor');
  	}
 
  	hasEnoughBalance() {
@@ -165,16 +161,16 @@ var trading = false;
 	}
 
 	trade() {
-		if(Config.trade) {
+		if(Config.get('trade')) {
 			trading = true;
 
 			var inputX = this.isXBase ? this.inputY : this.inputX;
 			var inputY = this.isYBase ? this.inputZ : this.inputY;
 			var inputZ = this.isZBase ? this.inputX : this.inputZ;
 
-			var priceX = Config.speculate ? this.marketX.getPotentialPrice(this.currencyY) : this.marketX.getPrice(this.currencyY);
-			var priceY = Config.speculate ? this.marketY.getPotentialPrice(this.currencyZ) : this.marketY.getPrice(this.currencyZ);
-			var priceZ = Config.speculate ? this.marketZ.getPotentialPrice(this.currencyX) : this.marketZ.getPrice(this.currencyX);
+			var priceX = Config.get('speculate') ? this.marketX.getPotentialPrice(this.currencyY) : this.marketX.getPrice(this.currencyY);
+			var priceY = Config.get('speculate') ? this.marketY.getPotentialPrice(this.currencyZ) : this.marketY.getPrice(this.currencyZ);
+			var priceZ = Config.get('speculate') ? this.marketZ.getPotentialPrice(this.currencyX) : this.marketZ.getPrice(this.currencyX);
 
 			this.tradeX = new Trade(this.marketX, this.currencyY, inputX, priceX);
 			this.tradeY = new Trade(this.marketY, this.currencyZ, inputY, priceY);

@@ -1,5 +1,4 @@
-var fs = require('fs'),
-Config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+var Config = require('./Config.js');
 var clear = require('clear');
 var Currencies = require('./Currencies.js');
 var Balances = require('./Balances.js');
@@ -18,7 +17,7 @@ module.exports = class View {
 	static output;
 
 	static start() {
-		View.logInterval = setInterval(View.update, 1000/7);
+		View.logInterval = setInterval(View.update, Config.get('viewRefreshRate'));
 	}
 
 	static stop() {

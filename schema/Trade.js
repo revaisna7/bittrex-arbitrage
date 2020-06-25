@@ -1,11 +1,8 @@
-var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')) ,
- 	bittrex = require('node-bittrex-api');
-bittrex.options(Config.bittrexoptions);
-
+var Config = require('./Config.js');
 var Trades = require('./Trades.js');
 var Util = require('./Util.js');
-
+var bittrex = require('node-bittrex-api');
+bittrex.options(Config.get('bittrexoptions'));
 module.exports = class Trade {
 	constructor(market, outputCurrency, quantity, rate) {
 
@@ -42,7 +39,7 @@ module.exports = class Trade {
 		var _this = this;
 		this.requested = true;
 		this.callbacks = callback;
-		if (this.market.isBaseCurrency(this.outputCurrency) && Config.speculate) {
+		if (this.market.isBaseCurrency(this.outputCurrency) && Config.values.speculate) {
 			this.request.OrderType += '_SELL';
 			bittrex.tradesell(this.request, function(data, err){ _this.tradeCallback(data,err); });
 		} else {

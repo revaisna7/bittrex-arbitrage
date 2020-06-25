@@ -1,16 +1,17 @@
-var Markets = require('./schema/Markets.js');
-var Routes = require('./schema/Routes.js');
-var Currencies = require('./schema/Currencies.js');
-var Balances = require('./schema/Balances.js');
-var Orders = require('./schema/Orders.js');
-var View = require('./schema/View.js');
-
-
-var fs = require('fs')
-fs.truncate('tradelog', 0, function(){console.log('Cleared trade log...')});
-
 console.log('Initiating...');
+var Config = require('./schema/Config.js');
+Config.init();
+
 setTimeout(function(){
+	var Markets = require('./schema/Markets.js');
+	var Routes = require('./schema/Routes.js');
+	var Currencies = require('./schema/Currencies.js');
+	var Balances = require('./schema/Balances.js');
+	var Orders = require('./schema/Orders.js');
+	var View = require('./schema/View.js');
+	var fs = require('fs')
+	fs.truncate('tradelog', 0, function(){console.log('Cleared trade log...')});
+
 	console.log('Get currencies...');
 	Currencies.get();
 	setTimeout(function(){

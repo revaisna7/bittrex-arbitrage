@@ -1,8 +1,4 @@
-var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
- 	bittrex = require('node-bittrex-api');
-bittrex.options(Config.bittrexoptions);
-
+var Config = require('./Config.js');
 var Markets = require('./Markets.js');
 
 var BTC;
@@ -20,11 +16,11 @@ module.exports = class Currency {
 	}
 
 	isRestricted() {
-		return Config.restricted.indexOf(this.Currency) > -1;
+		return Config.get('restricted').indexOf(this.Currency) > -1;
 	}
 
 	isAllowed() {
-		return Config.currencies.indexOf(this.Currency) > -1;
+		return Config.get('currencies').indexOf(this.Currency) > -1;
 	}
 
 	getPrecision() {

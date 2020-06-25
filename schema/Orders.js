@@ -1,7 +1,6 @@
-var fs = require('fs'),
-Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
-bittrex = require('node-bittrex-api');
-bittrex.options(Config.bittrexoptions);
+var Config = require('./Config.js');
+var bittrex = require('node-bittrex-api');
+bittrex.options(Config.get('bittrexoptions'));
 
 var Util = require('./Util.js');
 var Currencies = require('./Currencies.js');
@@ -62,8 +61,8 @@ module.exports = class Orders {
 				var targetPrice = order.Limit;
 
 				var currencies = market.split('-');
-				var fromCurrency = type == 'LIMIT_BUY' && !Config.speculate ? Currencies.getByCode(currencies[0]) : Currencies.getByCode(currencies[1]);
-				var toCurrency = type == 'LIMIT_BUY' && !Config.speculate ? Currencies.getByCode(currencies[1]) : Currencies.getByCode(currencies[0]);
+				var fromCurrency = type == 'LIMIT_BUY' && !Config.get('speculate') ? Currencies.getByCode(currencies[0]) : Currencies.getByCode(currencies[1]);
+				var toCurrency = type == 'LIMIT_BUY' && !Config.get('speculate') ? Currencies.getByCode(currencies[1]) : Currencies.getByCode(currencies[0]);
 				var currentPrice = Markets.getByName(market).getPrice(fromCurrency);
 				var differenceInValue = type == 'LIMIT_BUY' ? targetPrice-currentPrice : currentPrice-targetPrice;
 

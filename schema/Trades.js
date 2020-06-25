@@ -1,7 +1,3 @@
-var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
- 	bittrex = require('node-bittrex-api');
-bittrex.options(Config.bittrexoptions);
 
 module.exports = class Trades {
 

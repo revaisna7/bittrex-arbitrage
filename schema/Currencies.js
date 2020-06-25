@@ -1,7 +1,6 @@
-var fs = require('fs'),
- 	Config = JSON.parse(fs.readFileSync('./config.json', 'utf8')),
- 	bittrex = require('node-bittrex-api');
-bittrex.options(Config.bittrexoptions);
+var Config = require('./Config.js');
+var bittrex = require('node-bittrex-api');
+bittrex.options(Config.get('bittrexoptions'));
 
 var Currency = require('./Currency.js');
 var Util = require('./Util.js');
