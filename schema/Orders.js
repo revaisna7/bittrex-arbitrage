@@ -61,13 +61,8 @@ module.exports = class Orders {
 				var targetPrice = order.Limit;
 
 				var currencies = market.split('-');
-				if(!Config.get('speculate')) {
-					var fromCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[0]) : Currencies.getByCode(currencies[1]);
-					var toCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[1]) : Currencies.getByCode(currencies[0]);
-				} else {
-					var fromCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[1]) : Currencies.getByCode(currencies[0]);
-					var toCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[0]) : Currencies.getByCode(currencies[1]);
-				}
+				var fromCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[0]) : Currencies.getByCode(currencies[1]);
+				var toCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[1]) : Currencies.getByCode(currencies[0]);
 				var currentPrice = Markets.getByName(market).getPrice(fromCurrency);
 				var differenceInValue = type == 'LIMIT_BUY' ? targetPrice-currentPrice : currentPrice-targetPrice;
 
