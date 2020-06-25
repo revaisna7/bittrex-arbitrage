@@ -106,37 +106,39 @@ module.exports = class Balances {
 	}
 
 	static consoleOutput() {
-		var output =  (" [Balances]\n Currency\tStart\t\tNow\t\tProfit\t\tTotal Start\tTotal Now\tTotal Profit Now\tProfit Factor\tCurrent BTC Value\tCurrency BTC Profit\tCurrency BTC Profit Factor\n");
+		var output =  (" [Balances]\n Currency\tBalance\t\tTotal\t\tStart\t\tProfit\t\tFactor\t\tBTC balance\tBTC value\tBTC start\tBTC Profit\tBTC factor\n");
 		for (var i in Balances.list) {
 			var balance = Balances.list[i];
 			var currency = Currencies.getByCode(balance.Currency);
 			var startBalance = Balances.getStartByCurrency(currency);
 			if(balance && currency && startBalance && currency.isAllowed()) {
-				var start = startBalance.Balance;
-				var now = balance.Balance;
-				var profit = now - start;
-				var profitFactor = (profit / start * 100);
-
-				var btcStart = currency.convertToBtc(start);
-				var btcNow = currency.convertToBtc(now);
-				var btcProfit = btcNow - btcStart;
-				var btcProfitFactor = btcProfit / btcStart * 100;
-
 				var accumulateStart = Balances.startAccumulate[i];
 				var accumulateNow = Balances.accumulate(currency);
 				var accimulateProfitNow = accumulateNow - accumulateStart;
 
-				output += (" [" + currency.Currency + "]"
-					+ "\t\t" + Util.pad(start.toFixed(8))
-					+ "\t" + Util.pad(now.toFixed(8))
-					+ "\t" + Util.addPlusOrSpace(profit,8)
-					+ "\t" + Util.pad(accumulateStart.toFixed(8))
-					+ "\t" + Util.pad(accumulateNow.toFixed(8))
-					+ "\t" + Util.addPlusOrSpace(accimulateProfitNow.toFixed(8), 8)
-					+ "\t\t" + Util.addPlusOrSpace(profitFactor) + '%'
-					+ "\t" + Util.pad(btcNow.toFixed(8))
-					+ "\t\t" + Util.addPlusOrSpace(btcProfit,8)
-					+ "\t\t" + Util.addPlusOrSpace(btcProfitFactor)+ '%' + "\n");
+				var profit = accumulateStart - accumulateNow;
+				var profitFactor = (profit / accumulateStart * 100);
+
+				var btcStart = currency.convertToBtc(accumulateStart);
+				var btcBalance = currency.convertToBtc(balance.Balance);
+				var btcNow = currency.convertToBtc(accumulateNow);
+				var btcProfit = btcNow - btcStart;
+				var btcProfitFactor = btcProfit / btcStart * 100;
+
+				output += [" [" + currency.Currency + "]\t"
+					,Util.pad(balance.Balance)
+					,Util.pad(accumulateNow)
+					,Util.pad(accumulateStart)
+					,Util.addPlusOrSpace(profit,8)
+					,Util.addPlusOrSpace(profitFactor) + '%'
+					,Util.pad(btcBalance)
+					,Util.pad(btcNow)
+					,Util.pad(btcStart)
+					,Util.addPlusOrSpace(btcProfit,8)
+					,Util.addPlusOrSpace(btcProfitFactor) + '%'
+					].join("\t")
+				 + "\n"
+				;
 			}
 		}
 		return output;

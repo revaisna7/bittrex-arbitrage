@@ -82,7 +82,7 @@ var trading = false;
  		this.minBtcMarketY = Currencies.getByCode(this.marketY.MarketCurrency).convertTo(this.BTC, this.marketY.MinTradeSize);
  		this.minBtcMarketZ = Currencies.getByCode(this.marketZ.MarketCurrency).convertTo(this.BTC, this.marketZ.MinTradeSize);
 
- 		this.inputBtc = Math.max(Config.minInputBtc, this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, Math.min(this.minBtcBalance, this.minBtcMarket));
+ 		this.inputBtc = Math.max(Config.minInputBtc, this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, this.minBtcBalance, this.minBtcMarket);
 
  		this.inputX = this.BTC.convertTo(this.currencyX, this.inputBtc);
  		this.inputY = this.BTC.convertTo(this.currencyY, this.inputBtc);
@@ -180,9 +180,9 @@ var trading = false;
 			this.tradeY = new Trade(this.marketY, this.currencyZ, inputY, priceY);
 			this.tradeZ = new Trade(this.marketZ, this.currencyX, inputZ, priceZ);
 
-			this.tradeX.deviate(this.profitFactorX);
-			this.tradeY.deviate(this.profitFactorY);
-			this.tradeZ.deviate(this.profitFactorZ);
+			// this.tradeX.deviate(this.profitFactorX);
+			// this.tradeY.deviate(this.profitFactorY);
+			// this.tradeZ.deviate(this.profitFactorZ);
 
 			this.tradeX.execute();
 			this.tradeY.execute();
@@ -196,9 +196,11 @@ var trading = false;
 				function() {
 					Balances.get();
 					Util.when(
-						Balances.isGetting,
 						function() {
-							setTimeout(function() { trading = false; }, 5000);
+							return Balances.isGetting();
+						},
+						function() {
+							setTimeout(function() { trading = false; }, 100);
 						}
 					)
 				}

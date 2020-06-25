@@ -18,7 +18,7 @@ module.exports = class View {
 	static output;
 
 	static start() {
-		View.logInterval = setInterval(View.update, 1000/6);
+		View.logInterval = setInterval(View.update, 1000/7);
 	}
 
 	static stop() {
