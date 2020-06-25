@@ -113,15 +113,15 @@ module.exports = class Balances {
 			if(balance && currency && startBalance && currency.isAllowed()) {
 				var accumulateStart = Balances.startAccumulate[i];
 				var accumulateNow = Balances.accumulate(currency);
-				var accimulateProfitNow = accumulateNow - accumulateStart;
+				var accimulateProfitNow = accumulateStart - accumulateNow;
 
-				var profit = accumulateStart - accumulateNow;
-				var profitFactor = (profit / accumulateStart * 100);
+				var profit = accumulateNow - accumulateStart;
+				var profitFactor = (accumulateStart / profit * 100);
 
 				var btcStart = currency.convertToBtc(accumulateStart);
 				var btcBalance = currency.convertToBtc(balance.Balance);
 				var btcNow = currency.convertToBtc(accumulateNow);
-				var btcProfit = btcStart - btcNow;
+				var btcProfit = btcNow - btcStart;
 				var btcProfitFactor = btcProfit / btcStart * 100;
 
 				output += [" [" + currency.Currency + "]\t"
