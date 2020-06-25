@@ -6,7 +6,7 @@ var Currency = require('./Currency.js');
 var Trade = require('./Trade.js');
 var Util = require('./Util.js');
 
-var trading = false;
+const trading = false;
 
 /**
  * Route logic
@@ -78,7 +78,7 @@ var trading = false;
  		this.minBtcMarketY = Currencies.getByCode(this.marketY.MarketCurrency).convertTo(this.BTC, this.marketY.MinTradeSize);
  		this.minBtcMarketZ = Currencies.getByCode(this.marketZ.MarketCurrency).convertTo(this.BTC, this.marketZ.MinTradeSize);
 
- 		this.inputBtc = Math.max(Config.get('minInputBtc'), this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, this.minBtcBalance, this.minBtcMarket);
+ 		this.inputBtc = Math.max(Config.get('maxInputBtc'), Config.get('minInputBtc'), this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, this.minBtcBalance, this.minBtcMarket);
 
  		this.inputX = this.BTC.convertTo(this.currencyX, this.inputBtc);
  		this.inputY = this.BTC.convertTo(this.currencyY, this.inputBtc);
