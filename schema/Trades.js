@@ -22,9 +22,9 @@ module.exports = class Trades {
 
 	static consoleOutput() {
 		var output = "\n\n [Trades] (" + Trades.list.length + ")\n " + ["Market","Currency","Quantity","Rate","Request","Responded"].join("\t\t");
-		for(var i in Trades.list) {
+		for(var i = Trades.list.length-1; i > Trades.list.length; i--) {
 			output += "\n " + Trades.list[i].consoleOutput();
-			if(i==9) { break };
+			if(Trades.list.length-i==6) { break };
 		}
 		return output;
 	}
