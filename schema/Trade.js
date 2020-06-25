@@ -3,6 +3,7 @@ var Trades = require('./Trades.js');
 var Util = require('./Util.js');
 var bittrex = require('node-bittrex-api');
 bittrex.options(Config.get('bittrexoptions'));
+var fs = require('fs');
 module.exports = class Trade {
 	constructor(market, outputCurrency, quantity, rate) {
 
