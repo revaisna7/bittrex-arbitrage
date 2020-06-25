@@ -6,7 +6,7 @@ var Currency = require('./Currency.js');
 var Trade = require('./Trade.js');
 var Util = require('./Util.js');
 
-const trading = false;
+global.trading = false;
 
 /**
  * Route logic
@@ -142,7 +142,7 @@ const trading = false;
  	}
 
  	isTrading() {
- 		return trading;
+ 		return global.trading;
  	}
 
  	static find(currencyCodeX,currencyCodeY,currencyCodeZ) {
@@ -196,7 +196,7 @@ const trading = false;
 							return Balances.isGetting();
 						},
 						function() {
-							setTimeout(function() { trading = false; }, 100);
+							setTimeout(function() { global.trading = false; }, 100);
 						}
 					)
 				}
