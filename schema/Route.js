@@ -198,7 +198,7 @@ global.trading = false;
 							return Balances.isGetting();
 						},
 						function() {
-							setTimeout(function() { global.trading = false; }, 100);
+							trading = false;
 						}
 					)
 				}
