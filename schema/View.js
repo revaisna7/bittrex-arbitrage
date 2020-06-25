@@ -17,7 +17,7 @@ module.exports = class View {
 	static logInterval;
 
 	static start() {
-		View.logInterval = setInterval(View.update, 1000/2);
+		View.logInterval = setInterval(View.update, 1000/6);
 	}
 
 	static stop() {
@@ -45,17 +45,23 @@ module.exports = class View {
 		return " [Bittrex Arbitrage] Time Running: " + hh + ":" + mm + ":" + ss + "\n\n";
 	}
 
-	static logOutput() {
-		console.log(
-			View.title()
+	static output;
+
+	static generateOutput() {
+		View.output = View.title()
 			+ Balances.consoleOutput()
 			+ Routes.consoleOutput()
 			+ Trades.consoleOutput()
-			+ Orders.consoleOutput()
-		);
+			+ Orders.consoleOutput();
+	}
+
+	static logOutput() {
+		console.log(View.output);
+		process.stdout.cursorTo(0);
 	}
 
 	static update() {
+		View.generateOutput();
 		View.clearConsole();
 		View.logOutput();
 	}

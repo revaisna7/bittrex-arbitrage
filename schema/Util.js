@@ -39,10 +39,10 @@ module.exports = class Util {
 		return str + number.toFixed(decimals);
 	}
 
-	static doThen(conditional,then,timer) {
+	static when(conditional,then,timer) {
 		var timer = timer || 1;
 		var interval = setInterval(function(){
-			if(conditional()) {
+			if(!conditional()) {
 				clearInterval(interval);
 				then();
 			}

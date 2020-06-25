@@ -32,6 +32,11 @@ var trading = false;
  		this.isYBase = this.marketY.BaseCurrencyCode == this.currencyY.Currency;
  		this.isZBase = this.marketZ.BaseCurrencyCode == this.currencyZ.Currency;
 
+
+ 		this.tradeX = null;
+ 		this.tradeY = null;
+ 		this.tradeZ = null;
+
  		this.profitFactor = 0;
  		this.BTC = null;
  	}
@@ -77,7 +82,7 @@ var trading = false;
  		this.minBtcMarketY = Currencies.getByCode(this.marketY.MarketCurrency).convertTo(this.BTC, this.marketY.MinTradeSize);
  		this.minBtcMarketZ = Currencies.getByCode(this.marketZ.MarketCurrency).convertTo(this.BTC, this.marketZ.MinTradeSize);
 
- 		this.inputBtc = Math.max(Config.minInputBtc, this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, Math.max(this.minBtcBalance, this.minBtcMarket));
+ 		this.inputBtc = Math.max(Config.minInputBtc, this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ, Math.min(this.minBtcBalance, this.minBtcMarket));
 
  		this.inputX = this.BTC.convertTo(this.currencyX, this.inputBtc);
  		this.inputY = this.BTC.convertTo(this.currencyY, this.inputBtc);
@@ -128,16 +133,20 @@ var trading = false;
  		&& this.balanceZ >= this.inputZ;
  	}
 
- 	isTrading() {
+ 	awaitingTrades() {
  		return this.tradeX
- 		&& this.tradeY
- 		&& this.tradeZ
- 		&& this.tradeX.requested
- 		&& !this.tradeX.responeded
- 		&& this.tradeY.requested
- 		&& !this.tradeY.responeded
- 		&& this.tradeZ.requested
- 		&& !this.tradeZ.responeded;
+ 			&& this.tradeY
+ 			&& this.tradeZ
+ 			&& this.tradeX.requested
+ 			&& !this.tradeX.responeded
+ 			&& this.tradeY.requested
+ 			&& !this.tradeY.responeded
+ 			&& this.tradeZ.requested
+ 			&& !this.tradeZ.responeded;
+ 	}
+
+ 	isTrading() {
+ 		return trading;
  	}
 
  	static find(currencyCodeX,currencyCodeY,currencyCodeZ) {
@@ -178,16 +187,21 @@ var trading = false;
 			this.tradeX.execute();
 			this.tradeY.execute();
 			this.tradeZ.execute();
-
-			var _this = this;			
-			Util.doThen(
+	
+			var _this = this;
+			Util.when(
 				function() {
-					return !_this.isTrading();
+					return _this.awaitingTrades();
 				},
-				function(){
+				function() {
 					Balances.get();
-				},
-				1000
+					Util.when(
+						Balances.isGetting,
+						function() {
+							setTimeout(function() { trading = false; }, 2000);
+						}
+					)
+				}
 			);
 		}
 	}

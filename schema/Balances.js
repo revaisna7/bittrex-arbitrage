@@ -16,13 +16,20 @@ module.exports = class Balances {
 	static startAccumulate = [];
 	static balancesInterval;
 
+	static getting = false;
+
 	static init() {
 		Balances.get();
 		setTimeout(Balances.setAccumulateStart, 1000);
 		Balances.pulse();
 	}
 
+	static isGetting() {
+		return Balances.getting;
+	}
+
 	static get() {
+		Balances.getting = true;
 		bittrex.getbalances(Balances.update);
 	}
 
@@ -53,6 +60,7 @@ module.exports = class Balances {
 		} else {
 			Util.logError(err);
 		}
+		Balances.getting = false;
 	}
 
 	static setAccumulateStart() {
@@ -98,7 +106,7 @@ module.exports = class Balances {
 	}
 
 	static consoleOutput() {
-		var output =  (" [Balances]\n [Currency]\tStart\t\tNow\t\tProfit\t\tTotal Start\tTotal Now\tTotal Profit Now\tProfit Factor\tCurrent BTC Value\tCurrency BTC Profit\tCurrency BTC Profit Factor\n");
+		var output =  (" [Balances]\n Currency\tStart\t\tNow\t\tProfit\t\tTotal Start\tTotal Now\tTotal Profit Now\tProfit Factor\tCurrent BTC Value\tCurrency BTC Profit\tCurrency BTC Profit Factor\n");
 		for (var i in Balances.list) {
 			var balance = Balances.list[i];
 			var currency = Currencies.getByCode(balance.Currency);

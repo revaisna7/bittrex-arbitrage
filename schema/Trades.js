@@ -25,7 +25,7 @@ module.exports = class Trades {
 	}
 
 	static consoleOutput() {
-		var output = "\n\n [Trades] (" + Trades.list.length + ")\n " + ["Market","Currency","Quantity","Rate","Request","Responded"].join("\t");
+		var output = "\n\n [Trades] (" + Trades.list.length + ")\n " + ["Market","Currency","Quantity","Rate","Request","Responded"].join("\t\t");
 		for(var i in Trades.list) {
 			output += "\n " + Trades.list[i].consoleOutput();
 			if(i==9) { break };
