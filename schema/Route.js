@@ -121,7 +121,16 @@ global.trading = false;
  	}
 
  	isProfitable() {
- 		return this.profitFactor > Config.get('minProfitFactor');
+ 		if(Config.get('speculate')) {
+ 			return this.profitFactorX > Config.get('minProfitFactor')
+ 				&& this.profitFactorY > Config.get('minProfitFactor')
+ 				&& this.profitFactorZ > Config.get('minProfitFactor')
+ 				&& this.profitFactorX < Config.get('maxProfitFactor')
+ 				&& this.profitFactorZ < Config.get('maxProfitFactor')
+ 				&& this.profitFactorY < Config.get('maxProfitFactor');
+ 		} else {
+	 		return this.profitFactor > Config.get('minProfitFactor');
+	 	}
  	}
 
  	hasEnoughBalance() {
