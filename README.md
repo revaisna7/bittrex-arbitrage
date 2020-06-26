@@ -15,7 +15,7 @@ npm install
 ```
 
 ### Config
-To configure the bot copy `config.default.json` to `config.json`
+To configure, copy `config.default.json` to `config.json`
 ```
 copy config.default.json config.json
 ```
