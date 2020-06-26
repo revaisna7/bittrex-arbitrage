@@ -4,6 +4,7 @@
 	"minProfitFactor": 0.1,
 	"minInputBtc": 0.00055,
 	"maxInputBtc": 0.001,
+  	"profitAllThree" : false,
 	"deviation" : 0,
 	"exchangeComission" : 0.2,
 	"dust" : 0.5,
