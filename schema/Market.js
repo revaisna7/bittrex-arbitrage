@@ -31,17 +31,17 @@ module.exports = class Market {
 
 	getPrice(currency) {
 		if(this.isBaseCurrency(currency)) {
-			return this.getHighestBuyPrice().toFixed(currency.getPrecision());
+			return this.getHighestBuyPrice().toPrecision(currency.getPrecision());
 		} else {
-			return this.getLowestSellPrice().toFixed(currency.getPrecision());
+			return this.getLowestSellPrice().toPrecision(currency.getPrecision());
 		}
 	}
 
 	getPotentialPrice(currency) {
 		if(!this.isBaseCurrency(currency)) {
-			return this.getHighestBuyPrice().toFixed(currency.getPrecision());
+			return this.getHighestBuyPrice().toPrecision(currency.getPrecision());
 		} else {
-			return this.getLowestSellPrice().toFixed(currency.getPrecision());
+			return this.getLowestSellPrice().toPrecision(currency.getPrecision());
 		}
 	}
 
