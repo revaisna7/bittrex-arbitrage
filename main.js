@@ -31,7 +31,7 @@ setTimeout(function(){
 						Routes.find();
 						setTimeout(function(){
 							console.log('Init view...');
-							View.start();
+							View.init();
 							Orders.init();
 						},2000);
 					},2000);

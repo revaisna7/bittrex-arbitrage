@@ -63,7 +63,7 @@ module.exports = class Orders {
 				var currencies = market.split('-');
 				var fromCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[0]) : Currencies.getByCode(currencies[1]);
 				var toCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[1]) : Currencies.getByCode(currencies[0]);
-				var currentPrice = Markets.getByName(market).getPrice(fromCurrency);
+				var currentPrice = Markets.getByName(market).getPotentialPrice(fromCurrency);
 				var differenceInValue = type == 'LIMIT_BUY' ? targetPrice-currentPrice : currentPrice-targetPrice;
 
 				output += "\n " + [market,type,Util.pad(quantity),Util.pad(remaining),Util.pad(targetPrice),Util.pad(currentPrice),Util.addPlusOrSpace(differenceInValue,8)].join("\t");

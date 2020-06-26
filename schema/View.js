@@ -16,12 +16,20 @@ module.exports = class View {
 	static logInterval;
 	static output;
 
+	static init() {
+		Config.triggers.push(function(){
+			View.stop();
+			View.start();
+		});
+		View.start();
+	}
+
 	static start() {
 		View.logInterval = setInterval(View.update, Config.get('viewRefreshRate'));
 	}
 
 	static stop() {
-		clearInterval(logInterval);
+		clearInterval(View.logInterval);
 	}
 
 	static clearConsole() {
