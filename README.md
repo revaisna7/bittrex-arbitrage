@@ -7,7 +7,6 @@ Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittre
 Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable descrepency in the market.
 
 ### Installation
-
 Bittrex Arbitrage requires [Node.js](https://nodejs.org/) v12+ to run.
 ```
 git clone https://github.com/ChrisHemmens/bittrex-arbitrage.git
@@ -16,12 +15,10 @@ npm install
 ```
 
 ### Config
-
 To configure the bot copy `config.default.json` to `config.json`
 ```
 copy config.default.json config.json
 ```
-
 | option | type | description |
 | ------ | ------ | ------ |
 | trade | boolean | Whether to enable trade or not
@@ -39,6 +36,11 @@ copy config.default.json config.json
 | exchangeComission | number | [Exchange comission of bittrex see](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-What-fees-does-Bittrex-charge-)
 | dust | number | Factor of currency ballance to not trade to make sure you cannot exceed ballances
 | bittrexoptions | object | You must configure your "apikey" key and "apisecret". [How to create an API key.](https://bittrex.zendesk.com/hc/en-us/articles/360031921872-How-to-create-an-API-key-)
+
+### Run
+```
+node main.js
+```
 
 ### Todos
  - Integrate API v3
