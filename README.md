@@ -1,6 +1,6 @@
 # Bittrex Arbitrage
 
-Bittrex is a console app designed to perform triangular arbitrage on [Bittrex.com](https://bittrex.com/)
+Bittrex Arbitrage is a console app designed to perform triangular arbitrage on [Bittrex.com](https://bittrex.com/)
 
 # Features
 Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittrex.com/) based on your balances.
