@@ -1,5 +1,5 @@
 {
-	"trade" : true,
+	"trade" : false,
 	"speculate" : true,
 	"minProfitFactor": 0.001,
 	"maxProfitFactor": 1,

@@ -5,6 +5,7 @@ Bittrex is a console app designed to perform triangular arbitrage on [Bittrex.co
 # Features
 Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittrex.com/) based on your balances.
 Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable descrepency in the market.
+To enable trades the trader must have hold enough balance in each currency.
 
 ### Installation
 Bittrex Arbitrage requires [Node.js](https://nodejs.org/) v12+ to run.
@@ -15,7 +16,7 @@ npm install
 ```
 
 ### Config
-To configure the bot copy `config.default.json` to `config.json`
+To configure, copy `config.default.json` to `config.json`
 ```
 copy config.default.json config.json
 ```
@@ -24,7 +25,7 @@ copy config.default.json config.json
 | trade | boolean | Whether to enable trade or not
 | speculate | boolean | Speculation reverses the strategy from seeking instant arbitrages to potential arbitrages
 | minProfitFactor | number | The minimum amount of profit to seek
-| maxProfitFactor | number | The minimum amount of profit to seek
+| maxProfitFactor | number | The maxiumum amount of profit to seek (only used when profitAllThree is true.)
 | profitAllThree | boolean | Whether to only trade when all three markets put out a profit
 | minInputBtc | number | The minimum amount in BTC the bot should trade per delta. [Bittrex has a minimum size of 0.0005 BTC](https://bittrex.zendesk.com/hc/en-us/articles/360001473863-Bittrex-Trading-Rules)
 | maxInputBtc | number | The maxiumum amount in BTC the bot should trade per delta.
