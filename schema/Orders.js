@@ -50,7 +50,7 @@ module.exports = class Orders {
 	}
 
 	static consoleOutput() {
-		var output = "\n\n [Orders]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference";
+		var output = "\n\n [Orders]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference\tFactor";
 		for (var i in Orders.list) {
 			var order = Orders.list[i];
 			if(order) {
@@ -64,9 +64,10 @@ module.exports = class Orders {
 				var fromCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[0]) : Currencies.getByCode(currencies[1]);
 				var toCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[1]) : Currencies.getByCode(currencies[0]);
 				var currentPrice = Markets.getByName(market).getPotentialPrice(fromCurrency);
-				var differenceInValue = type == 'LIMIT_BUY' ? targetPrice-currentPrice : currentPrice-targetPrice;
+				var differenceValue = type == 'LIMIT_BUY' ? targetPrice-currentPrice : currentPrice-targetPrice;
+				var differenceFactor = differenceValue/targetPrice*100;
 
-				output += "\n " + [market,type,Util.pad(quantity),Util.pad(remaining),Util.pad(targetPrice),Util.pad(currentPrice),Util.addPlusOrSpace(differenceInValue,8)].join("\t");
+				output += "\n " + [market,type,Util.pad(quantity),Util.pad(remaining),Util.pad(targetPrice),Util.pad(currentPrice),Util.addPlusOrSpace(differenceValue,8)Util.addPlusOrSpace(differenceFactor)].join("\t");
 			}
 		}
 		return output;
