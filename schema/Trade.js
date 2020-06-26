@@ -54,11 +54,11 @@ module.exports = class Trade {
 	}
 
 	deviate(factor) {
-		// if(this.market.isBaseCurrency(this.outputCurrency)) {
-		// 	this.rate -= this.rate*factor;
-		// } else {
-		// 	this.rate += this.rate*factor;
-		// }
+		if(this.market.isBaseCurrency(this.outputCurrency)) {
+			this.rate -= this.rate*factor;
+		} else {
+			this.rate += this.rate*factor;
+		}
 		this.makeRequest();
 	}
 
@@ -85,6 +85,6 @@ module.exports = class Trade {
 	}
 
 	consoleOutput() {
-		return [this.market.MarketName, this.outputCurrency.Currency, Util.pad(this.quantity), Util.pad(this.rate), this.requested, this.responded].join("\t\t");
+		return [this.time, this.market.MarketName, this.outputCurrency.Currency, Util.pad(this.quantity), Util.pad(this.rate), this.requested, this.responded].join("\t\t");
 	}
 }
