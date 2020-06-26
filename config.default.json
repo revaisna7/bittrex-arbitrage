@@ -1,27 +1,24 @@
 {
 	"trade" : false,
-	"speculate" : true,
-	"minProfitFactor": 0.001,
-	"maxProfitFactor": 1,
-	"profitAllThree" : false,
+	"speculate" : false,
+	"minProfitFactor": 0.1,
 	"minInputBtc": 0.00055,
-	"maxInputBtc": 0.0006,
-	"viewRefreshRate": 500,
-	"deviate" : false,
-	"deviation" : 0.00,
+	"maxInputBtc": 0.001,
+	"deviation" : 0,
+	"exchangeComission" : 0.2,
+	"dust" : 0.5,
 	"currencies" : [
 		"BTC",
 		"ETH",
 		"USDT",
-		"XRP",
-		"USD"
+		"XRP"
 	],
 	"restricted" : [
 		"EUR",
+		"USD",
 		"BTXCRD"
 	],
-	"exchangeComission" : 0.2,
-	"dust" : 0.5,
+	"viewRefreshRate": 1000,
 	"bittrexoptions" : {
 		"apikey": "",
 		"apisecret": "",
