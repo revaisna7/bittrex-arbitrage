@@ -121,7 +121,7 @@ global.trading = false;
  	}
 
  	isProfitable() {
- 		if(Config.get('speculate')) {
+ 		if(Config.get('profitAllThree')) {
  			return this.profitFactorX > Config.get('minProfitFactor')
  				&& this.profitFactorY > Config.get('minProfitFactor')
  				&& this.profitFactorZ > Config.get('minProfitFactor')
