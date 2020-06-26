@@ -5,6 +5,7 @@ Bittrex is a console app designed to perform triangular arbitrage on [Bittrex.co
 # Features
 Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittrex.com/) based on your balances.
 Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable descrepency in the market.
+To enable trades the trader must have hold enough balance in each currency.
 
 ### Installation
 Bittrex Arbitrage requires [Node.js](https://nodejs.org/) v12+ to run.
