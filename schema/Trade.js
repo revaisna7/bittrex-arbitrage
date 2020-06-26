@@ -85,6 +85,6 @@ module.exports = class Trade {
 	}
 
 	consoleOutput() {
-		return [this.time, this.market.MarketName, this.outputCurrency.Currency, Util.pad(this.quantity), Util.pad(this.rate), this.requested, this.responded].join("\t\t");
+		return [this.time, this.market.MarketName + "  ", this.outputCurrency.Currency, Util.pad(this.quantity), Util.pad(this.rate), this.requested, this.responded].join("\t\t");
 	}
 }
