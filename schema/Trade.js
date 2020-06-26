@@ -19,6 +19,8 @@ module.exports = class Trade {
 		this.responded = false;
 		this.response = null;
 
+		this.time = new Date().toLocaleString();
+
 		Trades.push(this);
 
 		return this;
