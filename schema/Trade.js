@@ -40,7 +40,7 @@ module.exports = class Trade {
 		var _this = this;
 		this.requested = true;
 		this.callbacks = callback;
-		if (!this.market.isBaseCurrency(this.outputCurrency)) {
+		if (this.market.isBaseCurrency(this.outputCurrency)) {
 			this.request.OrderType += '_SELL';
 			bittrex.tradesell(this.request, function(data, err){ _this.tradeCallback(data,err); });
 		} else {
