@@ -179,11 +179,11 @@ global.trading = false;
 			this.tradeZ = new Trade(this.marketZ, this.currencyX, inputZ, priceZ);
 
 			if(Config.get('deviate')) {
-				this.tradeX.deviate(this.profitFactorZ);
+				this.tradeX.deviate(this.profitFactorX);
 				this.tradeY.deviate(this.profitFactorY);
 				this.tradeZ.deviate(this.profitFactorZ);
 			}
-			
+
 			this.tradeX.execute();
 			this.tradeY.execute();
 			this.tradeZ.execute();
