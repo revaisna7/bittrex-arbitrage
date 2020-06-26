@@ -53,15 +53,6 @@ module.exports = class Trade {
 		return this;
 	}
 
-	deviate(factor) {
-		if(this.market.isBaseCurrency(this.outputCurrency)) {
-			this.rate -= this.rate*Config.get("deviation");
-		} else {
-			this.rate += this.rate*Config.get("deviation");
-		}
-		this.makeRequest();
-	}
-
 	tradeCallback(data, err) {
 		this.responded = true;
 		this.response = data || err;

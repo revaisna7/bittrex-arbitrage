@@ -30,8 +30,7 @@ copy config.default.json config.json
 | minInputBtc | number | The minimum amount in BTC the bot should trade per delta. [Bittrex has a minimum size of 0.0005 BTC](https://bittrex.zendesk.com/hc/en-us/articles/360001473863-Bittrex-Trading-Rules)
 | maxInputBtc | number | The maxiumum amount in BTC the bot should trade per delta.
 | viewRefreshRate | number | How often to relog the output to console on milliseconds
-| deviate | boolean | Whether or not to deviate prices
-| deviation | boolean | Factor to deviate by
+| priceDeviation | number | Factor to deviate by prices by
 | currencies | String[] | List of currencies to trade
 | restricted | String[] | List of restricted currencies
 | exchangeComission | number | [Exchange comission of bittrex see](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-What-fees-does-Bittrex-charge-)

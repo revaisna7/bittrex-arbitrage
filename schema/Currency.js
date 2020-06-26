@@ -27,62 +27,62 @@ module.exports = class Currency {
 		return this.Currency === 'USD' || this.Currency === 'EUR' ? 3 : 8;
 	}
 
-	convertToBtc(inputQuantity) {
-		return (this === BTC) ? inputQuantity : this.convertTo(BTC, inputQuantity);
+	convertToBtc(inputQuantity, deviation) {
+		return (this === BTC) ? inputQuantity : this.convertTo(BTC, inputQuantity, deviation);
 	}
 
-	convertThroughBtc(outputCurrency, inputQuantity) {
+	convertThroughBtc(outputCurrency, inputQuantity, deviation) {
 		var marketX = Markets.getByCurrencies(BTC, this);
 		var marketY = Markets.getByCurrencies(BTC, outputCurrency);
 		if(marketX && marketY) {
-			return BTC.convertTo(outputCurrency, this.convertToBtc(inputQuantity));
+			return BTC.convertTo(outputCurrency, this.convertToBtc(inputQuantity, deviation), deviation);
 		}
 		return false;
 	}
 
-	convertPotentialThroughBtc(outputCurrency, inputQuantity) {
+	convertPotentialThroughBtc(outputCurrency, inputQuantity, deviation) {
 		var marketX = Markets.getByCurrencies(BTC, this);
 		var marketY = Markets.getByCurrencies(BTC, outputCurrency);
 		if(marketX && marketY) {
-			return BTC.convertToPotential(outputCurrency, this.convertToBtc(inputQuantity));
+			return BTC.convertToPotential(outputCurrency, this.convertToBtc(inputQuantity, deviation), deviation);
 		}
 		return false;
 	}
 
-	convertStraight(outputCurrency, inputQuantity) {
+	convertStraight(outputCurrency, inputQuantity, deviation) {
 		var market = Markets.getByCurrencies(this, outputCurrency);
 		if(market) {
-			return market.convert(outputCurrency, inputQuantity);	
+			return market.convert(outputCurrency, inputQuantity, deviation);	
 		}
 		return false;
 	}
 
-	convertPotential(outputCurrency, inputQuantity) {
+	convertPotential(outputCurrency, inputQuantity, deviation) {
 		var market = Markets.getByCurrencies(this, outputCurrency);
 		if(market) {
-			return market.convertPotential(outputCurrency, inputQuantity);	
+			return market.convertPotential(outputCurrency, inputQuantity, deviation);	
 		}
 		return false;
 	}
 
-	convertTo(outputCurrency, inputQuantity) {
+	convertTo(outputCurrency, inputQuantity, deviation) {
 		if(!this.isRestricted() && typeof outputCurrency === 'object') {
 			if(this.Currency == outputCurrency.Currency) return inputQuantity;
-			var straightConversion = this.convertStraight(outputCurrency, inputQuantity);
+			var straightConversion = this.convertStraight(outputCurrency, inputQuantity, deviation);
 			if(!straightConversion) {
-				return this.convertThroughBtc(outputCurrency, inputQuantity)
+				return this.convertThroughBtc(outputCurrency, inputQuantity, deviation)
 			}
 			return straightConversion;
 		}
 		return 0;
 	}
 
-	convertToPotential(outputCurrency, inputQuantity) {
+	convertToPotential(outputCurrency, inputQuantity, deviation) {
 		if(!this.isRestricted() && typeof outputCurrency === 'object') {
 			if(this.Currency == outputCurrency.Currency) return inputQuantity;
-			var potentialConversion = this.convertPotential(outputCurrency, inputQuantity);
+			var potentialConversion = this.convertPotential(outputCurrency, inputQuantity, deviation);
 			if(!potentialConversion) {
-				return this.convertPotentialThroughBtc(outputCurrency, inputQuantity)
+				return this.convertPotentialThroughBtc(outputCurrency, inputQuantity, deviation)
 			}
 			return potentialConversion;
 		}

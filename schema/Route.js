@@ -88,9 +88,11 @@ global.trading = false;
  	}
 
  	getOuputs() {
- 		this.outputX = Config.get('speculate') ? this.currencyX.convertToPotential(this.currencyY, this.inputX) : this.currencyX.convertTo(this.currencyY, this.inputX);
- 		this.outputY = Config.get('speculate') ? this.currencyY.convertToPotential(this.currencyZ, this.inputY) : this.currencyY.convertTo(this.currencyZ, this.inputY);
- 		this.outputZ = Config.get('speculate') ? this.currencyZ.convertToPotential(this.currencyX, this.inputZ) : this.currencyZ.convertTo(this.currencyX, this.inputZ);
+ 		var priceDeviation = Config.get('priceDeviation') || 0;
+ 		var speculate = Config.get('speculate');
+ 		this.outputX = speculate ? this.currencyX.convertToPotential(this.currencyY, this.inputX, priceDeviation) : this.currencyX.convertTo(this.currencyY, this.inputX, priceDeviation);
+ 		this.outputY = speculate ? this.currencyY.convertToPotential(this.currencyZ, this.inputY, priceDeviation) : this.currencyY.convertTo(this.currencyZ, this.inputY, priceDeviation);
+ 		this.outputZ = speculate ? this.currencyZ.convertToPotential(this.currencyX, this.inputZ, priceDeviation) : this.currencyZ.convertTo(this.currencyX, this.inputZ, priceDeviation);
  	}
 
  	isRestricted() {
@@ -187,17 +189,12 @@ global.trading = false;
 			this.tradeY = new Trade(this.marketY, this.currencyZ, inputY, priceY);
 			this.tradeZ = new Trade(this.marketZ, this.currencyX, inputZ, priceZ);
 
-			if(Config.get('deviate')) {
-				this.tradeX.deviate(this.profitFactorX);
-				this.tradeY.deviate(this.profitFactorY);
-				this.tradeZ.deviate(this.profitFactorZ);
-			}
-
 			this.tradeX.execute();
 			this.tradeY.execute();
 			this.tradeZ.execute();
 
-			setTimeout(function(){ trading = false}, 2000);
+			setTimeout(function(){ Balances.pulse(); }, 1000);
+			setTimeout(function(){ trading = false; }, 2000);
 		}
 	}
 
@@ -206,8 +203,6 @@ global.trading = false;
 		+ this.currencyY.Currency + (this.currencyY.Currency.length < 4 ? ' ' : '') + ' > '
 		+ this.currencyZ.Currency + (this.currencyZ.Currency.length < 4 ? ' ' : '') + ' > '
 		+ this.currencyX.Currency + (this.currencyX.Currency.length < 4 ? ' ' : '') ;
-
-
 	}
 
 	marketRouteString() {
