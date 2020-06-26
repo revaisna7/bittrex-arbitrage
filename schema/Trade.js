@@ -55,9 +55,9 @@ module.exports = class Trade {
 
 	deviate(factor) {
 		if(this.market.isBaseCurrency(this.outputCurrency)) {
-			this.rate -= Config.get("deviation");
+			this.rate -= this.rate*Config.get("deviation");
 		} else {
-			this.rate += Config.get("deviation");
+			this.rate += this.rate*Config.get("deviation");
 		}
 		this.makeRequest();
 	}
