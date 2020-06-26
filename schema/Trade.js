@@ -30,8 +30,8 @@ module.exports = class Trade {
 		this.request = {
 			MarketName: this.market.MarketName,
 			OrderType: 'LIMIT',
-			Quantity: Number.parseFloat(this.quantity).toPrecision(8),
-			Rate: Number.parseFloat(this.rate).toPrecision(this.market.getPrecision()),
+			Quantity: Number.parseFloat(this.quantity).toFixed(8),
+			Rate: Number.parseFloat(this.rate).toFixed(this.market.getPrecision()),
 			TimeInEffect: 'GOOD_TIL_CANCELLED',
 			ConditionType: 'NONE',
 			Target: 0
