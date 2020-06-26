@@ -1,39 +1,44 @@
-# README #
+# Bittrex Arbitrage
 
-Bittrex arbitrage, automated triangular arbitrage on Bittrex.
+Bittrex is a console app designed to perform triangular arbitrage on [Bittrex.com](https://bittrex.com/)
 
-### What is this repository for? ###
-* People who want an automated way of making more money, does not come without a certain aspect of risk. Be careful.
+# Features
+Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittrex.com/) based on your balances.
+Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable descrepency in the market.
 
-### How do I get set up? ###
-* `npm install`
-* Sign up to https://bittrex.com/
-* Set up two factor authentication
-* Create an API key
+### Installation
 
-### Create config file ###
-Copy `config.default.js` to `config.js`
-Set your API key and secret
+Bittrex Arbitrage requires [Node.js](https://nodejs.org/) v12+ to run.
+```
+git clone https://github.com/ChrisHemmens/bittrex-arbitrage.git
+cd bittrex-arbitrage
+npm install
+```
 
-### Configuration ###
+### Config
 
-##### trade #####
-Whether to trade or not
+To configure the bot copy `config.default.json` to `config.json`
+```
+copy config.default.json config.json
+```
 
-##### minProfitFactor ######
-The minimum profit factor as a percentage, to make on at least one of the currencies before opening trades
+| option | type | description |
+| ------ | ------ | ------ |
+| trade | boolean | Whether to enable trade or not
+| speculate | boolean | Speculation reverses the strategy from seeking instant arbitrages to potential arbitrages
+| minProfitFactor | number | The minimum amount of profit to seek
+| maxProfitFactor | number | The minimum amount of profit to seek
+| profitAllThree | boolean | Whether to only trade when all three markets put out a profit
+| minInputBtc | number | The minimum amount in BTC the bot should trade per delta. [Bittrex has a minimum size of 0.0005 BTC](https://bittrex.zendesk.com/hc/en-us/articles/360001473863-Bittrex-Trading-Rules)
+| maxInputBtc | number | The maxiumum amount in BTC the bot should trade per delta.
+| viewRefreshRate | number | How often to relog the output to console on milliseconds
+| deviate | boolean | Whether or not to deviate prices
+| deviation | boolean | Factor to deviate by
+| currencies | String[] | List of currencies to trade
+| restricted | String[] | List of restricted currencies
+| exchangeComission | number | [Exchange comission of bittrex see](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-What-fees-does-Bittrex-charge-)
+| dust | number | Factor of currency ballance to not trade to make sure you cannot exceed ballances
+| bittrexoptions | object | You must configure your "apikey" key and "apisecret". [How to create an API key.](https://bittrex.zendesk.com/hc/en-us/articles/360031921872-How-to-create-an-API-key-)
 
-##### minInputBtc #####
-Minimum trade size in BTC
-
-##### deviation #####
-Factor to deviate prices, can be both negative and positive, positive deviation seeks more profit, orders might not fill so quick.
-
-##### restricted #####
-List of currency codes that should not be traded.
-
-### exchangeComission ###
-Bittrex exchange commision
-
-### bittrexoptions ###
-Bittrex settings
+### Todos
+ - Integrate API v3
