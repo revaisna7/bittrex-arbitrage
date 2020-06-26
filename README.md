@@ -29,11 +29,11 @@ copy config.default.json config.json
 | profitAllThree | boolean | Whether to only trade when all three markets put out a profit
 | minInputBtc | number | The minimum amount in BTC to trade per delta. [Bittrex has a minimum size of 0.0005 BTC](https://bittrex.zendesk.com/hc/en-us/articles/360001473863-Bittrex-Trading-Rules)
 | maxInputBtc | number | The maxiumum amount in BTC to trade per delta.
-| viewRefreshRate | number | How often to relog the output to console on milliseconds
+| viewRefreshRate | number | How often to relog the output to console in milliseconds
 | deviate | boolean | Whether or not to deviate prices
-| deviation | boolean | Factor to deviate by
-| currencies | String[] | List of currencies to trade
-| restricted | String[] | List of restricted currencies
+| deviation | boolean | Factor to deviate prices by
+| currencies | String[] | List of currency symbols to trade
+| restricted | String[] | List of restricted currency symbols
 | exchangeComission | number | [Exchange comission of bittrex see](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-What-fees-does-Bittrex-charge-)
 | dust | number | Factor of currency ballance to not trade to make sure you cannot exceed ballances
 | bittrexoptions | object | You must configure your "apikey" key and "apisecret". [How to create an API key.](https://bittrex.zendesk.com/hc/en-us/articles/360031921872-How-to-create-an-API-key-)
