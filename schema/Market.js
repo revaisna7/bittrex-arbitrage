@@ -226,7 +226,7 @@ module.exports = class Market {
 		var inputQuantity = inputQuantity;
 		var price = this.getPrice(outputCurrency);
 		var output = this.isBaseCurrency(outputCurrency) ? inputQuantity * price : inputQuantity / price;
-		return  output - (Config.get('exchangeComission')*output);
+		return  output - (Config.get('exchangeComission')/100*output);
 	}
 
 
@@ -234,6 +234,6 @@ module.exports = class Market {
 		var inputQuantity = inputQuantity;
 		var price = this.getPotentialPrice(outputCurrency);
 		var output = this.isBaseCurrency(outputCurrency) ? inputQuantity * price : inputQuantity / price;
-		return  output - (Config.get('exchangeComission')*output);
+		return  output - (Config.get('exchangeComission')/100*output);
 	}
 };
