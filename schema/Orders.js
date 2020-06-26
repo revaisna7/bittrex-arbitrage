@@ -67,7 +67,7 @@ module.exports = class Orders {
 				var differenceValue = type == 'LIMIT_BUY' ? targetPrice-currentPrice : currentPrice-targetPrice;
 				var differenceFactor = differenceValue/targetPrice*100;
 
-				output += "\n " + [market,type,Util.pad(quantity),Util.pad(remaining),Util.pad(targetPrice),Util.pad(currentPrice),Util.addPlusOrSpace(differenceValue,8),Util.addPlusOrSpace(differenceFactor)].join("\t");
+				output += "\n " + [market,type,Util.pad(quantity),Util.pad(remaining),Util.pad(targetPrice),Util.pad(currentPrice),Util.addPlusOrSpace(differenceValue,8),Util.addPlusOrSpace(differenceFactor)+'%'].join("\t");
 			}
 		}
 		return output;
