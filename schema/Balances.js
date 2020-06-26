@@ -108,11 +108,13 @@ module.exports = class Balances {
 		var output = " [Balances]\n Currency\tBalance\t\tTotal\t\tStart\t\tProfit\t\tFactor\t\tBTC balance\tBTC value\tBTC start\tBTC Profit\tBTC factor";
 		var totalProfitFactor = 0;
 		var balancesOutput = '';
+		var allowed = 0;
 		for (var i in Balances.list) {
 			var balance = Balances.list[i];
 			var currency = Currencies.getByCode(balance.Currency);
 			var startBalance = Balances.getStartByCurrency(currency);
 			if(balance && currency && startBalance && currency.isAllowed()) {
+				allowed++;
 				var accumulateStart = Balances.startAccumulate[i];
 				var accumulateNow = Balances.accumulate(currency);
 				var accimulateProfitNow = accumulateStart - accumulateNow;
@@ -141,7 +143,7 @@ module.exports = class Balances {
 				 + "\n"
 				;
 
-				totalProfitFactor += profitFactor;
+				totalProfitFactor += profitFactor/allowed;
 			}
 		}
 		return output + "\t [ Overall factor: " + Util.addPlusOrSpace(totalProfitFactor) + "% ]\n" + balancesOutput;
