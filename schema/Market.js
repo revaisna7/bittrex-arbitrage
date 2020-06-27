@@ -29,36 +29,42 @@ module.exports = class Market {
 		return Config.get('currencies').indexOf(this.BaseCurrencyCode) > -1 && Config.get('currencies').indexOf(this.QuoteCurrencyCode) > -1;
 	}
 
-	getPrice(currency, deviation) {
-		var deviation = deviation || 0;
+	getPrice(currency, priceDeviation) {
+		var priceDeviation = priceDeviation || 0;
 		if(this.isBaseCurrency(currency)) {
 			var price = this.getHighestBuyPrice();
-			return (price+(deviation/100*price)).toFixed(currency.getPrecision());
+			return (price+(priceDeviation/100*price)).toFixed(currency.getPrecision());
 		} else {
 			var price = this.getLowestSellPrice();
-			return (price-(deviation/100*price)).toFixed(currency.getPrecision());
+			return (price-(priceDeviation/100*price)).toFixed(currency.getPrecision());
 		}
 	}
 
-	getPotentialPrice(currency, deviation) {
-		var deviation = deviation || 0;
+	getPotentialPrice(currency, priceDeviation) {
+		var priceDeviation = priceDeviation || 0;
 		if(!this.isBaseCurrency(currency)) {
 			var price = this.getHighestBuyPrice();
-			return (price+(deviation/100*price)).toFixed(currency.getPrecision());
+			return (price+(priceDeviation/100*price)).toFixed(currency.getPrecision());
 		} else {
 			var price = this.getLowestSellPrice();
-			return (price-(deviation/100*price)).toFixed(currency.getPrecision());
+			return (price-(priceDeviation/100*price)).toFixed(currency.getPrecision());
 		}
 	}
 
-	getQuantity(currency) {
-		var quantity;
+	getQuantity(currency, rate) {
 		if(this.isBaseCurrency(currency)) {
-			quantity = this.getHighestBuyQuantity();
+			return this.getBuyQuantity(rate);
 		} else {
-			quantity = this.getLowestSellQuantity();
+			return this.getSellQuantity(rate);
 		}
-		return quantity.toFixed(currency.getPrecision());
+	}
+
+	getPotentialQuantity(currency, rate) {
+		if(!this.isBaseCurrency(currency)) {
+			return this.getBuyQuantity(rate);
+		} else {
+			return this.getSellQuantity(rate);
+		}
 	}
 
 	getOrderBookBuy(rate) {
@@ -120,9 +126,14 @@ module.exports = class Market {
 		return this.Buys.length > 0 ? this.Buys[0].Rate : 0;
 	}
 
-	getHighestBuyQuantity() {
-		this.Buys.sort(this.compareBuys);
-		return this.Buys[0].Quantity;
+	getBuyQuantity(price) {
+		var quantity = 0;
+		for(var i in this.Buys) {
+			if(this.Buys[i].Rate >= price) {
+				quantity += this.Buys[i].Quantity;
+			}
+		}
+		return quantity;
 	}
 
 	getLowestSellPrice() {
@@ -130,9 +141,14 @@ module.exports = class Market {
 		return this.Sells.length > 0 ? this.Sells[0].Rate : 0;
 	}
 
-	getLowestSellQuantity() {
-		this.Sells.sort(this.compareSells);
-		return this.Sells[0].Quantity;
+	getSellQuantity(price) {
+		var quantity = 0;
+		for(var i in this.Sells) {
+			if(this.Sells[i].Rate <= price) {
+				quantity += this.Sells[i].Quantity;
+			}
+		}
+		return quantity;
 	}
 
 	updateExchangeState(data) {
@@ -220,30 +236,26 @@ module.exports = class Market {
 	}
 
 	trade(outputCurrency, quantity, rate) {
-		this.trade = new Trade(this, outputCurrency, quantity, rate);
-		this.trade.execute();
+		return new Trade(this, outputCurrency, quantity, rate);
 	}
 
 	isBaseCurrency(currency) {
 		return currency.Currency === this.BaseCurrencyCode;
 	}
 
-	convert(outputCurrency, inputQuantity, deviation) {
-		var deviation = deviation || 0;
+	convert(outputCurrency, inputQuantity, priceDeviation) {
+		var priceDeviation = priceDeviation || 0;
 		var isBase = this.isBaseCurrency(outputCurrency);
-		var inputQuantity = inputQuantity;
-		var price = this.getPrice(outputCurrency, deviation);
+		var price = this.getPrice(outputCurrency, priceDeviation);
 		var output = isBase ? inputQuantity * price : inputQuantity / price;
-		return  output - (Config.get('exchangeComission')/100*output);
+		return  output - (Config.get('exchangeCommission')/100*output);
 	}
 
-
-	convertPotential(outputCurrency, inputQuantity, deviation) {
-		var deviation = deviation || 0;
+	convertPotential(outputCurrency, inputQuantity, priceDeviation) {
+		var priceDeviation = priceDeviation || 0;
 		var isBase = this.isBaseCurrency(outputCurrency);
-		var inputQuantity = inputQuantity;
-		var price = this.getPotentialPrice(outputCurrency, deviation);
+		var price = this.getPotentialPrice(outputCurrency, priceDeviation);
 		var output = isBase ? inputQuantity * price : inputQuantity / price;
-		return  output - (Config.get('exchangeComission')/100*output);
+		return  output - (Config.get('exchangeCommission')/100*output);
 	}
 };

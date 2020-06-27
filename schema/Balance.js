@@ -1,4 +1,4 @@
-var Config = require('./Config');
+var Config = require('./Config.js');
 var Currencies = require('./Currencies.js');
 
 module.exports = class Balance {
@@ -8,6 +8,6 @@ module.exports = class Balance {
 	}
 
 	isAllowed() {
-		return Config.currencies.indexOf(this.Currency) > -1;
+		return Config.values.currencies.indexOf(this.Currency) > -1;
 	}
 }

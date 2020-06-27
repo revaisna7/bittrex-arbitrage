@@ -9,6 +9,8 @@ module.exports = class Currencies {
 
 	static list = [];
 
+	static BTC;
+
 	static get() {
 		bittrex.getcurrencies(Currencies.update);
 	}
@@ -16,7 +18,11 @@ module.exports = class Currencies {
 	static update (data, err) {
 		if(data) {
 			for(var i in data.result) {
-				Currencies.list.push(new Currency(data.result[i]));
+				var currency = new Currency(data.result[i]);
+				Currencies.push(currency);
+				if(currency.Currency === 'BTC') {
+					Currencies.BTC = currency;
+				}
 			}
 		}
 		if(err) {
@@ -25,7 +31,7 @@ module.exports = class Currencies {
 	}
 
 	static getBtc() {
-		return Currencies.getByCode('BTC');
+		return Currencies.BTC;
 	}
 
 	static push(currency) {

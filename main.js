@@ -16,7 +16,7 @@ setTimeout(function(){
 	Currencies.get();
 	setTimeout(function(){
 		console.log('Get markets...');
-		Markets.getSummaries();
+		Markets.get();
 		setTimeout(function(){
 			console.log('Subscribe markets...');
 			Markets.subscribe();

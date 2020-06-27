@@ -16,14 +16,22 @@ module.exports = class Markets {
 		Markets.list.push(market);
 	}
 
-	static getSummaries() {
+	static init() {
+		Markets.get();
+		setTimeout(function() {
+			Markets.startOrderBooksUpdates();
+			Markets.subscribe();
+		},2000);
+	}
+
+	static get() {
 		bittrex.getmarkets(Markets.updateMarkets);
 	}
 
 	static updateMarkets(data, err) {
 		if(data) {
 			for (var i in data.result) {
-				if(data.result[i].MarketName) {
+				if(data.result[i].MarketName && !Markets.getByName(data.result[i].MarketName)) {
 					var market = new Market(data.result[i]);
 					Markets.push(market);
 				}
