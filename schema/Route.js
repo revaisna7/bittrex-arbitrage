@@ -62,53 +62,50 @@ global.trading = false;
 
  	getInputs() {
  		this.getBalances();
- 		var priceDeviation = Config.get('priceDeviation') || 0;
- 		var speculate = Config.get('speculate');
+ 		this.priceDeviation = Config.get('priceDeviation') || 0;
+ 		this.speculate = Config.get('speculate') || false;
+ 		this.inputBtc = Config.get('minInputBtc') || 0.005;
+		
+ 		// deviated prices
+		this.priceX = this.speculate ? this.marketX.getPotentialPrice(this.currencyY, this.priceDeviation) : this.marketX.getPrice(this.currencyY, this.priceDeviation);
+		this.priceY = this.speculate ? this.marketY.getPotentialPrice(this.currencyZ, this.priceDeviation) : this.marketY.getPrice(this.currencyZ, this.priceDeviation);
+		this.priceZ = this.speculate ? this.marketZ.getPotentialPrice(this.currencyX, this.priceDeviation) : this.marketZ.getPrice(this.currencyX, this.priceDeviation);
 
+ 		// currency btc size
  		this.currencyXBtcBalance = this.currencyX.convertToBtc(this.balanceX);
  		this.currencyYBtcBalance = this.currencyY.convertToBtc(this.balanceY);
  		this.currencyZBtcBalance = this.currencyZ.convertToBtc(this.balanceZ);
 
+ 		// min allowed maket size
  		this.minBtcMarketX = this.marketXMarketCurrency.convertToBtc(this.marketX.MinTradeSize);
  		this.minBtcMarketY = this.marketYMarketCurrency.convertToBtc(this.marketY.MinTradeSize);
  		this.minBtcMarketZ = this.marketZMarketCurrency.convertToBtc(this.marketZ.MinTradeSize);
 
+ 		// available on market
+		this.marketXBtcAvailable = this.currencyX.convertToBtc(this.speculate ? this.marketX.getPotentialQuantity(this.currencyY,this.priceX) : this.marketX.getQuantity(this.currencyY,this.priceX));
+ 		this.marketYBtcAvailable = this.currencyY.convertToBtc(this.speculate ? this.marketY.getPotentialQuantity(this.currencyZ,this.priceY) : this.marketY.getQuantity(this.currencyZ,this.priceY));
+ 		this.marketZBtcAvailable = this.currencyZ.convertToBtc(this.speculate ? this.marketZ.getPotentialQuantity(this.currencyX,this.priceZ) : this.marketZ.getQuantity(this.currencyX,this.priceZ));
+
+ 		// minimumums
  		this.minBtcBalance = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
- 		this.minBtcMarket = Math.max(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
+ 		this.minBtcMarket = Math.min(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
+ 		this.minBtcAvailable = Math.min(this.marketXBtcAvailable,this.marketYBtcAvailable,this.marketZBtcAvailable);
 
- 		this.inputBtc = Math.max(Config.get('minInputBtc'), this.minBtcMarket, this.minBtcBalance, this.minBtcMarket);
+ 		// max of minimum
+ 		this.inputBtc = Math.max(Config.get('minInputBtc'), Math.min(Config.get('maxInputBtc'), this.minBtcMarket, this.minBtcBalance, this.minBtcAvailable));
 
- 		this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc);
- 		this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc);
- 		this.inputZ = Currencies.getBtc().convertTo(this.currencyZ, this.inputBtc);
- 		// get outputs on minimum amounts
- 		this.getOuputs();
-
- 		// get available quantities at caluclated rates
-		this.marketXBtcQuantity = this.currencyX.convertToBtc(speculate ? this.marketX.getPotentialQuantity(this.currencyY,this.priceX) : this.marketX.getQuantity(this.currencyY,this.priceX));
- 		this.marketYBtcQuantity = this.currencyY.convertToBtc(speculate ? this.marketY.getPotentialQuantity(this.currencyZ,this.priceY) : this.marketY.getQuantity(this.currencyZ,this.priceY));
- 		this.marketZBtcQuantity = this.currencyZ.convertToBtc(speculate ? this.marketZ.getPotentialQuantity(this.currencyX,this.priceZ) : this.marketZ.getQuantity(this.currencyX,this.priceZ));
- 	
-  		this.inputBtc = Math.min(Config.get('maxInputBtc'), Math.max(Config.get('minInputBtc'), this.marketXBtcQuantity, this.marketYBtcQuantity, this.marketZBtcQuantity))*(1-Config.get('dust'));
-
- 		this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc);
- 		this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc);
- 		this.inputZ = Currencies.getBtc().convertTo(this.currencyZ, this.inputBtc);
+ 		this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc, this.priceDeviation);
+ 		this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc, this.priceDeviation);
+ 		this.inputZ = Currencies.getBtc().convertTo(this.currencyZ, this.inputBtc, this.priceDeviation);
 
  		// get final outputs
  		this.getOuputs();
   	}
 
  	getOuputs() {
- 		var priceDeviation = Config.get('priceDeviation') || 0;
- 		var speculate = Config.get('speculate');
- 		this.outputX = speculate ? this.currencyX.convertToPotential(this.currencyY, this.inputX, priceDeviation) : this.currencyX.convertTo(this.currencyY, this.inputX, priceDeviation);
- 		this.outputY = speculate ? this.currencyY.convertToPotential(this.currencyZ, this.inputY, priceDeviation) : this.currencyY.convertTo(this.currencyZ, this.inputY, priceDeviation);
- 		this.outputZ = speculate ? this.currencyZ.convertToPotential(this.currencyX, this.inputZ, priceDeviation) : this.currencyZ.convertTo(this.currencyX, this.inputZ, priceDeviation);
- 	
-		this.priceX = Config.get('speculate') ? this.marketX.getPotentialPrice(this.currencyY, priceDeviation) : this.marketX.getPrice(this.currencyY, priceDeviation);
-		this.priceY = Config.get('speculate') ? this.marketY.getPotentialPrice(this.currencyZ, priceDeviation) : this.marketY.getPrice(this.currencyZ, priceDeviation);
-		this.priceZ = Config.get('speculate') ? this.marketZ.getPotentialPrice(this.currencyX, priceDeviation) : this.marketZ.getPrice(this.currencyX, priceDeviation);
+ 		this.outputX = this.speculate ? this.currencyX.convertToPotential(this.currencyY, this.inputX, this.priceDeviation) : this.currencyX.convertTo(this.currencyY, this.inputX, this.priceDeviation);
+ 		this.outputY = this.speculate ? this.currencyY.convertToPotential(this.currencyZ, this.inputY, this.priceDeviation) : this.currencyY.convertTo(this.currencyZ, this.inputY, this.priceDeviation);
+ 		this.outputZ = this.speculate ? this.currencyZ.convertToPotential(this.currencyX, this.inputZ, this.priceDeviation) : this.currencyZ.convertTo(this.currencyX, this.inputZ, this.priceDeviation);
  	}
 
  	isRestricted() {
