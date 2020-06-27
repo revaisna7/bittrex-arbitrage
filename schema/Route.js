@@ -195,8 +195,8 @@ global.trading = false;
 			this.tradeY = this.currencyY.tradeTo(this.currencyZ, this.isYBase ? this.outputY : this.inputY, this.priceY).execute();
 			this.tradeZ = this.currencyZ.tradeTo(this.currencyX, this.isZBase ? this.outputZ : this.inputZ, this.priceZ).execute();
 
-			setTimeout(function(){ Balances.pulse(); }, 1000);
-			setTimeout(function(){ trading = false; }, 2000);
+			Balances.pulse();
+			setTimeout(function(){ trading = false; }, 5000);
 		}
 	}
 
