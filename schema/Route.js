@@ -95,9 +95,9 @@ global.trading = false;
  		// max of minimum
  		this.inputBtc = Math.max(this.inputBtc, Math.min(Config.get('maxInputBtc'), this.minBtcMarket, this.minBtcBalance, this.minBtcAvailable));
 
- 		this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc, this.priceDeviation);
- 		this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc, this.priceDeviation);
- 		this.inputZ = Currencies.getBtc().convertTo(this.currencyZ, this.inputBtc, this.priceDeviation);
+ 		this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc);
+ 		this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc);
+ 		this.inputZ = Currencies.getBtc().convertTo(this.currencyZ, this.inputBtc);
 
  		// get final outputs
  		this.getOuputs();
@@ -190,9 +190,6 @@ global.trading = false;
 	trade() {
 		if(Config.get('trade')) {
 			trading = true;
-			// var inputX = this.isXBase ? this.inputX : this.inputY;
-			// var inputY = this.isYBase ? this.inputY : this.inputZ;
-			// var inputZ = this.isZBase ? this.inputZ : this.inputX;
 
 			this.tradeX = this.currencyX.tradeTo(this.currencyY, this.inputX, this.priceX).execute();
 			this.tradeY = this.currencyY.tradeTo(this.currencyZ, this.inputY, this.priceY).execute();
