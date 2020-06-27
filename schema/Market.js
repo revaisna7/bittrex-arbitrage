@@ -235,9 +235,7 @@ module.exports = class Market {
 		return this.BaseCurrencyCode === 'USD' || this.QuoteCurrencyCode === 'USD' ? 3 : 8;
 	}
 
-	trade(outputCurrency, inputQuantity, rate) {
-		var rate = rate || this.getPrice(outputCurrency);
-		var quantity = this.isBaseCurrency(outputCurrency) ? inputQuantity : rate / inputQuantity;
+	trade(outputCurrency, quantity, rate) {
 		return new Trade(this, outputCurrency, quantity, rate);
 	}
 
