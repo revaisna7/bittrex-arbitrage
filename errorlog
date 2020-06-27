@@ -1,0 +1,21 @@
+
+
+ 6/27/2020, 08:28:15
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/27/2020, 08:32:02
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
