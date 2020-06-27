@@ -190,9 +190,9 @@ global.trading = false;
 	trade() {
 		if(Config.get('trade')) {
 			trading = true;
-			var inputX = this.isXBase ? this.inputY : this.inputX;
-			var inputY = this.isYBase ? this.inputZ : this.inputY;
-			var inputZ = this.isZBase ? this.inputX : this.inputZ;
+			var inputX = this.isXBase ? this.inputX : this.inputY;
+			var inputY = this.isYBase ? this.inputY : this.inputZ;
+			var inputZ = this.isZBase ? this.inputZ : this.inputX;
 
 			this.tradeX = this.currencyX.tradeTo(this.currencyY, inputX, this.priceX).execute();
 			this.tradeY = this.currencyY.tradeTo(this.currencyZ, inputY, this.priceY).execute();
