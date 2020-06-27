@@ -31,6 +31,10 @@ module.exports = class Currency {
 		return (this === BTC) ? inputQuantity : this.convertTo(BTC, inputQuantity, priceDeviation);
 	}
 
+	convertToPotentialBtc(inputQuantity, priceDeviation) {
+		return (this === BTC) ? inputQuantity : this.convertToPotential(BTC, inputQuantity, priceDeviation);
+	}
+
 	convertThroughBtc(outputCurrency, inputQuantity, priceDeviation) {
 		if(this.Currency === outputCurrency.Currency) return inputQuantity;
 		var marketX = Markets.getByCurrencies(BTC, this);
