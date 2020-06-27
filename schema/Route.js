@@ -65,7 +65,8 @@ global.trading = false;
  		this.priceDeviation = Config.get('priceDeviation') || 0;
  		this.speculate = Config.get('speculate') || false;
  		this.inputBtc = Config.get('minInputBtc') || 0.005;
-		
+ 		this.dust = 1-Config.get('dust');
+		this.dust = this.dust < 0 ? 0 : this.dust > 1 ? 1 : this.dust;
  		// deviated prices
 		this.priceX = this.speculate ? this.marketX.getPotentialPrice(this.currencyY, this.priceDeviation) : this.marketX.getPrice(this.currencyY, this.priceDeviation);
 		this.priceY = this.speculate ? this.marketY.getPotentialPrice(this.currencyZ, this.priceDeviation) : this.marketY.getPrice(this.currencyZ, this.priceDeviation);
@@ -87,12 +88,12 @@ global.trading = false;
  		this.marketZBtcAvailable = this.currencyZ.convertToBtc(this.speculate ? this.marketZ.getPotentialQuantity(this.currencyX,this.priceZ) : this.marketZ.getQuantity(this.currencyX,this.priceZ));
 
  		// minimumums
- 		this.minBtcBalance = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
+ 		this.minBtcBalance = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance)*this.dust;
  		this.minBtcMarket = Math.min(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
  		this.minBtcAvailable = Math.min(this.marketXBtcAvailable,this.marketYBtcAvailable,this.marketZBtcAvailable);
 
  		// max of minimum
- 		this.inputBtc = Math.max(Config.get('minInputBtc'), Math.min(Config.get('maxInputBtc'), this.minBtcMarket, this.minBtcBalance, this.minBtcAvailable));
+ 		this.inputBtc = Math.max(Config.get('minInputBtc'), Math.min(Config.get('maxInputBtc'), (Math.min(Config.get('maxInputBtc'),this.minBtcMarket, this.minBtcBalance, this.minBtcAvailable)));
 
  		this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc, this.priceDeviation);
  		this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc, this.priceDeviation);
