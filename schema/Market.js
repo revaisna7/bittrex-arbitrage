@@ -52,7 +52,7 @@ module.exports = class Market {
 	}
 
 	getQuantity(currency, rate) {
-		if(this.isBaseCurrency(currency)) {
+		if(!this.isBaseCurrency(currency)) {
 			return this.getBuyQuantity(rate);
 		} else {
 			return this.getSellQuantity(rate);
@@ -60,7 +60,7 @@ module.exports = class Market {
 	}
 
 	getPotentialQuantity(currency, rate) {
-		if(!this.isBaseCurrency(currency)) {
+		if(this.isBaseCurrency(currency)) {
 			return this.getBuyQuantity(rate);
 		} else {
 			return this.getSellQuantity(rate);
