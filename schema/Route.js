@@ -81,7 +81,7 @@ global.trading = false;
  		this.minBtcMarketZ = this.marketZMarketCurrency.convertToBtc(this.marketZ.MinTradeSize);
 
  		// minimumums
-  		this.minBtcMarket = Math.min(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
+  		this.minBtcMarket = Math.max(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
  		this.maxBtcBalance = Math.max(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
  		this.minBtcBalance = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
 
