@@ -13,7 +13,7 @@
     "triangular",
     "arbitrage"
   ],
-  "author": "Chris Hemmens",
+  "author": "Hemmsoft",
   "contributors": [],
   "dependencies": {
     "bittrex-node-api": "^1.0.1",
@@ -29,11 +29,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ChrisHemmens/bittrex-arbitrage.git"
+    "url": "git+https://github.com/Hemmsoft/bittrex-arbitrage.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ChrisHemmens/bittrex-arbitrage/issues"
+    "url": "https://github.com/Hemmsoft/bittrex-arbitrage/issues"
   },
-  "homepage": "https://github.com/ChrisHemmens/bittrex-arbitrage#readme"
+  "homepage": "https://github.com/Hemmsoft/bittrex-arbitrage#readme"
 }
