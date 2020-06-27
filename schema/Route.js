@@ -193,9 +193,9 @@ global.trading = false;
 		if(Config.get('trade')) {
 			trading = true;
 
-			this.tradeX = this.currencyX.tradeTo(this.currencyY, this.inputX, this.priceX);
-			this.tradeY = this.currencyY.tradeTo(this.currencyZ, this.inputY, this.priceY);
-			this.tradeZ = this.currencyZ.tradeTo(this.currencyX, this.inputZ, this.priceZ);
+			this.tradeX = this.currencyX.tradeTo(this.currencyY, this.inputX, this.priceX).execute();
+			this.tradeY = this.currencyY.tradeTo(this.currencyZ, this.inputY, this.priceY).execute();
+			this.tradeZ = this.currencyZ.tradeTo(this.currencyX, this.inputZ, this.priceZ).execute();
 
 			setTimeout(function(){ Balances.pulse(); }, 1000);
 			setTimeout(function(){ trading = false; }, 2000);
