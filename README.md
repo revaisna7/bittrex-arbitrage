@@ -36,7 +36,7 @@ copy config.default.json config.json
 | dust | number | Factor of currency balance to not trade to make sure you cannot exceed balances
 | currencies | String[] | List of currencies to trade
 | restricted | String[] | List of restricted currencies
-| viewRefreshRate | number | How often to relog the output to console on milliseconds
+| viewRefreshRate | number | How often to relog the output to console in milliseconds
 | bittrexoptions | object | You must configure your "apikey" key and "apisecret". [How to create an API key.](https://bittrex.zendesk.com/hc/en-us/articles/360031921872-How-to-create-an-API-key-)
 
 ### Run
