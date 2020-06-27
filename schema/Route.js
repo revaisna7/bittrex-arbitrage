@@ -93,7 +93,7 @@ global.trading = false;
  		this.minBtcAvailable = Math.min(this.marketXBtcAvailable,this.marketYBtcAvailable,this.marketZBtcAvailable);
 
  		// max of minimum
- 		this.inputBtc = Math.max(Config.get('maxInputBtc'), this.minBtcAvailable, Math.min(this.inputBtc, this.minBtcMarket, this.minBtcBalance));
+ 		this.inputBtc = Math.min(Config.get('maxInputBtc'), Math.max(this.minBtcAvailable, this.inputBtc, this.minBtcMarket, this.minBtcBalance));
 
  		this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc);
  		this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc);
