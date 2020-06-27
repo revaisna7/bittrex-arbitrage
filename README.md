@@ -33,7 +33,6 @@ copy config.default.json config.json
 | maxInputBtc | number | The maximum amount in BTC to trade per delta.
 | priceDeviation | number | Factor to deviate prices by, be careful using this when not in speculation mode, it might make a money drain.
 | exchangeComission | number | [Your Bittrex Exchange commission](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-What-fees-does-Bittrex-charge-)
-| dust | number | Factor of currency balance to not trade to make sure you cannot exceed balances
 | currencies | String[] | List of currencies to trade
 | restricted | String[] | List of restricted currencies
 | viewRefreshRate | number | How often to relog the output to console in milliseconds
