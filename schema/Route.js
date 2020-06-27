@@ -76,20 +76,17 @@ global.trading = false;
  		this.currencyZBtcBalance = this.currencyZ.convertToBtc(this.balanceZ);
 
  		// min allowed maket size
- 		this.minBtcMarketX = this.marketXMarketCurrency.convertToBtc(this.marketX.MinTradeSize)* Config.get('dust');
- 		this.minBtcMarketY = this.marketYMarketCurrency.convertToBtc(this.marketY.MinTradeSize)* Config.get('dust');
- 		this.minBtcMarketZ = this.marketZMarketCurrency.convertToBtc(this.marketZ.MinTradeSize)* Config.get('dust');
+ 		this.minBtcMarketX = this.marketXMarketCurrency.convertToBtc(this.marketX.MinTradeSize);
+ 		this.minBtcMarketY = this.marketYMarketCurrency.convertToBtc(this.marketY.MinTradeSize);
+ 		this.minBtcMarketZ = this.marketZMarketCurrency.convertToBtc(this.marketZ.MinTradeSize);
 
  		// minimumums
-  		this.minBtcMarket = Math.max(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
+  		this.minBtcMarket = Math.min(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
  		this.maxBtcBalance = Math.max(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
  		this.minBtcBalance = Math.min(this.currencyXBtcBalance,this.currencyYBtcBalance,this.currencyZBtcBalance);
 
- 		var min = Math.max(this.minBtcMarket,this.minBtcBalance,Config.get('minInputBtc'));
- 		var max = Config.get('maxInputBtc') == 0 ? min : Math.min(this.maxBtcBalance,Config.get('maxInputBtc'));
-
  		// max of minimum
- 		this.inputBtc = (min+max)/2;
+ 		this.inputBtc = Math.max(this.minBtcBalance,Config.get('minInputBtc'));
 
  		this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc);
  		this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc);
