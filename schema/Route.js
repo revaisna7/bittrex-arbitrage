@@ -76,9 +76,9 @@ global.trading = false;
  		this.currencyZBtcBalance = this.currencyZ.convertToBtc(this.balanceZ);
 
  		// min allowed maket size
- 		this.minBtcMarketX = this.marketXMarketCurrency.convertToBtc(this.marketX.MinTradeSize, Config.get('comission'));
- 		this.minBtcMarketY = this.marketYMarketCurrency.convertToBtc(this.marketY.MinTradeSize, Config.get('comission'));
- 		this.minBtcMarketZ = this.marketZMarketCurrency.convertToBtc(this.marketZ.MinTradeSize, Config.get('comission'));
+ 		this.minBtcMarketX = this.marketXMarketCurrency.convertToBtc(this.marketX.MinTradeSize, Config.get('dust'));
+ 		this.minBtcMarketY = this.marketYMarketCurrency.convertToBtc(this.marketY.MinTradeSize, Config.get('dust'));
+ 		this.minBtcMarketZ = this.marketZMarketCurrency.convertToBtc(this.marketZ.MinTradeSize, Config.get('dust'));
 
  		// minimumums
   		this.minBtcMarket = Math.max(this.minBtcMarketX,this.minBtcMarketY,this.minBtcMarketZ);
