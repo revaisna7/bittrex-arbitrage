@@ -6,3 +6,5 @@ tradelog
 errorlog
 /tradelog
 /errorlog
+./errorlog
+./tradelog
