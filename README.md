@@ -29,7 +29,7 @@ copy config.default.json config.json
 | profitAllThree | boolean | Whether to only trade when all three markets put out a profit
 | minInputBtc | number | The minimum amount in BTC the bot should trade per delta. [Bittrex has a minimum size of 0.0005 BTC](https://bittrex.zendesk.com/hc/en-us/articles/360001473863-Bittrex-Trading-Rules)
 | maxInputBtc | number | The maximum amount in BTC the bot should trade per delta.
-| priceDeviation | number | Factor to deviate by prices by
+| priceDeviation | number | Factor to deviate by prices by, be careful using this in to your favor in instant mode, it might be a money hole.
 | exchangeComission | number | [Exchange comission of bittrex see](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-What-fees-does-Bittrex-charge-)
 | dust | number | Factor of currency ballance to not trade to make sure you cannot exceed balances
 | currencies | String[] | List of currencies to trade
