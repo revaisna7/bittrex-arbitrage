@@ -237,7 +237,7 @@ module.exports = class Market {
 
 	trade(outputCurrency, inputQuantity, rate) {
 		var rate = rate || this.getPrice(outputCurrency);
-		var quantity = this.isBaseCurrency(outputCurrency) ? inputQuantity : inputQuantity / rate;
+		var quantity = this.isBaseCurrency(outputCurrency) ? inputQuantity / rate : inputQuantity;
 		return new Trade(this, outputCurrency, quantity, rate);
 	}
 
