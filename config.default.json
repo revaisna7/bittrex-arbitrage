@@ -1,28 +1,32 @@
 {
-	"trade" : false,
-	"speculate" : false,
-	"minProfitFactor": 0.1,
-	"minInputBtc": 0.00055,
-	"maxInputBtc": 0.001,
-  	"profitAllThree" : false,
-	"priceDeviation" : 0,
-	"exchangeCommission" : 0.2,
-	"currencies" : [
-		"BTC",
-		"ETH",
-		"USDT",
-		"XRP"
-	],
-	"restricted" : [
-		"EUR",
-		"USD",
-		"BTXCRD"
-	],
-	"viewRefreshRate": 1000,
-	"bittrexoptions" : {
-		"apikey": "",
-		"apisecret": "",
-		"requestTimeoutInSeconds": 1,
-		"verbose" : false
-	}
+    "trade": false,
+    "speculate": false,
+    "minProfitFactor": 0.1,
+    "minInputBtc": 0.00055,
+    "maxInputBtc": 0.001,
+    "profitAllThree": false,
+    "priceDeviation": 0,
+    "exchangeCommission": 0.2,
+    "currencies": [
+        "BTC",
+        "ETH",
+        "USDT",
+        "XRP"
+    ],
+    "restricted": [
+        "EUR",
+        "USD",
+        "BTXCRD"
+    ],
+    "restrictedMarkets": [
+        "USDT-USD"
+    ],
+    "viewRefreshRate": 1000,
+    "bittrexoptions": {
+        "apikey": "",
+        "apisecret": "",
+        "subaccountid": "",
+        "requestTimeoutInSeconds": 1,
+        "verbose": false
+    }
 }

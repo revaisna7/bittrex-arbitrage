@@ -1,76 +1,65 @@
-var Config = require('./Config.js');
-var bittrex = require('node-bittrex-api');
-bittrex.options(Config.get('bittrexoptions'));
-
-var Util = require('./Util.js');
-var Currencies = require('./Currencies.js');
-var Markets = require('./Markets.js');
+var Bittrex = require('../bittrex/Bittrex.js');
+var Order = require('./Order.js');
 
 module.exports = class Orders {
 
-	static list = [];
+    static list = [];
 
-	static ordersInterval;
+    static ordersInterval;
 
-	static getting = false;
+    static getting = false;
 
-	static init() {
-		Orders.get();
-		Orders.pulse();
-	}
+    static async init() {
+        await Orders.get();
+        Orders.pulse();
+    }
 
-	static isGetting() {
-		return Orders.getting;
-	}
+    static isGetting() {
+        return Orders.getting;
+    }
 
-	static get() {
-		Orders.getting = true;
-		bittrex.getopenorders({}, Orders.update);
-	}
+    static async get() {
+        Orders.getting = true;
+        let orders = await Bittrex.openOrder();
+        Orders.update(orders);
+        Orders.getting = false;
+    }
 
-	static pulse() {
-		Orders.pulseStop();
-		Orders.pulseStart();
-	}
+    static pulse() {
+        Orders.pulseStop();
+        Orders.pulseStart();
+    }
 
-	static pulseStart() {
-		Orders.ordersInterval = setInterval(Orders.get, 1000);
-	}
+    static pulseStart() {
+        Orders.ordersInterval = setInterval(Orders.get, 1000);
+    }
 
-	static pulseStop() {
-		clearInterval(Orders.ordersInterval);
-	}
+    static pulseStop() {
+        clearInterval(Orders.ordersInterval);
+    }
 
-	static update(data, err) {
-		if (!err) {
-			Orders.list = data.result;
-		} else {
-			Util.logError(err);
-		}
-	}
+    static update(orders) {
+        Orders.list = [];
+        for (var i in orders) {
+            Orders.list.push(new Order(orders[i]));
+        }
+    }
 
-	static consoleOutput() {
-		var output = "\n\n [Orders]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference\tFactor";
-		for (var i in Orders.list) {
-			var order = Orders.list[i];
-			if(order) {
-				var market = order.Exchange;
-				var type = order.OrderType;
-				var quantity = order.Quantity;
-				var remaining = order.QuantityRemaining;
-				var targetPrice = order.Limit;
+    static consoleOutput() {
+        var output = "\n\n [Orders]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference\tFactor";
+        for (var i in Orders.list) {
+            output += Orders.list[i].consoleOutput();
+        }
+        return output;
+    }
 
-				var currencies = market.split('-');
-				var fromCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[0]) : Currencies.getByCode(currencies[1]);
-				var toCurrency = type == 'LIMIT_BUY' ? Currencies.getByCode(currencies[1]) : Currencies.getByCode(currencies[0]);
-				var currentPrice = Markets.getByName(market).getPotentialPrice(fromCurrency);
-				var differenceValue = type == 'LIMIT_BUY' ? targetPrice-currentPrice : currentPrice-targetPrice;
-				var differenceFactor = differenceValue/targetPrice*100;
-
-				output += "\n " + [market,type,Util.pad(quantity),Util.pad(remaining),Util.pad(targetPrice),Util.pad(currentPrice),Util.addPlusOrSpace(differenceValue,8),Util.addPlusOrSpace(differenceFactor)+'%'].join("\t");
-			}
-		}
-		return output;
-	}
+    static async cancelAll() {
+        return await new Promise(async (resolve, reject) => {
+            for (var i in Orders.list) {
+                await Orders.list[i].cancel();
+            }
+            return resolve(true);
+        });
+    }
 
 }

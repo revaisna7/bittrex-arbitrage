@@ -1,6 +1,7 @@
 /node_modules/
 /config.json
-/nbproject/private/
+/nbproject/
+/log/
 package-lock.json
 tradelog
 errorlog

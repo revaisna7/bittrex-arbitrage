@@ -1,261 +1,183 @@
 var Config = require('./Config.js');
-var bittrex = require('node-bittrex-api');
-bittrex.options(Config.get('bittrexoptions'));
-
 var Trade = require('./Trade.js');
-var Util = require('./Util.js');
+var OrderBook = require('./OrderBook.js');
+var Currencies = require('./Currencies.js');
 
 module.exports = class Market {
-	constructor(market) {
-		Object.assign(this, market);
-		this.routes = [];
-		this.Buys = [];
-		this.Sells = [];
-		this.Fills = [];
-		this.DeletedFills = [];
-		this.CurrencyCodes = this.MarketName.split('-');
-		this.BaseCurrencyCode = this.CurrencyCodes[0];
-		this.QuoteCurrencyCode = this.CurrencyCodes[1];
-		this.getOrderBook();
 
-		return this;
-	}
+    symbol = null;
+    baseCurrencySymbol = null;
+    quoteCurrencySymbol = null;
+    baseCurrency = null;
+    quoteCurrency = null;
+    minTradeSize = 0;
+    precision = 0;
+    createdAt = null;
+    notice = null;
+    prohibitedIn = null;
+    orderBook = null;
+    tickData = [];
+    routes = [];
 
-	isRestricted() {
-		return Config.get('restricted').indexOf(this.BaseCurrencyCode) > -1 || Config.get('restricted').indexOf(this.QuoteCurrencyCode) > -1;
-	}
+    constructor(market) {
+        Object.assign(this, market);
+        this.getCurrencies();
+        this.orderBook = new OrderBook(this);
 
-	isAllowed() {
-		return Config.get('currencies').indexOf(this.BaseCurrencyCode) > -1 && Config.get('currencies').indexOf(this.QuoteCurrencyCode) > -1;
-	}
+        this.baseCurrency.addMarket(this);
+        this.quoteCurrency.addMarket(this);
 
-	getPrice(currency, priceDeviation) {
-		var priceDeviation = priceDeviation || 0;
-		if(this.isBaseCurrency(currency)) {
-			var price = this.getHighestBuyPrice();
-			return (price+(priceDeviation/100*price)).toFixed(currency.getPrecision());
-		} else {
-			var price = this.getLowestSellPrice();
-			return (price-(priceDeviation/100*price)).toFixed(currency.getPrecision());
-		}
-	}
+        return this;
+    }
 
-	getPotentialPrice(currency, priceDeviation) {
-		var priceDeviation = priceDeviation || 0;
-		if(!this.isBaseCurrency(currency)) {
-			var price = this.getHighestBuyPrice();
-			return (price+(priceDeviation/100*price)).toFixed(currency.getPrecision());
-		} else {
-			var price = this.getLowestSellPrice();
-			return (price-(priceDeviation/100*price)).toFixed(currency.getPrecision());
-		}
-	}
+    getCurrencies() {
+        this.baseCurrency = Currencies.getBySymbol(this.baseCurrencySymbol);
+        this.quoteCurrency = Currencies.getBySymbol(this.quoteCurrencySymbol);
+    }
 
-	getQuantity(currency, rate) {
-		if(!this.isBaseCurrency(currency)) {
-			return this.getBuyQuantity(rate);
-		} else {
-			return this.getSellQuantity(rate);
-		}
-	}
+    isAllowed() {
+        return Config.get('currencies').indexOf(this.baseCurrencySymbol) > -1
+                && Config.get('currencies').indexOf(this.quoteCurrencySymbol) > -1;
+    }
 
-	getPotentialQuantity(currency, rate) {
-		if(this.isBaseCurrency(currency)) {
-			return this.getBuyQuantity(rate);
-		} else {
-			return this.getSellQuantity(rate);
-		}
-	}
+    isRestricted() {
+        return Config.get('restrictedMarkets').indexOf(this.symbol) > -1;
+    }
 
-	getOrderBookBuy(rate) {
-		for(var i in this.Buys) {
-			if(this.Buys[i].Rate == rate) {
-				return this.Buys[i];
-			}
-		}
-	}
+    isOnline() {
+        return this.status === 'ONLINE';
+    }
 
-	getOrderBookSell(rate) {
-		for(var i in this.Sells) {
-			if(this.Sells[i].Rate == rate) {
-				return this.Sells[i];
-			}
-		}
-	}
+    getPrecision() {
+        return Number.parseInt(this.precision);
+    }
 
-	addOrderBookBuy(order) {
-		this.Buys.push(order);
-	}
+    getMinTradeSize() {
+        return Number.parseFloat(this.minTradeSize);
+    }
 
-	removeOrderBookBuy(order) {
-		const index = this.Buys.indexOf(order);
-		if (index > -1) {
-		  this.Buys.splice(index, 1);
-		}
-	}
+    canTrade() {
+        return this.isAllowed()
+                && !this.isRestricted()
+                && this.isOnline();
+    }
 
-	addOrderBookSell(order) {
-		this.Sells.push(order);
-	}
+    getPrice(currency, priceDeviation) {
+        priceDeviation = priceDeviation || 0;
+        var price;
+        if (this.isBaseCurrency(currency)) {
+            price = this.Ask();
+            price += priceDeviation / 100 * price;
+        } else {
+            price = this.Bid();
+            price -= priceDeviation / 100 * price;
+        }
+        return price;
+    }
 
-	removeOrderBookSell(order) {
-		const index = this.Sells.indexOf(order);
-		if (index > -1) {
-		  this.Sells.splice(index, 1);
-		}
-	}
+    getPotentialPrice(currency, priceDeviation) {
+        priceDeviation = priceDeviation || 0;
+        var price;
+        if (this.isBaseCurrency(currency)) {
+            price = this.Bid();
+            price -= priceDeviation / 100 * price;
+        } else {
+            price = this.Ask();
+            price += priceDeviation / 100 * price;
+        }
+        return price;
+    }
 
-	compareBuys(a,b) {
-		if (a.Rate > b.Rate)
-			return -1;
-		if (a.Rate < b.Rate)
-			return 1;
-		return 0;
-	}
+    Ask() {
+        return Number.parseFloat(this.orderBook.Ask());
+    }
 
-	compareSells(a,b) {
-		if (a.Rate < b.Rate)
-			return -1;
-		if (a.Rate > b.Rate)
-			return 1;
-		return 0;
-	}
+    Asks(rate) {
+        return this.orderBook.Asks(rate);
+    }
 
-	getHighestBuyPrice() {
-		this.Buys.sort(this.compareBuys);
-		return this.Buys.length > 0 ? this.Buys[0].Rate : 0;
-	}
+    Bid() {
+        return Number.parseFloat(this.orderBook.Bid());
+    }
 
-	getBuyQuantity(price) {
-		var quantity = 0;
-		for(var i in this.Buys) {
-			if(this.Buys[i].Rate >= price) {
-				quantity += this.Buys[i].Quantity;
-			}
-		}
-		return quantity;
-	}
+    Bids(rate) {
+        return this.orderBook.Bids(rate);
+    }
 
-	getLowestSellPrice() {
-		this.Sells.sort(this.compareSells);
-		return this.Sells.length > 0 ? this.Sells[0].Rate : 0;
-	}
+    getQuantityAvailable(currency, rate) {
+        return this.isBaseCurrency(currency) ? this.Asks(rate) : this.Bids(rate);
+    }
 
-	getSellQuantity(price) {
-		var quantity = 0;
-		for(var i in this.Sells) {
-			if(this.Sells[i].Rate <= price) {
-				quantity += this.Sells[i].Quantity;
-			}
-		}
-		return quantity;
-	}
+    getPotentialQuantityAvailable(currency, rate) {
+        return this.isBaseCurrency(currency) ? this.Bids(rate) : this.Asks(rate);
+    }
 
-	updateExchangeState(data) {
-		for(var i in data.Buys) {
-			var orderBookBuy = this.getOrderBookBuy(data.Buys[i].Rate);
-			switch(data.Buys[i].Type) {
-				case 0 :
-					if(orderBookBuy) {
-						orderBookBuy = data.Buys[i];
-					} else {
-						this.addOrderBookBuy(data.Buys[i]);
-					}
-					break;
-				case 2 :
-					if(orderBookBuy) {
-						orderBookBuy.Quantity = data.Buys[i].Quantity;
-					} else {
-						this.addOrderBookBuy(data.Buys[i]);
-					}
-					break;
-				case 1 :
-					if(orderBookBuy) {
-						this.removeOrderBookBuy(orderBookBuy);
-					}
-					break;
-			}
-		}
+    triggerRoutes() {
+        for (var i in this.routes) {
+            if (typeof this.routes[i] === 'object') {
+                this.routes[i].calculate();
+            }
+        }
+    }
 
-		for(var i in data.Sells) {
-			var orderBookSell = this.getOrderBookSell(data.Sells[i].Rate);
-			switch(data.Sells[i].Type) {
-				case 0 :
-					if(orderBookSell) {
-						orderBookSell = data.Sells[i];
-					} else {
-						this.addOrderBookSell(data.Sells[i]);
-					}
-					break;
-				case 2 :
-					if(orderBookSell) {
-						orderBookSell.Quantity = data.Sells[i].Quantity;
-					} else {
-						this.addOrderBookSell(data.Sells[i]);
-					}
-					break;
-				case 1 :
-					if(orderBookSell) {
-						this.removeOrderBookSell(orderBookSell);
-					}
-					break;
-			}
-		}
+    /**
+     * Trade the output currency to the input currency of in this market
+     * 
+     * @param {Currency} inputCurrency
+     * @param {Currency} outputCurrency
+     * @param {float} inputQauntity
+     * @optional {float} price 
+     * @optional {float} deviaiton
+     * @returns {Trade}
+     */
+    trade(inputCurrency, outputCurrency, inputQauntity, price, deviaiton) {
+        price = price || this.getPrice(outputCurrency, deviaiton);
+        deviaiton = deviaiton || 0;
+        return new Trade(this, inputCurrency, outputCurrency, inputQauntity, price, deviaiton);
+    }
 
-		this.triggerRoutes();
-	}
+    /**
+     * 
+     * @param {type} outputCurrency
+     * @param {type} inputQauntity
+     * @param {type} price
+     * @param {type} deviaiton
+     * @returns {Trade}
+     */
+    tradePotential(inputCurrency, outputCurrency, inputQauntity, price, deviaiton) {
+        price = price || this.getPrice(outputCurrency, deviaiton);
+        deviaiton = deviaiton || 0;
+        
+        var outputQuantity = inputCurrency.convertToPotential(outputCurrency, inputQauntity, price, deviaiton);
+        var tradeQuantity = outputCurrency.convertToPotential(this.baseCurrency, outputQuantity, price, deviaiton);
+        return new Trade(this, outputCurrency, tradeQuantity, price);
+    }
 
-	triggerRoutes() {
-		for(var i in this.routes) {
-			if(typeof this.routes[i] === 'object') {
-				this.routes[i].calculate();
-			}
-		}
-	}
+    isBaseCurrency(currency) {
+        return currency.symbol === this.baseCurrency.symbol;
+    }
+    
+    isQuoteCurrency(currency) {
+        return currency.symbol === this.quoteCurrency.symbol;
+    }
 
-	getOrderBook() {
-		if(this.isAllowed()) {
-			var _this = this;
-			bittrex.getorderbook({market: this.MarketName, type: 'both'}, function(data,err){ _this.setOrderBook(data,err); });
-		}
-	}
+    convert(outputCurrency, inputQuantity, price, priceDeviation) {
+        priceDeviation = priceDeviation || 0;
+        price = price || this.getPrice(outputCurrency, priceDeviation);
+        var isBase = this.isBaseCurrency(outputCurrency);
+        var output = isBase ? inputQuantity / price : inputQuantity * price;
+        return  output - (Config.get('exchangeCommission') / 100 * output);
+    }
 
-	setOrderBook(data,err) {
-		if(data && data.success) {
-			this.Buys = data.result.buy;
-			this.Sells = data.result.sell;
-			this.triggerRoutes();
-		}
-		if(err) {
-			Util.logError(err);
-		}
-	}
+    convertPotential(outputCurrency, inputQuantity, priceDeviation) {
+        priceDeviation = priceDeviation || 0;
+        price = price || this.getPotentialPrice(outputCurrency, priceDeviation);
+        var isBase = this.isBaseCurrency(outputCurrency);
+        var output = isBase ? inputQuantity / price : inputQuantity * price;
+        return  output - (Config.get('exchangeCommission') / 100 * output);
+    }
 
-	getPrecision(currency) {
-		return this.BaseCurrencyCode === 'USD' || this.QuoteCurrencyCode === 'USD' ? 3 : 8;
-	}
-
-	trade(outputCurrency, quantity, rate) {
-		return new Trade(this, outputCurrency, quantity, rate);
-	}
-
-	isBaseCurrency(currency) {
-		return currency.Currency === this.BaseCurrencyCode;
-	}
-
-	convert(outputCurrency, inputQuantity, priceDeviation) {
-		var priceDeviation = priceDeviation || 0;
-		var isBase = this.isBaseCurrency(outputCurrency);
-		var price = this.getPrice(outputCurrency, priceDeviation);
-		var output = isBase ? inputQuantity * price : inputQuantity / price;
-		return  output - (Config.get('exchangeCommission')/100*output);
-	}
-
-	convertPotential(outputCurrency, inputQuantity, priceDeviation) {
-		var priceDeviation = priceDeviation || 0;
-		var isBase = this.isBaseCurrency(outputCurrency);
-		var price = this.getPotentialPrice(outputCurrency, priceDeviation);
-		var output = isBase ? inputQuantity * price : inputQuantity / price;
-		return  output - (Config.get('exchangeCommission')/100*output);
-	}
+    getTickData(timeFrame, startDate) {
+        // @todo
+    }
 };

@@ -19,3 +19,33 @@
     "connect": true
   }
 }
+
+ 6/27/2020, 09:00:10
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}
+
+ 6/27/2020, 09:04:21
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ESOCKETTIMEDOUT",
+    "connect": false
+  }
+}
+
+ 6/28/2020, 17:19:08
+{
+  "success": false,
+  "message": "URL request error",
+  "error": {
+    "code": "ETIMEDOUT",
+    "connect": true
+  }
+}

@@ -1,124 +1,169 @@
 var Config = require('./Config.js');
-var Markets = require('./Markets.js');
-
-var BTC;
 
 module.exports = class Currency {
 
-	constructor(currency) {
-		Object.assign(this, currency);
+    static BTC;
 
-		if(this.Currency == 'BTC') {
-			BTC = this;
-		}
+    symbol = '';
+    name = '';
+    coinType = '';
+    status = '';
+    minConfirmations = 0;
+    notice = '';
+    txFee = 0;
+    logoUrl = '';
+    prohibitedIn = [];
+    markets = [];
 
-		return this;
-	}
+    /**
+     * Insantiate a new currency
+     * 
+     * @param {Object} currency Bittrex currency response object
+     * @returns {nm$_Currency.Currency.constructor}
+     */
+    constructor(currency) {
+        Object.assign(this, currency);
 
-	isRestricted() {
-		return Config.get('restricted').indexOf(this.Currency) > -1;
-	}
+        if (this.isBtc()) {
+            Currency.BTC = this;
+        }
 
-	isAllowed() {
-		return Config.get('currencies').indexOf(this.Currency) > -1;
-	}
+        return this;
+    }
 
-	getPrecision() {
-		return this.Currency === 'USD' || this.Currency === 'EUR' ? 3 : 8;
-	}
+    addMarket(market) {
+        this.markets.push(market);
+    }
 
-	convertToBtc(inputQuantity, priceDeviation) {
-		return (this === BTC) ? inputQuantity : this.convertTo(BTC, inputQuantity, priceDeviation);
-	}
+    getMarketBySymbol(marketSymbol) {
+        for (var i in this.markets) {
+            if (this.markets[i].symbol === marketSymbol) {
+                return this.markets[i];
+            }
+        }
+        return false;
+    }
 
-	convertToPotentialBtc(inputQuantity, priceDeviation) {
-		return (this === BTC) ? inputQuantity : this.convertToPotential(BTC, inputQuantity, priceDeviation);
-	}
+    getMarket(currency) {
+        return this.getMarketBySymbol(this.symbol + '-' + currency.symbol)
+                || this.getMarketBySymbol(currency.symbol + '-' + this.symbol);
+    }
 
-	convertThroughBtc(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return inputQuantity;
-		var marketX = Markets.getByCurrencies(BTC, this);
-		var marketY = Markets.getByCurrencies(BTC, outputCurrency);
-		if(marketX && marketY) {
-			return BTC.convertTo(outputCurrency, this.convertToBtc(inputQuantity, priceDeviation), priceDeviation);
-		}
-		return 0;
-	}
+    isRestricted() {
+        return Config.get('restricted').indexOf(this.symbol) > -1;
+    }
 
-	convertPotentialThroughBtc(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return inputQuantity;
-		var marketX = Markets.getByCurrencies(BTC, this);
-		var marketY = Markets.getByCurrencies(BTC, outputCurrency);
-		if(marketX && marketY) {
-			return BTC.convertToPotential(outputCurrency, this.convertToBtc(inputQuantity, priceDeviation), priceDeviation);
-		}
-		return 0;
-	}
+    isAllowed() {
+        return Config.get('currencies').indexOf(this.symbol) > -1;
+    }
 
-	convertStraight(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return inputQuantity;
-		var market = Markets.getByCurrencies(this, outputCurrency);
-		if(market) {
-			return market.convert(outputCurrency, inputQuantity, priceDeviation);	
-		}
-		return 0;
-	}
+    isOnline() {
+        return this.statuc === 'ONLINE';
+    }
 
-	convertPotential(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return inputQuantity;
-		var market = Markets.getByCurrencies(this, outputCurrency);
-		if(market) {
-			return market.convertPotential(outputCurrency, inputQuantity, priceDeviation);	
-		}
-		return 0;
-	}
+    canTrade() {
+        return this.isAllowed()
+                && !this.isRestricted()
+                && this.isOnline();
+    }
 
-	convertTo(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return inputQuantity;
-		var straightConversion = this.convertStraight(outputCurrency, inputQuantity, priceDeviation);
-		if(!straightConversion) {
-			return this.convertThroughBtc(outputCurrency, inputQuantity, priceDeviation)
-		}
-		return straightConversion;
-	}
+    isBtc() {
+        return (this.symbol === 'BTC');
+    }
 
-	convertToPotential(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return inputQuantity;
-		var potentialConversion = this.convertPotential(outputCurrency, inputQuantity, priceDeviation);
-		if(!potentialConversion) {
-			return this.convertPotentialThroughBtc(outputCurrency, inputQuantity, priceDeviation)
-		}
-		return potentialConversion;
-	}
+    getSymbol() {
+        return this.symbol;
+    }
 
-	tradeToBtc(inputQuantity, priceDeviation) {
-		return (this === BTC) ? inputQuantity : this.tradeTo(BTC, inputQuantity, priceDeviation);
-	}
+    getName() {
+        return this.name;
+    }
 
-	tradeThroughBtc(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return;
-		var marketX = Markets.getByCurrencies(BTC, this);
-		var marketY = Markets.getByCurrencies(BTC, outputCurrency);
-		if(marketX && marketY) {
-			return BTC.tradeTo(outputCurrency, this.tradeToBtc(inputQuantity, priceDeviation), priceDeviation);
-		}
-	}
+    convertToBtc(inputQuantity, deviaiton) {
+        return this.isBtc() ? inputQuantity : this.convertTo(Currency.BTC, inputQuantity, deviaiton);
+    }
 
-	tradeStraight(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return;
-		var market = Markets.getByCurrencies(this, outputCurrency);
-		if(market) {
-			return market.trade(outputCurrency, inputQuantity, priceDeviation);	
-		}
-	}
+    convertToPotentialBtc(inputQuantity, deviaiton) {
+        return this.isBtc() ? inputQuantity : this.convertToPotential(Currency.BTC, inputQuantity, deviaiton);
+    }
 
-	tradeTo(outputCurrency, inputQuantity, priceDeviation) {
-		if(this.Currency === outputCurrency.Currency) return;
-		var straightTrade = this.tradeStraight(outputCurrency, inputQuantity, priceDeviation);
-		if(!straightTrade) {
-			return this.tradeThroughBtc(outputCurrency, inputQuantity, priceDeviation)
-		}
-		return straightTrade;
-	}
+    convertThroughBtc(outputCurrency, inputQuantity, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        var marketX = this.getMarket(Currency.BTC);
+        var marketY = Currency.BTC.getMarket(outputCurrency);
+        return marketX && marketY ? Currency.BTC.convertTo(outputCurrency, this.convertToBtc(inputQuantity, deviaiton), deviaiton) : false;
+    }
+
+    convertPotentialThroughBtc(outputCurrency, inputQuantity, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        var marketX = this.getMarket(Currency.BTC);
+        var marketY = Currency.BTC.getMarket(outputCurrency);
+        return marketX && marketY ? Currency.BTC.convertToPotential(outputCurrency, this.convertToBtc(inputQuantity, deviaiton), deviaiton) : false;
+    }
+
+    convertStraight(outputCurrency, inputQuantity, price, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        var market = this.getMarket(outputCurrency);
+        return market ? market.convert(outputCurrency, inputQuantity, price, deviaiton) : false;
+    }
+
+    convertPotential(outputCurrency, inputQuantity, price, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        var market = this.getMarket(outputCurrency);
+        return market ? market.convertPotential(outputCurrency, inputQuantity, price, deviaiton) : false;
+    }
+
+    convertTo(outputCurrency, inputQuantity, price, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        return this.convertStraight(outputCurrency, inputQuantity, price, deviaiton)
+                || this.convertThroughBtc(outputCurrency, inputQuantity, price, deviaiton);
+    }
+
+    convertToPotential(outputCurrency, inputQuantity, price, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        return this.convertPotential(outputCurrency, inputQuantity, price, deviaiton)
+                || this.convertPotentialThroughBtc(outputCurrency, inputQuantity, price, deviaiton);
+    }
+
+    tradeToBtc(inputQuantity, price, deviaiton) {
+        return this === Currency.BTC ? null : this.tradeTo(Currency.BTC, inputQuantity, price, deviaiton);
+    }
+
+    tradeThroughBtc(outputCurrency, inputQuantity, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return;
+
+        var marketX = this.getMarket(Currency.BTC);
+        var marketY = Currency.BTC.getMarket(outputCurrency);
+        return marketX && marketY ? Currency.BTC.tradeTo(outputCurrency, this.tradeToBtc(inputQuantity, deviaiton), deviaiton) : false;
+    }
+
+    tradeStraight(outputCurrency, inputQuantity, price, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return;
+
+        var market = this.getMarket(outputCurrency);
+        return market ? market.trade(this, outputCurrency, inputQuantity, price, deviaiton) : false;
+    }
+
+    tradeTo(outputCurrency, inputQuantity, price, deviaiton) {
+        if (this.symbol === outputCurrency.symbol)
+            return;
+
+        return this.tradeStraight(outputCurrency, inputQuantity, price, deviaiton)
+                || this.tradeThroughBtc(outputCurrency, inputQuantity, deviaiton);
+    }
 
 }

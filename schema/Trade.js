@@ -1,81 +1,198 @@
 var Config = require('./Config.js');
 var Trades = require('./Trades.js');
 var Util = require('./Util.js');
-var bittrex = require('node-bittrex-api');
-bittrex.options(Config.get('bittrexoptions'));
-var fs = require('fs');
+var Balances = require('./Balances.js');
+var Currency = require('./Currency.js');
+var Bittrex = require('../bittrex/Bittrex.js');
+
 module.exports = class Trade {
-	constructor(market, outputCurrency, quantity, rate) {
 
-		this.market = market;
-		this.outputCurrency = outputCurrency;
-		this.quantity = quantity;
-		this.rate = rate;
-		this.callback = null;
+    market = null;
+    inputCurrency = null;
+    outputCurrency = null;
+    inputQuantity = null;
+    outputQuantity = null;
+    tradeQuantity = null;
+    price;
+    deviaition;
+    type = null;
+    callback = null;
+    requested = false;
+    responded = false;
+    response = false;
+    createdAt = null;
+    executedAt = null;
+    requestedAt = null;
+    respondedAt = null;
+    timeInForce = null;
 
-		this.makeRequest();
+    constructor(market, inputCurrency, outputCurrency, inputQuantity, price, deviaition) {
+        this.createdAt = Date.now();
+        this.market = market;
+        this.inputCurrency = inputCurrency;
+        this.outputCurrency = outputCurrency;
+        this.inputQuantity = inputQuantity;
+        this.price = price;
+        this.deviation = deviaition;
+        this.getTradeQuantity();
+        Trades.push(this);
+        return this;
+    }
 
-		this.requested = false;
-		this.responded = false;
-		this.response = null;
+    getTradeQuantity() {
+        this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity, this.price, this.deviation);
+        if(this.getMarket().isBaseCurrency(this.inputCurrency)) {
+            this.tradeQuantity = this.outputCurrency.convertTo(this.inputCurrency, this.outputQuantity);
+        }
+        if(this.getMarket().isBaseCurrency(this.outputCurrency)) {
+            this.tradeQuantity = this.outputQuantity;
+        }
+    }
 
-		this.time = new Date().toLocaleString();
+    getDirection() {
+        return this.getMarket().isBaseCurrency(this.outputCurrency) ? 'BUY' : 'SELL';
+    }
 
-		Trades.push(this);
+    getMarket() {
+        return this.market;
+    }
 
-		return this;
-	}
+    getMarketSymbol() {
+        return this.market.symbol;
+    }
 
-	makeRequest() {
-		this.request = {
-			MarketName: this.market.MarketName,
-			OrderType: 'LIMIT',
-			Quantity: Number.parseFloat(this.quantity).toFixed(8),
-			Rate: Number.parseFloat(this.rate).toFixed(this.market.getPrecision()),
-			TimeInEffect: 'GOOD_TIL_CANCELLED',
-			ConditionType: 'NONE',
-			Target: 0
-		};
-	}
+    getOutputCurrency() {
+        return this.outputCurrency;
+    }
 
-	execute(callback) {
-		var _this = this;
-		this.requested = true;
-		this.callbacks = callback;
-		if (this.market.isBaseCurrency(this.outputCurrency)) {
-			this.request.OrderType += '_SELL';
-			bittrex.tradesell(this.request, function(data, err){ _this.tradeCallback(data,err); });
-		} else {
-			this.request.OrderType += '_BUY';
-			bittrex.tradebuy(this.request, function(data, err){ _this.tradeCallback(data,err); });
-		}
-		this.logData();
-		return this;
-	}
+    getQuantity() {
+        return Number.parseFloat(this.tradeQuantity).toFixed(8);
+    }
 
-	tradeCallback(data, err) {
-		this.responded = true;
-		this.response = data || err;
-		this.logData();
+    getPrice() {
+        return Number.parseFloat(this.price).toFixed(this.getMarket().getPrecision());
+    }
 
-		//if(err) throw err;
+    getType() {
+        return this.type || Config.get('orderType') || 'LIMIT';
+    }
 
-		if(typeof this.callback === 'function') {
-			this.callback(this, data, err);
-		}
-	}
+    getTimeInForce() {
+        return this.timeInForce || 'GOOD_TIL_CANCELLED';
+    }
 
-	logData() {
-		this.logFile("\n\n " + (new Date().toLocaleString()));
-		this.logFile(JSON.stringify(this.request, null, 2) + "\n");
-		this.logFile(JSON.stringify(this.response, null, 2) + "\n");
-	}
+    getConditionType() {
+        return 'NONE';
+    }
 
-	logFile(data) {
-		fs.appendFile('tradelog', data, function(err) {  if (err) throw err; });
-	}
+    getCeiling() {
+        return 0;//this.isBaseCurrency() ? this.quantity / this.getPrice() : this.quantity;
+    }
 
-	consoleOutput() {
-		return [this.time, this.market.MarketName + "  ", this.outputCurrency.Currency, Util.pad(this.quantity), Util.pad(this.rate), this.requested, this.responded].join("\t\t");
-	}
+    getNote() {
+        return '';
+    }
+
+    getUseAwards() {
+        return Config.get('useAwards') === true || false;
+    }
+
+    getRequest() {
+        return this.request;
+    }
+    
+    getCreatedAt() {
+        return this.createdAt;
+    }
+    getExecutedAt() {
+        return this.executedAt;
+    }
+    getRequestedAt() {
+        return this.requestedAt;
+    }
+    getRespondedAt() {
+        return this.respondedAt;
+    }
+
+    setTypeLimit() {
+        this.type = 'LIMIT';
+    }
+    
+    setTypeMarket() {
+        this.type = 'MARKET';
+        this.timeInForce = 'IMMEDIATE_OR_CANCEL';
+    }
+
+    meetsMinTradeRequirement() {
+        var marketMinTradeSize = this.getMarket().getMinTradeSize();
+        var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0005);
+        return marketMinTradeSize < this.getQuantity()
+            && btcMinTradeSize < this.getQuantity();
+    }
+
+    hasBalance() {
+        return Balances.getByCurrency(this.inputCurrency).getAvailable() >= this.inputQuantity;
+    }
+
+    canExecute() {
+        return this.getMarket().canTrade()
+            && this.meetsMinTradeRequirement()
+            && this.hasBalance();
+    }
+
+    async execute(callback) {
+        if(this.canExecute()) {
+            this.logData();
+            this.executedAt = Date.now();
+            let response = await Bittrex.newOrder(
+                    this.getMarketSymbol(),
+                    this.getDirection(),
+                    this.getType(),
+                    this.getTimeInForce(),
+                    this.getQuantity(),
+                    this.getCeiling(),
+                    this.getPrice(),
+                    this.getNote(),
+                    this.getUseAwards()
+                    );
+            this.respondedAt = Date.now();
+            this.response = response;
+            this.logData();
+            if(callback) {
+                callback(this);
+            }
+            return response;
+        }
+        return null;
+    }
+
+    logData() {
+        Util.log("\n\n " + (new Date().toLocaleString()) + JSON.stringify([
+            this.getMarketSymbol(),
+            this.getDirection(),
+            this.getType(),
+            this.getTimeInForce(),
+            this.getQuantity(),
+            this.getCeiling(),
+            this.getPrice(),
+            this.getNote(),
+            this.getUseAwards(),
+            this.response
+        ], null, 2) + "\n", 'trade');
+    }
+
+    /**
+     * Output that gets logged to console
+     * 
+     * @returns {String}
+     */
+    consoleOutput() {
+        return [
+            (new Date().setTime(this.getCreatedAt()).toLocaleString()),
+            this.getMarketSymbol() + "  ",
+            this.getOutputCurrency().getSymbol(),
+            Util.pad(this.getQuantity()),
+            Util.pad(this.getPrice())
+        ].join("\t\t");
+    }
 }

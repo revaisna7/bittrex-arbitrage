@@ -1,50 +1,61 @@
 var Config = require('./Config.js');
-var bittrex = require('node-bittrex-api');
-bittrex.options(Config.get('bittrexoptions'));
-
+var Bittrex = require('../bittrex/Bittrex.js');
 var Currency = require('./Currency.js');
-var Util = require('./Util.js');
 
-module.exports = class Currencies {
+class Currencies {
 
-	static list = [];
+    static list = [];
 
-	static BTC;
+    /**
+     * Init currencies
+     * @returns {undefined}
+     */
+    static async init() {
+        return this.get();
+    }
 
-	static get() {
-		bittrex.getcurrencies(Currencies.update);
-	}
+    /**
+     * Get currencies from Bittrex
+     * @returns {undefined}
+     */
+    static async get() {
+        let currencies = await Bittrex.currencies();
+        for(var i in currencies) {
+            var currency = new Currency(currencies[i]);
+            Currencies.push(currency);
+        }
+    }
 
-	static update (data, err) {
-		if(data) {
-			for(var i in data.result) {
-				var currency = new Currency(data.result[i]);
-				Currencies.push(currency);
-				if(currency.Currency === 'BTC') {
-					Currencies.BTC = currency;
-				}
-			}
-		}
-		if(err) {
-			Util.logError(err);
-		}
-	}
+    /**
+     * @returns {Currency}
+     */
+    static getBtc() {
+        return Currency.BTC;
+    }
 
-	static getBtc() {
-		return Currencies.BTC;
-	}
+    /**
+     * Push a currency to Currencies
+     * @param {Currency} currency
+     * @returns {undefined}
+     */
+    static push(currency) {
+        Currencies.list.push(currency);
+    }
 
-	static push(currency) {
-		Currencies.list.push(currency);
-	}
-
-	static getByCode(currencyCode) {
-		for (var i in Currencies.list) {
-			if (Currencies.list[i].Currency === currencyCode) {
-				return Currencies.list[i];
-			}
-		}
-		return null;
-	}
+    /**
+     * Get a currency by it's code (example: "BTC","USD","USDT")
+     * @param {string} symbol
+     * @returns {Currency}
+     */
+    static getBySymbol(symbol) {
+        for (var i in Currencies.list) {
+            if (Currencies.list[i].symbol === symbol) {
+                return Currencies.list[i];
+            }
+        }
+        return null;
+    }
 
 }
+
+module.exports = Currencies;

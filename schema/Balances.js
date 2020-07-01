@@ -1,152 +1,185 @@
 var Config = require('./Config.js');
-var bittrex = require('node-bittrex-api');
-bittrex.options(Config.get('bittrexoptions'));
-
+var Bittrex = require('../bittrex/Bittrex.js');
 var Balance = require('./Balance.js');
-var Currency = require('./Currency.js');
 var Currencies = require('./Currencies.js');
-var Routes = require('./Routes.js');
 var Util = require('./Util.js');
 
 module.exports = class Balances {
 
-	static list = [];
-	static startList = [];
-	static startAccumulate = [];
-	static balancesInterval;
+    static list = [];
+    static interval;
+    static getting = false;
 
-	static getting = false;
+    /**
+     * Initialize balances
+     * 
+     * @returns {undefined}
+     */
+    static async init() {
+        await Balances.get();
+        Balances.pulse();
+    }
 
-	static init() {
-		Balances.get();
-		setTimeout(Balances.setAccumulateStart, 1000);
-		Balances.pulse();
-	}
+    /**
+     * Whether the balances are currently being requested
+     * 
+     * @returns {Boolean}
+     */
+    static isGetting() {
+        return Balances.getting;
+    }
 
-	static isGetting() {
-		return Balances.getting;
-	}
+    /**
+     * Get balances from bittrex
+     * @returns {undefined}
+     */
+    static async get() {
+        Balances.getting = true;
+        let balances = await Bittrex.balances();
+        Balances.update(balances);
+        Balances.getting = false;
+    }
 
-	static get() {
-		Balances.getting = true;
-		bittrex.getbalances(Balances.update);
-	}
+    /**
+     * (Re)start interval for balances
+     * 
+     * @returns {undefined}
+     */
+    static pulse() {
+        Balances.pulseStop();
+        Balances.pulseStart();
+    }
 
-	static pulse() {
-		Balances.pulseStop();
-		Balances.pulseStart();
-	}
+    /**
+     * Start interval for balances
+     * @returns {undefined}
+     */
+    static pulseStart() {
+        Balances.interval = setInterval(Balances.get, 1000);
+    }
 
-	static pulseStart() {
-		Balances.balancesInterval = setInterval(Balances.get, 1000);
-	}
+    /**
+     * Stop interval fro balances
+     * @returns {undefined}
+     */
+    static pulseStop() {
+        clearInterval(Balances.interval);
+    }
 
-	static pulseStop() {
-		clearInterval(Balances.balancesInterval);
-	}
+    /**
+     * Whether the ballance currency is configured under "currencies"
+     * @param {Balance} balance
+     * @returns {Boolean}
+     */
+    static isAllowed(balance) {
+        return Config.get('currencies').indexOf(balance.currencySymbol) > -1;
+    }
 
-	static update(data, err) {
-		if (!err) {
-			Balances.list = [];
-			for (var i in data.result) {
-				var balance = new Balance(data.result[i]);
-				balance.currency = Currencies.getByCode(data.result[i].Currency);
-				if(Balances.startList.length != data.result.length) {
-					Balances.startList.push(balance);
-				}
-				Balances.list.push(balance);
-			}
-		} else {
-			Util.logError(err);
-		}
-		Balances.getting = false;
-	}
+    /**
+     * Update balance list with balance response from bittrex
+     * 
+     * @param {Object} balances
+     * @returns {undefined}
+     */
+    static update(balances) {
+        Balances.list = [];
+        for (var i in balances) {
+            if (Balances.isAllowed(balances[i])) {
+                var balance = Balances.getByCurrencySymbol(balances[i].currencySymbol);
+                if (balance) {
+                    Object.assign(balance, balances[i]);
+                    return;
+                }
+                balance = new Balance(balances[i]);
+                Balances.list.push(balance);
+            }
+        }
+    }
 
-	static setAccumulateStart() {
-		for(var i in Balances.startList) {
-			Balances.startAccumulate.push(Balances.accumulate(Balances.startList[i].currency));
-		}
-	}
+    /**
+     * Get a balance by a currency
+     * 
+     * @param {Currency} currency
+     * @returns {Balance|null}
+     */
+    static getByCurrency(currency) {
+        for (var i in Balances.list) {
+            if (Balances.list[i].getCurrency().symbol === currency.symbol) {
+                return Balances.list[i];
+            }
+        }
+        return null;
+    }
 
-	static accumulate(currency) {
-		var value = 0;
-		for(var i in Balances.list) {
-			if(typeof Balances.list[i] == 'object') {
-				value += Balances.list[i].currency.convertTo(currency, Balances.list[i].Balance);
-			}
-		}
-		return value;
-	}
+    /**
+     * Get a balance by its currency symbol 'BTC' 'EUR' 'USDT' etc..)
+     * 
+     * @param {string} symbol
+     * @returns {Balance}
+     */
+    static getByCurrencySymbol(symbol) {
+        return Balances.getByCurrency(Currencies.getBySymbol(symbol));
+    }
 
-	static accumulateStart(currency) {
-		var value = 0;
-		for(var i in Balances.startList) {
-			if(typeof Balances.startList[i] == 'object') {
-				value += Balances.startList[i].currency.convertTo(currency, Balances.startList[i].Balance);
-			}
-		}
-		return value;
-	}
 
-	static getStartByCurrency(currency) {
-		for (var i in Balances.startList) {
-			if (Balances.startList[i].Currency === currency.Currency) {
-				return Balances.startList[i];
-			}
-		}
-	}
+    /**
+     * Returns the accumulated value of all balances converted into the given
+     * curreny at current market price
+     * 
+     * @param {Currency} currency
+     * @returns {Number}
+     */
+    static accumulate(currency) {
+        var value = 0;
+        for (var i in Balances.list) {
+            value += Balances.list[i].getCurrency().convertTo(currency, Balances.list[i].getTotal());
+        }
+        return value;
+    }
 
-	static getByCurrency(currency) {
-		for (var i in Balances.list) {
-			if (Balances.list[i].Currency === currency.Currency) {
-				return Balances.list[i];
-			}
-		}
-	}
+    /**
+     * Returns the accumulated value of all balances when the program started
+     * converted into the given curreny at current market price
+     * 
+     * @param {Currency} currency
+     * @returns {Number}
+     */
+    static accumulateStart(currency) {
+        var value = 0;
+        for (var i in Balances.list) {
+            value += Balances.list[i].getCurrency().convertTo(currency, Balances.list[i].getStartTotal());
+        }
+        return value;
+    }
 
-	static consoleOutput() {
-		var output = " [Balances]\n Currency\tBalance\t\tTotal\t\tStart\t\tProfit\t\tFactor\t\tBTC balance\tBTC value\tBTC start\tBTC Profit\tBTC factor";
-		var totalProfitFactor = 0;
-		var balancesOutput = '';
-		var allowed = 0;
-		for (var i in Balances.list) {
-			var balance = Balances.list[i];
-			var currency = Currencies.getByCode(balance.Currency);
-			var startBalance = Balances.getStartByCurrency(currency);
-			if(balance && currency && startBalance && currency.isAllowed()) {
-				allowed++;
-				var accumulateStart = Balances.startAccumulate[i];
-				var accumulateNow = Balances.accumulate(currency);
-				var accimulateProfitNow = accumulateStart - accumulateNow;
+    /**
+     * A total profit factor from the time the program started
+     * 
+     * @returns {Number}
+     */
+    static totalProfitFactor() {
+        var factor = 0;
+        for (var i in Balances.list) {
+            factor += Balances.list[i].getProfitFactor();
+        }
+        return Balances.list.length === 0 ? 0 : factor / Balances.list.length;
+    }
 
-				var profit = accumulateNow - accumulateStart;
-				var profitFactor = (profit / accumulateStart * 100);
-
-				var btcStart = currency.convertToBtc(accumulateStart);
-				var btcBalance = currency.convertToBtc(balance.Balance);
-				var btcNow = currency.convertToBtc(accumulateNow);
-				var btcProfit = btcNow - btcStart;
-				var btcProfitFactor = btcProfit / btcStart * 100;
-
-				balancesOutput += [" [" + currency.Currency + "]\t"
-					,Util.pad(balance.Balance)
-					,Util.pad(accumulateNow)
-					,Util.pad(accumulateStart)
-					,Util.addPlusOrSpace(profit,8)
-					,Util.addPlusOrSpace(profitFactor) + '%'
-					,Util.pad(btcBalance)
-					,Util.pad(btcNow)
-					,Util.pad(btcStart)
-					,Util.addPlusOrSpace(btcProfit,8)
-					,Util.addPlusOrSpace(btcProfitFactor) + '%'
-					].join("\t")
-				 + "\n"
-				;
-
-				totalProfitFactor += profitFactor/allowed;
-			}
-		}
-		return output + "\t [ Overall factor: " + Util.addPlusOrSpace(totalProfitFactor) + "% ]\n" + balancesOutput;
-	}
+    /**
+     * Output that gets logged to console
+     * 
+     * @returns {String}
+     */
+    static consoleOutput() {
+        var output = " [Balances]\n Currency\tBalance\t\tTotal\t\tStart\t\tProfit\t\tFactor\t\tBTC balance\tBTC value\tBTC start\tBTC Profit\tBTC factor";
+        var balancesOutput = '';
+        for (var i in Balances.list) {
+            var balance = Balances.list[i];
+            balance.setAccumulateNow(Balances.accumulate(balance.getCurrency()));
+            balance.setAccumulateStart(Balances.accumulateStart(balance.getCurrency()));
+            balancesOutput += balance.consoleOutput();
+        }
+        return output + "\t [ Overall factor: " + Util.addPlusOrSpace(this.totalProfitFactor()) + "% ]\n" + balancesOutput;
+    }
 
 }
