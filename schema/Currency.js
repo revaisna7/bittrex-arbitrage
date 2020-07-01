@@ -19,7 +19,7 @@ module.exports = class Currency {
      * Insantiate a new currency
      * 
      * @param {Object} currency Bittrex currency response object
-     * @returns {nm$_Currency.Currency.constructor}
+     * @returns {Currency}
      */
     constructor(currency) {
         Object.assign(this, currency);

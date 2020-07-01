@@ -16,8 +16,10 @@
   "author": "Hemmsoft",
   "contributors": [],
   "dependencies": {
+    "axios": "^0.19.2",
     "bittrex-node-api": "^1.0.1",
     "clear": "0.0.1",
+    "crypto": "^1.0.1",
     "node-bittrex-api": "^0.7.8",
     "process": "^0.11.10",
     "readline": "^1.3.0"
