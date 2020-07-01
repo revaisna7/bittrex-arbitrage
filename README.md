@@ -3,7 +3,7 @@
 Bittrex Arbitrage is a console app designed to perform triangular arbitrage on [Bittrex.com](https://bittrex.com/)
 
 # Features
-Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittrex.com/) based on your balances.
+Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittrex.com/).
 Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable discrepency in the market.
 To enable trades the trader must hold enough balance in each currency.
 
@@ -28,9 +28,8 @@ copy config.default.json config.json
 | speculate | boolean | Speculation reverses the strategy from seeking instant arbitrages to potential arbitrages
 | minProfitFactor | number | The minimum amount of profit to seek
 | maxProfitFactor | number | The maximum amount of profit to seek (only used when profitAllThree is true.)
-| profitAllThree | boolean | Whether to only trade when all three markets put out a profit
+| profitAllThree | boolean | Whether to only trade when all three markets put out a profit. Profit tiggers on delta profit, not on total route profit.
 | minInputBtc | number | The minimum amount in BTC the bot should trade per delta. [Bittrex has a minimum size of 0.0005 BTC](https://bittrex.zendesk.com/hc/en-us/articles/360001473863-Bittrex-Trading-Rules)
-| maxInputBtc | number | The maximum amount in BTC to trade per delta.
 | priceDeviation | number | Factor to deviate prices by, be careful using this when not in speculation mode, it might make a money drain.
 | exchangeComission | number | [Your Bittrex Exchange commission](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-What-fees-does-Bittrex-charge-)
 | currencies | String[] | List of currencies to trade
