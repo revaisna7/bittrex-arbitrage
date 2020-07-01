@@ -169,7 +169,7 @@ module.exports = class Market {
         return  output - (Config.get('exchangeCommission') / 100 * output);
     }
 
-    convertPotential(outputCurrency, inputQuantity, priceDeviation) {
+    convertPotential(outputCurrency, inputQuantity, price, priceDeviation) {
         priceDeviation = priceDeviation || 0;
         price = price || this.getPotentialPrice(outputCurrency, priceDeviation);
         var isBase = this.isBaseCurrency(outputCurrency);
