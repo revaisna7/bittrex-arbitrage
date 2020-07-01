@@ -31,7 +31,7 @@ module.exports = class OrderBook {
     async get() {
         if (this.market.canTrade()) {
             this.getting = true;
-            var orderBook = await Bittrex.marketSymbolOrderbook(this.market.symbol)
+            var orderBook = await Bittrex.marketSymbolOrderbook(this.market.symbol);
             this.ask = orderBook.ask;
             this.bid = orderBook.bid;
             this.triggerRoutes();

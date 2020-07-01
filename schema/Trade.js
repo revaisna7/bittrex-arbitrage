@@ -40,7 +40,7 @@ module.exports = class Trade {
     }
 
     getTradeQuantity() {
-        this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity, this.price, this.deviation);
+        this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity, this.deviation);
         if(this.getMarket().isBaseCurrency(this.inputCurrency)) {
             this.tradeQuantity = this.outputCurrency.convertTo(this.inputCurrency, this.outputQuantity);
         }
@@ -126,8 +126,7 @@ module.exports = class Trade {
     meetsMinTradeRequirement() {
         var marketMinTradeSize = this.getMarket().getMinTradeSize();
         var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0005);
-        return marketMinTradeSize < this.getQuantity()
-            && btcMinTradeSize < this.getQuantity();
+        return marketMinTradeSize < this.getQuantity();
     }
 
     hasBalance() {

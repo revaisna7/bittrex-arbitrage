@@ -102,15 +102,14 @@ module.exports = class Route {
 
         // minimumums
         this.minBtcMarket = Math.max(this.minBtcMarketX, this.minBtcMarketY, this.minBtcMarketZ);
-        this.maxBtcBalance = Math.max(this.btcBalanceX, this.btcBalanceY, this.btcBalanceZ);
-        this.minBtcBalance = Math.min(this.btcBalanceX, this.btcBalanceY, this.btcBalanceZ);
+        this.maxBtcBalance = Math.min(this.btcBalanceX, this.btcBalanceY, this.btcBalanceZ);
 
         // max of minimum
-        this.inputBtc = Math.max(this.minBtcBalance, this.minInputBtc);
+        this.inputBtc = Math.min(this.maxBtcBalance, Math.max(this.minBtcMarket, this.minInputBtc));
 
-        this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.minBtcMarket);
-        this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.minBtcMarket);
-        this.inputZ = Currencies.getBtc().convertTo(this.currencyZ, this.minBtcMarket);
+        this.inputX = Currencies.getBtc().convertTo(this.currencyX, this.inputBtc);
+        this.inputY = Currencies.getBtc().convertTo(this.currencyY, this.inputBtc);
+        this.inputZ = Currencies.getBtc().convertTo(this.currencyZ, this.inputBtc);
 
         // get final outputs
         this.getOuputs();
@@ -168,9 +167,9 @@ module.exports = class Route {
     }
 
     hasEnoughBalance() {
-        return this.balanceX.getTotal() >= this.inputX
-                && this.balanceY.getTotal() >= this.inputY
-                && this.balanceZ.getTotal() >= this.inputZ;
+        return this.balanceX.getAvailable() >= this.inputX
+                && this.balanceY.getAvailable() >= this.inputY
+                && this.balanceZ.getAvailable() >= this.inputZ;
     }
 
     awaitingTrades() {
@@ -211,18 +210,21 @@ module.exports = class Route {
         }
     }
 
-    trade() {
-        if (Config.get('trade')) {
+    async trade() {
+        if (Config.get('trade') && !this.isTrading()) {
             Route.trading = true;
 
-            this.tradeX = this.currencyX.tradeTo(this.currencyY, this.isXBase ? this.outputX : this.inputX, this.priceX).execute();
-            this.tradeY = this.currencyY.tradeTo(this.currencyZ, this.isYBase ? this.outputY : this.inputY, this.priceY).execute();
-            this.tradeZ = this.currencyZ.tradeTo(this.currencyX, this.isZBase ? this.outputZ : this.inputZ, this.priceZ).execute();
+            this.tradeX = this.currencyX.tradeTo(this.currencyY, this.inputX, this.priceX)
+            this.tradeY = this.currencyY.tradeTo(this.currencyZ, this.inputY, this.priceY)
+            this.tradeZ = this.currencyZ.tradeTo(this.currencyX, this.inputZ, this.priceZ)
 
-            Balances.pulse();
-            setTimeout(function () {
-                Route.trading = false;
-            }, 5000);
+            await this.tradeX.execute();
+            await this.tradeY.execute();
+            await this.tradeZ.execute();
+
+
+            await Balances.get();
+            Route.trading = false;
         }
     }
 
