@@ -21,7 +21,7 @@ module.exports = class Balance {
     constructor(balance) {
         Object.assign(this, balance);
         var clone = Object.assign({}, balance);
-        this.start = balance;
+        this.start = clone;
         return this;
     }
 
