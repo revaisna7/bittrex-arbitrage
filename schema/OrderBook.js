@@ -2,6 +2,7 @@ var Bittrex = require('../bittrex/Bittrex.js');
 
 module.exports = class OrderBook {
 
+    static list = [];
     market = null;
     ask = [];
     bid = [];
@@ -17,19 +18,23 @@ module.exports = class OrderBook {
     constructor(market) {
         this.market = market;
         this.pulse();
+        OrderBook.list.push(this);
         return this;
     }
 
-    get() {
+    static async init() {
+        for(var i in OrderBook.list) {
+            await OrderBook.list[i].get();
+        }
+    }
+
+    async get() {
         if (this.market.canTrade()) {
-            var _this = this;
-            (async () => {
-                _this.getting = true;
-                var orderBook = await Bittrex.marketSymbolOrderbook(_this.market.symbol)
-                _this.ask = orderBook.ask;
-                _this.bid = orderBook.bid;
-                _this.triggerRoutes();
-            })();
+            this.getting = true;
+            var orderBook = await Bittrex.marketSymbolOrderbook(this.market.symbol)
+            this.ask = orderBook.ask;
+            this.bid = orderBook.bid;
+            this.triggerRoutes();
         }
     }
 

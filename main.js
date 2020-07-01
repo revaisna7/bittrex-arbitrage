@@ -3,6 +3,7 @@ var Config = require('./schema/Config.js');
 Config.init();
 
 var Markets = require('./schema/Markets.js');
+var OrderBook = require('./schema/OrderBook.js');
 var Routes = require('./schema/Routes.js');
 var Currencies = require('./schema/Currencies.js');
 var Balances = require('./schema/Balances.js');
@@ -17,6 +18,9 @@ var View = require('./schema/View.js');
     
     console.log('Initializing Markets...');
     await Markets.init();
+    
+    console.log('Initializing Order books...');
+    await OrderBook.init();
 
     console.log('Initializing Balances...');
     await Balances.init();
