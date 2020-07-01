@@ -17,7 +17,6 @@ module.exports = class OrderBook {
      */
     constructor(market) {
         this.market = market;
-        this.pulse();
         OrderBook.list.push(this);
         return this;
     }
@@ -25,6 +24,7 @@ module.exports = class OrderBook {
     static async init() {
         for(var i in OrderBook.list) {
             await OrderBook.list[i].get();
+            OrderBook.list[i].pulse();
         }
     }
 

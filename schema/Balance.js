@@ -19,10 +19,16 @@ module.exports = class Balance {
      * @returns {Balance}
      */
     constructor(balance) {
-        Object.assign(this, balance);
-        var clone = Object.assign({}, balance);
-        this.start = clone;
+        this.update(balance);
+        this.startTotal = this.getTotal();
         return this;
+    }
+
+    update(balance) {
+        this.currencySymbol = balance.currencySymbol;
+        this.total = balance.total;
+        this.available = balance.available;
+        this.updatedAt = balance.updatedAt;
     }
 
     /**
@@ -73,7 +79,7 @@ module.exports = class Balance {
      * @returns {Number}
      */   
     getStartTotal() {
-        return Number.parseFloat(this.start.total);
+        return Number.parseFloat(this.startTotal);
     }
  
     /**

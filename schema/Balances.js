@@ -82,16 +82,15 @@ module.exports = class Balances {
      * @returns {undefined}
      */
     static update(balances) {
-        Balances.list = [];
         for (var i in balances) {
             if (Balances.isAllowed(balances[i])) {
                 var balance = Balances.getByCurrencySymbol(balances[i].currencySymbol);
                 if (balance) {
-                    Object.assign(balance, balances[i]);
-                    return;
+                    balance.update(balances[i]);
+                } else {
+                    balance = new Balance(balances[i]);
+                    Balances.list.push(balance);
                 }
-                balance = new Balance(balances[i]);
-                Balances.list.push(balance);
             }
         }
     }
@@ -104,7 +103,7 @@ module.exports = class Balances {
      */
     static getByCurrency(currency) {
         for (var i in Balances.list) {
-            if (Balances.list[i].getCurrency().symbol === currency.symbol) {
+            if (Balances.list[i].currencySymbol === currency.symbol) {
                 return Balances.list[i];
             }
         }
@@ -117,8 +116,13 @@ module.exports = class Balances {
      * @param {string} symbol
      * @returns {Balance}
      */
-    static getByCurrencySymbol(symbol) {
-        return Balances.getByCurrency(Currencies.getBySymbol(symbol));
+    static getByCurrencySymbol(cuurencySymbol) {
+        for (var i in Balances.list) {
+            if (Balances.list[i].currencySymbol === cuurencySymbol) {
+                return Balances.list[i];
+            }
+        }
+        return null;
     }
 
 

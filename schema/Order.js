@@ -76,12 +76,12 @@ module.exports = class Order {
 
     getInputCurrency() {
         var currencySymbols = this.marketSymbol.split('-');
-        return this.type === 'BUY' ? Currencies.getBySymbol(currencySymbols[0]) : Currencies.getBySymbol(currencySymbols[1]);
+        return this.direction === 'BUY' ? Currencies.getBySymbol(currencySymbols[1]) : Currencies.getBySymbol(currencySymbols[0]);
     }
 
     getOutputCurrency() {
         var currencySymbols = this.marketSymbol.split('-');
-        return this.type === 'BUY' ? Currencies.getBySymbol(currencySymbols[1]) : Currencies.getBySymbol(currencySymbols[0]);
+        return this.direction === 'BUY' ? Currencies.getBySymbol(currencySymbols[0]) : Currencies.getBySymbol(currencySymbols[1]);
     }
 
     getCurrenctPrice() {
@@ -89,7 +89,7 @@ module.exports = class Order {
     }
 
     getPriceDifference() {
-        return this.type === 'BUY' ? this.getCurrenctPrice() - this.getLimit() : this.getLimit() - this.getCurrenctPrice();
+        return this.direction === 'SELL' ? this.getCurrenctPrice() - this.getLimit() : this.getLimit() - this.getCurrenctPrice();
     }
     
     getDifferenceFactor() {

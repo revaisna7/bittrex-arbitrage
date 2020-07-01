@@ -22,11 +22,11 @@ var View = require('./schema/View.js');
     console.log('Initializing Order books...');
     await OrderBook.init();
 
-    console.log('Initializing Balances...');
-    await Balances.init();
-
     console.log('Initializing Orders...');
     await Orders.init();
+
+    console.log('Initializing Balances...');
+    await Balances.init();
 
     setTimeout(() => {
         console.log('Initializing Routes...');

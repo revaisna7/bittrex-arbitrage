@@ -14,7 +14,6 @@ module.exports = class Trade {
     outputQuantity = null;
     tradeQuantity = null;
     price;
-    deviaition;
     type = null;
     callback = null;
     requested = false;
@@ -26,14 +25,13 @@ module.exports = class Trade {
     respondedAt = null;
     timeInForce = null;
 
-    constructor(market, inputCurrency, outputCurrency, inputQuantity, price, deviaition) {
+    constructor(market, inputCurrency, outputCurrency, inputQuantity, price) {
         this.createdAt = Date.now();
         this.market = market;
         this.inputCurrency = inputCurrency;
         this.outputCurrency = outputCurrency;
         this.inputQuantity = inputQuantity;
         this.price = price;
-        this.deviation = deviaition;
         this.getTradeQuantity();
         Trades.push(this);
         return this;
@@ -126,7 +124,8 @@ module.exports = class Trade {
     meetsMinTradeRequirement() {
         var marketMinTradeSize = this.getMarket().getMinTradeSize();
         var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0005);
-        return marketMinTradeSize < this.getQuantity();
+        return marketMinTradeSize < this.getQuantity()
+            && btcMinTradeSize < this.getQuantity();
     }
 
     hasBalance() {

@@ -7,6 +7,10 @@ module.exports = class Config {
     static values = {};
     static triggers = [];
 
+    /**
+     * 
+     * @returns {undefined}
+     */
     static init() {
         Config.getFile();
         Config.watchFile();
@@ -28,10 +32,10 @@ module.exports = class Config {
     }
 
     static watchFile() {
-        fs.watch(Config.fileName, function (event, filename) {
+        fs.watch(Config.fileName, (event, filename) => {
             if (filename && event === 'change') {
-                setTimeout(function () {
-                    Config.getFile();
+                setTimeout(() => {
+                    Config.init();
                 }, 1000);
             }
         });

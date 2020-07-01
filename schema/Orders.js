@@ -9,15 +9,27 @@ module.exports = class Orders {
 
     static getting = false;
 
+    /**
+     * 
+     * @returns {undefined}
+     */
     static async init() {
         await Orders.get();
         Orders.pulse();
     }
 
+    /**
+     * Whether the orders are current being requested
+     * @returns {boolean}
+     */
     static isGetting() {
         return Orders.getting;
     }
 
+    /**
+     * Get orders
+     * @returns {undefined}
+     */
     static async get() {
         Orders.getting = true;
         let orders = await Bittrex.openOrder();
@@ -25,19 +37,36 @@ module.exports = class Orders {
         Orders.getting = false;
     }
 
+    /**
+     * (Re)start order request interval
+     * @returns {undefined}
+     */
     static pulse() {
         Orders.pulseStop();
         Orders.pulseStart();
     }
 
+    /**
+     * Start order request interval
+     * @returns {undefined}
+     */
     static pulseStart() {
         Orders.ordersInterval = setInterval(Orders.get, 1000);
     }
 
+    /**
+     * Stop order request interval
+     * @returns {undefined}
+     */
     static pulseStop() {
         clearInterval(Orders.ordersInterval);
     }
 
+    /**
+     * Update orders
+     * @param {Object} orders Bittrex order response object
+     * @returns {undefined}
+     */
     static update(orders) {
         Orders.list = [];
         for (var i in orders) {
@@ -45,6 +74,11 @@ module.exports = class Orders {
         }
     }
 
+    /**
+     * Output that gets logged to console
+     * 
+     * @returns {String}
+     */
     static consoleOutput() {
         var output = "\n\n [Orders]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference\tFactor";
         for (var i in Orders.list) {
@@ -53,6 +87,10 @@ module.exports = class Orders {
         return output;
     }
 
+    /**
+     * Cancel all orders
+     * @returns {Promise}
+     */
     static async cancelAll() {
         return await new Promise(async (resolve, reject) => {
             for (var i in Orders.list) {
