@@ -45,8 +45,8 @@ module.exports = class RouteDelta {
         }
     }
 
-    getInput() {
-        this.input = Currencies.getBtc().convertTo(this.inputCurrency, this.route.getInputBtc());
+    setInput(input) {
+        this.input = input;
     }
 
     getOuput() {
@@ -64,9 +64,9 @@ module.exports = class RouteDelta {
                 || !this.market.canTrade();
     }
 
-    calculate() {
+    calculate(input) {
+        this.setInput(input);
         this.getPrice();
-        this.getInput();
         this.getOuput();
     }
 

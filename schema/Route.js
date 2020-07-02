@@ -47,13 +47,14 @@ module.exports = class Route {
     }
 
     calculate() {
-        for (var i in this.delta) {
-            this.delta[i].calculate();
+        var input = Currencies.getBtc().convertTo(this.currencyX, this.getInputBtc());
+        for (var i = 0; i < this.delta.length; i++) {
+            if(i > 0) {
+                input = this.delta[i-1].output;
+            }
+            this.delta[i].calculate(input);
         }
-        this.profitFactorX = (this.delta[2].output - this.delta[0].input) / this.delta[0].input * 100;
-        this.profitFactorY = (this.delta[0].output - this.delta[1].input) / this.delta[1].input * 100;
-        this.profitFactorZ = (this.delta[1].output - this.delta[2].input) / this.delta[2].input * 100;
-        this.profitFactor = this.profitFactorX + this.profitFactorY + this.profitFactorZ;
+        this.profitFactor = (this.delta[2].output - this.delta[0].input) / this.delta[0].input * 100;
 
         if (this.isProfitable()) {
             this.trade();
@@ -145,10 +146,7 @@ module.exports = class Route {
     }
 
     profitString() {
-        return "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
-                + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%'
-                + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
-                + "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
+        return "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
                 + "\t" + (this.hasEnoughBalance() ? "" : "No balance");
     }
 

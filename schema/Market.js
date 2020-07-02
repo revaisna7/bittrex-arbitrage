@@ -22,7 +22,7 @@ module.exports = class Market {
     /**
      * Constructor for market
      * 
-     * @param {Oject} market Bittrex market response object
+     * @param {OBject} market Bittrex market response object
      * @returns {Market}
      */
     constructor(market) {
@@ -284,7 +284,6 @@ module.exports = class Market {
      * @returns {Number}
      */
     convert(outputCurrency, inputQuantity, priceDeviation) {
-        priceDeviation = priceDeviation || 0;
         var price = this.getPrice(outputCurrency, priceDeviation);
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
@@ -301,7 +300,6 @@ module.exports = class Market {
      * @returns {Number}
      */
     convertPotential(outputCurrency, inputQuantity, priceDeviation) {
-        priceDeviation = priceDeviation || 0;
         var price = this.getPotentialPrice(outputCurrency, priceDeviation);
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
