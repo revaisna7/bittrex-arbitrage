@@ -144,7 +144,9 @@ module.exports = class Market {
      * @returns {Number}
      */
     getPrice(currency, priceDeviation) {
-        priceDeviation = priceDeviation || 0;
+        if(!priceDeviation) {
+            priceDeviation = 0;
+        }
         var price;
         if (this.isBaseCurrency(currency)) {
             price = this.Ask();
@@ -165,7 +167,9 @@ module.exports = class Market {
      * @returns {Number}
      */
     getPotentialPrice(currency, priceDeviation) {
-        priceDeviation = priceDeviation || 0;
+        if(!priceDeviation) {
+            priceDeviation = 0;
+        }
         var price;
         if (this.isBaseCurrency(currency)) {
             price = this.Bid();
