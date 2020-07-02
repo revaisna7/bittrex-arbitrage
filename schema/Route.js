@@ -61,7 +61,13 @@ module.exports = class Route {
     }
 
     isProfitable() {
-        return this.profitFactor >= Config.get('minProfitFactor');
+        if(Config.get('profitAllThree')) {
+            return this.profitFactorX >= Config.get('minProfitFactor')
+                && this.profitFactorY >= Config.get('minProfitFactor')
+                && this.profitFactorZ >= Config.get('minProfitFactor');
+        } else {
+            return this.profitFactor >= Config.get('minProfitFactor');
+        }
     }
 
     hasEnoughBalance() {

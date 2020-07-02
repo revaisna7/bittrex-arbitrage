@@ -145,11 +145,11 @@ module.exports = class Currency {
                 || this.convertThroughBtc(outputCurrency, inputQuantity, deviaiton);
     }
 
-    convertToPotential(outputCurrency, inputQuantity, deviaiton) {
+    convertToPotential(outputCurrency, inputQuantity, price, deviaiton) {
         if (this.symbol === outputCurrency.symbol)
             return inputQuantity;
 
-        return this.convertPotential(outputCurrency, inputQuantity, deviaiton)
+        return this.convertPotential(outputCurrency, inputQuantity, price, deviaiton)
                 || this.convertPotentialThroughBtc(outputCurrency, inputQuantity, deviaiton);
     }
 
