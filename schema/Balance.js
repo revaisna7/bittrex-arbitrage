@@ -95,7 +95,7 @@ module.exports = class Balance {
      * @returns {Number}
      */   
     getProfit() {
-        return this.accumulateStart - this.accumulateNow;
+        return this.accumulateNow - this.accumulateStart;
     }
 
     /**
@@ -103,7 +103,7 @@ module.exports = class Balance {
      * @returns {Number}
      */
     getProfitFactor() {
-        return (this.accumulateStart - this.accumulateNow) / this.accumulateStart * 100;
+        return (this.accumulateNow - this.accumulateStart) / this.accumulateStart * 100;
     }
 
     /**

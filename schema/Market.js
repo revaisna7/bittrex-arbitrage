@@ -55,7 +55,7 @@ module.exports = class Market {
     isBaseCurrency(currency) {
         return currency.symbol === this.baseCurrency.symbol;
     }
-    
+
     /**
      * Whether the given currency is the quote currency of this market
      * 
@@ -65,7 +65,7 @@ module.exports = class Market {
     isQuoteCurrency(currency) {
         return currency.symbol === this.quoteCurrency.symbol;
     }
-    
+
     /**
      * Whether the configuration allows the market to be traded
      * 
@@ -111,7 +111,7 @@ module.exports = class Market {
     getMinTradeSize() {
         return Number.parseFloat(this.minTradeSize);
     }
-    
+
     /**
      * Get the minimum trade size of the market
      * 
@@ -250,9 +250,9 @@ module.exports = class Market {
      * @returns {Trade}
      */
     trade(inputCurrency, outputCurrency, inputQauntity, price, deviaiton) {
-        console.log(price);
-        price = price || this.getPrice(outputCurrency, deviaiton);
-        console.log(inputCurrency.symbol, outputCurrency.symbol, this.symbol, price);
+        if (!price) {
+            price = this.getPrice(outputCurrency, deviaiton);
+        }
         return new Trade(this, inputCurrency, outputCurrency, inputQauntity, price);
     }
 
@@ -268,9 +268,9 @@ module.exports = class Market {
      * @returns {Trade}
      */
     tradePotential(inputCurrency, outputCurrency, inputQauntity, price, deviaiton) {
-        console.log(price);
-        price = price || this.getPotentialPrice(outputCurrency, deviaiton);
-        console.log(price);
+        if (!price) {
+            price = this.getPotentialPrice(outputCurrency, deviaiton);
+        }
         return new Trade(this, inputCurrency, outputCurrency, inputQauntity, price);
     }
 
