@@ -145,7 +145,7 @@ module.exports = class Market {
      * @returns {Number}
      */
     getPrice(currency, priceDeviation) {
-        if(!priceDeviation) {
+        if (!priceDeviation) {
             priceDeviation = 0;
         }
         var price;
@@ -168,7 +168,7 @@ module.exports = class Market {
      * @returns {Number}
      */
     getPotentialPrice(currency, priceDeviation) {
-        if(!priceDeviation) {
+        if (!priceDeviation) {
             priceDeviation = 0;
         }
         var price;
@@ -285,11 +285,14 @@ module.exports = class Market {
      * 
      * @param {Currency} outputCurrency The currency to convert
      * @param {Currency} inputQuantity The currency convert to
+     * @param {Number} price
      * @param {Number} priceDeviation Price deviation factor
      * @returns {Number}
      */
-    convert(outputCurrency, inputQuantity, priceDeviation) {
-        var price = this.getPrice(outputCurrency, priceDeviation);
+    convert(outputCurrency, inputQuantity, price, priceDeviation) {
+        if (!price) {
+            price = this.getPrice(outputCurrency, priceDeviation);
+        }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
         return  output - (Config.get('exchangeCommission') / 100 * output);
@@ -301,11 +304,14 @@ module.exports = class Market {
      * 
      * @param {Currency} outputCurrency
      * @param {Currency} inputQuantity
+     * @param {Number} price
      * @param {Number} priceDeviation
      * @returns {Number}
      */
-    convertPotential(outputCurrency, inputQuantity, priceDeviation) {
-        var price = this.getPotentialPrice(outputCurrency, priceDeviation);
+    convertPotential(outputCurrency, inputQuantity, price, priceDeviation) {
+        if (!price) {
+            price = this.getPotentialPrice(outputCurrency, priceDeviation);
+        }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
         return  output - (Config.get('exchangeCommission') / 100 * output);

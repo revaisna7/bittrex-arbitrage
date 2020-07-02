@@ -39,9 +39,9 @@ module.exports = class RouteDelta {
     getPrice() {
         this.priceDeviation = Config.get('priceDeviation') || 0;
         if (Config.get('speculate')) {
-            this.price = this.inputCurrency.getPotentialPrice(this.outputCurrency, this.priceDeviation);
+            this.price = this.market.getPotentialPrice(this.outputCurrency, this.priceDeviation);
         } else {
-            this.price = this.inputCurrency.getPrice(this.outputCurrency, this.priceDeviation);
+            this.price = this.market.getPrice(this.outputCurrency, this.priceDeviation);
         }
     }
 
@@ -52,9 +52,9 @@ module.exports = class RouteDelta {
     getOuput() {
         this.priceDeviation = Config.get('priceDeviation') || 0;
         if (Config.get('speculate')) {
-            this.output = this.inputCurrency.convertToPotential(this.outputCurrency, this.input, this.priceDeviation)
+            this.output = this.market.convertPotential(this.outputCurrency, this.input, this.price);
         } else {
-            this.output = this.inputCurrency.convertTo(this.outputCurrency, this.input, this.priceDeviation);
+            this.output = this.market.convert(this.outputCurrency, this.input, this.price);
         }
     }
 
@@ -79,11 +79,7 @@ module.exports = class RouteDelta {
      * @returns {undefined}
      */
     async executeTrade() {
-        if (Config.get('speculate')) {
-            this.trade = this.inputCurrency.tradeToPotential(this.outputCurrency, this.input, this.price, this.priceDeviation);
-        } else {
-            this.trade = this.inputCurrency.tradeTo(this.outputCurrency, this.input, this.price, this.priceDeviation);
-        }
+        this.trade = this.market.trade(this.inputCurrency, this.outputCurrency, this.input, this.price);
         return await this.trade.execute();
     }
 }

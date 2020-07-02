@@ -121,28 +121,28 @@ module.exports = class Currency {
         return marketX && marketY ? Currency.BTC.convertToPotential(outputCurrency, this.convertToBtc(inputQuantity, deviaiton), deviaiton) : false;
     }
 
-    convertStraight(outputCurrency, inputQuantity, deviaiton) {
+    convertStraight(outputCurrency, inputQuantity, price, deviaiton) {
         if (this.symbol === outputCurrency.symbol)
             return inputQuantity;
 
         var market = this.getMarket(outputCurrency);
-        return market ? market.convert(outputCurrency, inputQuantity, deviaiton) : false;
+        return market ? market.convert(outputCurrency, inputQuantity, price, deviaiton) : false;
     }
 
-    convertPotential(outputCurrency, inputQuantity, deviaiton) {
+    convertPotential(outputCurrency, inputQuantity, price, deviaiton) {
         if (this.symbol === outputCurrency.symbol)
             return inputQuantity;
 
         var market = this.getMarket(outputCurrency);
-        return market ? market.convertPotential(outputCurrency, inputQuantity, deviaiton) : false;
+        return market ? market.convertPotential(outputCurrency, inputQuantity, price, deviaiton) : false;
     }
 
-    convertTo(outputCurrency, inputQuantity, deviaiton) {
+    convertTo(outputCurrency, inputQuantity, price, deviaiton) {
         if (this.symbol === outputCurrency.symbol)
             return inputQuantity;
 
-        return this.convertStraight(outputCurrency, inputQuantity, deviaiton)
-                || this.convertThroughBtc(outputCurrency, inputQuantity, deviaiton);
+        return this.convertStraight(outputCurrency, inputQuantity, price, deviaiton)
+                || this.convertThroughBtc(outputCurrency, inputQuantity, price, deviaiton);
     }
 
     convertToPotential(outputCurrency, inputQuantity, price, deviaiton) {
