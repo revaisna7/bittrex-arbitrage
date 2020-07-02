@@ -79,11 +79,10 @@ module.exports = class RouteDelta {
      * @returns {undefined}
      */
     async executeTrade() {
-        this.getPrice();
         if (Config.get('speculate')) {
-            this.trade = this.inputCurrency.tradeToPotential(this.outputCurrency, this.input, this.price);
+            this.trade = this.inputCurrency.tradeToPotential(this.outputCurrency, this.input, this.price, this.priceDeviation);
         } else {
-            this.trade = this.inputCurrency.tradeTo(this.outputCurrency, this.input, this.price);
+            this.trade = this.inputCurrency.tradeTo(this.outputCurrency, this.input, this.price, this.priceDeviation);
         }
         return await this.trade.execute();
     }
