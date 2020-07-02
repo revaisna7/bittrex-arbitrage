@@ -17,13 +17,9 @@ module.exports = class Routes {
         this.finding = true;
         for (var x in Config.get('currencies')) {
             for (var y in Config.get('currencies')) {
-                if (Config.get('currencies')[x] === Config.get('currencies')[y]) {
-                    continue;
-                }
+                if (x === y) continue;
                 for (var z in Config.get('currencies')) {
-                    if (Config.get('currencies')[y] === Config.get('currencies')[z] || Config.get('currencies')[z] === Config.get('currencies')[x]) {
-                        continue;
-                    }
+                    if (y === z || z === x) continue;
                     if (!Routes.routeExists(Config.get('currencies')[x], Config.get('currencies')[y], Config.get('currencies')[z])) {
                         var route = Route.find(Config.get('currencies')[x], Config.get('currencies')[y], Config.get('currencies')[z]);
                         if (route) {

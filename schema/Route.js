@@ -1,7 +1,7 @@
 var Config = require('./Config.js');
 var Balances = require('./Balances.js');
 var Currencies = require('./Currencies.js');
-var RouteDelta = require('./RouteDelta.js');
+var Delta = require('./Delta.js');
 var Util = require('./Util.js');
 
 /**
@@ -27,9 +27,9 @@ module.exports = class Route {
         this.currencyY = currencyY;
         this.currencyZ = currencyZ;
 
-        this.delta.push(new RouteDelta(this, this.currencyX, this.currencyY));
-        this.delta.push(new RouteDelta(this, this.currencyY, this.currencyZ));
-        this.delta.push(new RouteDelta(this, this.currencyZ, this.currencyX));
+        this.delta.push(new Delta(this, this.currencyX, this.currencyY));
+        this.delta.push(new Delta(this, this.currencyY, this.currencyZ));
+        this.delta.push(new Delta(this, this.currencyZ, this.currencyX));
     }
 
     getInputBtc() {
@@ -119,14 +119,7 @@ module.exports = class Route {
     }
 
     currencyRouteString() {
-        return this.currencyX.symbol + (this.currencyX.symbol.length < 4 ? ' ' : '') + ' > '
-                + this.currencyY.symbol + (this.currencyY.symbol.length < 4 ? ' ' : '') + ' > '
-                + this.currencyZ.symbol + (this.currencyZ.symbol.length < 4 ? ' ' : '') + ' > '
-                + this.currencyX.symbol + (this.currencyX.symbol.length < 4 ? ' ' : '');
-    }
-
-    currencyRouteString() {
-        var output = '';
+        var output = ' ';
         for (var i in this.delta) {
             output += (i > 0 ? ' > ' : ' ') + this.delta[i].inputCurrency.symbol + (this.delta[i].inputCurrency.symbol < 4 ? ' ' : '')
         }
@@ -135,7 +128,7 @@ module.exports = class Route {
     }
 
     marketRouteString() {
-        var output = '';
+        var output = "\t";
         for (var i in this.delta) {
             output += this.delta[i].market.symbol + (this.delta[i].market.symbol.length < 8 ? '  ' : (this.delta[i].market.symbol.length < 9 ? ' ' : ''))
         }
@@ -166,7 +159,7 @@ module.exports = class Route {
     consoleOutput() {
         return this.ouput = ' [' + new Date().toLocaleTimeString() + '] '
                 + this.currencyRouteString()
-                + "\t" + this.marketRouteString()
+                + "\t\t" + this.marketRouteString()
                 + "\t" + this.calculationString()
                 + "\t" + this.profitString();
     }

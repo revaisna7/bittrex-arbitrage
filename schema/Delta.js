@@ -2,7 +2,7 @@ var Config = require('./Config.js');
 var Balances = require('./Balances.js');
 var Currencies = require('./Currencies.js');
 
-module.exports = class RouteDelta {
+module.exports = class Delta {
 
     static trading = false;
 

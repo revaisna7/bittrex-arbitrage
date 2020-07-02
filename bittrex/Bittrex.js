@@ -1,4 +1,5 @@
 const Config = require('../schema/Config.js');
+
 const bittrexApiV3 = require('./BittrexRestApi.js');
 var bittrex = require('node-bittrex-api');
 bittrex.options(Config.get('bittrexoptions'));

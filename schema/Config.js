@@ -11,7 +11,8 @@ module.exports = class Config {
      * 
      * @returns {undefined}
      */
-    static init() {
+    static init(fileName) {
+        Config.fileName = fileName || Config.fileName;
         Config.getFile();
         Config.watchFile();
     }
