@@ -73,7 +73,8 @@ module.exports = class Market {
      */
     isAllowed() {
         return Config.get('currencies').indexOf(this.baseCurrencySymbol) > -1
-                && Config.get('currencies').indexOf(this.quoteCurrencySymbol) > -1;
+                && Config.get('currencies').indexOf(this.quoteCurrencySymbol) > -1
+                && !this.isRestricted();
     }
 
     /**
