@@ -123,16 +123,16 @@ module.exports = class Route {
         for (var i in this.delta) {
             output += (i > 0 ? ' > ' : '') + this.delta[i].inputCurrency.symbol;
         }
-        output += ' > ' + this.delta[0].inputCurrency.symbol;
-        return output.padEnd(36);
+        output += ' > ' + this.delta[0].inputCurrency.symbol.padEnd(5);
+        return output.padEnd(24);
     }
 
     marketRouteString() {
         var output = "  ";
         for (var i in this.delta) {
-            output += this.delta[i].market.symbol
+            output += this.delta[i].market.symbol.padEnd(10);
         }
-        return output.padEnd(36);
+        return output;
     }
 
     calculationString() {
