@@ -128,7 +128,7 @@ module.exports = class Route {
     }
 
     marketRouteString() {
-        var output = "\t";
+        var output = "  ";
         for (var i in this.delta) {
             output += this.delta[i].market.symbol + (this.delta[i].market.symbol.length < 8 ? '  ' : (this.delta[i].market.symbol.length < 9 ? ' ' : ''))
         }
@@ -136,7 +136,7 @@ module.exports = class Route {
     }
 
     calculationString() {
-        var output = '';
+        var output = '  ';
         for (var i in this.delta) {
             output += (i > 0 ? ' > ' : ' ') + Util.pad(Number.parseFloat(this.delta[i].input).toFixed(8)) + ' = ' + Util.pad(Number.parseFloat(this.delta[i].output).toFixed(8));
         }
@@ -159,8 +159,8 @@ module.exports = class Route {
     consoleOutput() {
         return this.ouput = ' [' + new Date().toLocaleTimeString() + '] '
                 + this.currencyRouteString()
-                + "\t\t" + this.marketRouteString()
-                + "\t" + this.calculationString()
-                + "\t" + this.profitString();
+                + " " + this.marketRouteString()
+                + " " + this.calculationString()
+                + " " + this.profitString();
     }
 }
