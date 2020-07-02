@@ -121,18 +121,18 @@ module.exports = class Route {
     currencyRouteString() {
         var output = ' ';
         for (var i in this.delta) {
-            output += (i > 0 ? ' > ' : '') + this.delta[i].inputCurrency.symbol + (this.delta[i].inputCurrency.symbol === 3 ? ' ' : '');
+            output += (i > 0 ? ' > ' : '') + this.delta[i].inputCurrency.symbol;
         }
-        output += ' > ' + this.delta[0].inputCurrency.symbol + (this.delta[0].inputCurrency.symbol === 3 ? ' ' : '')
-        return output;
+        output += ' > ' + this.delta[0].inputCurrency.symbol;
+        return output.padEnd(36);
     }
 
     marketRouteString() {
         var output = "  ";
         for (var i in this.delta) {
-            output += this.delta[i].market.symbol + (this.delta[i].market.symbol.length < 8 ? '  ' : (this.delta[i].market.symbol.length < 9 ? ' ' : ''))
+            output += this.delta[i].market.symbol
         }
-        return output;
+        return output.padEnd(36);
     }
 
     calculationString() {
@@ -140,15 +140,15 @@ module.exports = class Route {
         for (var i in this.delta) {
             output += (i > 0 ? ' > ' : ' ') + Util.pad(Number.parseFloat(this.delta[i].input).toFixed(8)) + ' = ' + Util.pad(Number.parseFloat(this.delta[i].output).toFixed(8));
         }
-        return output;
+        return output.padEnd(120);
     }
 
     profitString() {
         return "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
                 + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%'
                 + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
-                + "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
-                + "\t" + (this.hasEnoughBalance() ? "" : "No balance");
+                + " ~ " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
+                + "  " + (this.hasEnoughBalance() ? "" : "No balance");
     }
 
     /**
