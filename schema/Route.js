@@ -121,9 +121,9 @@ module.exports = class Route {
     currencyRouteString() {
         var output = ' ';
         for (var i in this.delta) {
-            output += (i > 0 ? ' > ' : ' ') + this.delta[i].inputCurrency.symbol + (this.delta[i].inputCurrency.symbol < 4 ? ' ' : '')
+            output += (i > 0 ? ' > ' : '') + this.delta[i].inputCurrency.symbol + (this.delta[i].inputCurrency.symbol === 3 ? ' ' : '');
         }
-        output += ' > ' + this.delta[0].inputCurrency.symbol + (this.delta[0].inputCurrency.symbol < 4 ? ' ' : '')
+        output += ' > ' + this.delta[0].inputCurrency.symbol + (this.delta[0].inputCurrency.symbol === 3 ? ' ' : '')
         return output;
     }
 
