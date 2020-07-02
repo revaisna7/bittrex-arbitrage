@@ -156,7 +156,7 @@ module.exports = class Market {
             price = this.Bid();
             price -= priceDeviation / 100 * price;
         }
-        return Number.parseFloat(price).toPrecision(this.getPrecision());
+        return Number.parseFloat(price).toFixed(this.getPrecision());
     }
 
     /**
@@ -179,7 +179,7 @@ module.exports = class Market {
             price = this.Ask();
             price -= priceDeviation / 100 * price;
         }
-        return Number.parseFloat(price).toPrecision(this.getPrecision());
+        return Number.parseFloat(price).toFixed(this.getPrecision());
     }
 
     /**
@@ -240,8 +240,8 @@ module.exports = class Market {
      * @param {Number} price
      * @returns {Number}
      */
-    getPotentialQuantityAvailable(currency, rate) {
-        return this.isBaseCurrency(currency) ? this.Bids(rate) : this.Asks(rate);
+    getPotentialQuantityAvailable(currency, price) {
+        return this.isBaseCurrency(currency) ? this.Bids(price) : this.Asks(price);
     }
 
     /**
