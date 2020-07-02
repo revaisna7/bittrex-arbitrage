@@ -153,7 +153,7 @@ module.exports = class Market {
             price = this.Bid();
             price -= priceDeviation / 100 * price;
         }
-        return price;
+        return Number.parseFloat(price).toFixed(this.getPrecision());
     }
 
     /**
@@ -174,7 +174,7 @@ module.exports = class Market {
             price = this.Ask();
             price -= priceDeviation / 100 * price;
         }
-        return price;
+        return Number.parseFloat(price).toFixed(this.getPrecision());
     }
 
     /**
