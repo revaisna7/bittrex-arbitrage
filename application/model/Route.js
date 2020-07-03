@@ -11,16 +11,45 @@ module.exports = class Route {
 
     static trading = false;
 
+    /**
+     * @property {Currency} currencyX 
+     */
     currencyX = null;
+    
+    /**
+     * @property {Currency} currencyZ 
+     */
     currencyZ = null;
+    
+    /**
+     * @property {Currency} currencyY 
+     */
     currencyY = null;
 
+    /**
+     * @property {Number} profitFactorX 
+     */
     profitFactorX = null;
+    
+    /**
+     * @property {Number} profitFactorX 
+     */
     profitFactorY = null;
+    
+    /**
+     * @property {Number} profitFactorX 
+     */
     profitFactorZ = null;
+    
+    /**
+     * @property {Number} profitFactorX 
+     */
     profitFactor = null;
 
-    delta = [];
+    /**
+     * @property {Array|Delta[]} deltaChain 
+     */
+    deltaChain = [];
 
     static list = [];
     static finding = false;
@@ -97,18 +126,18 @@ module.exports = class Route {
         this.currencyY = currencyY;
         this.currencyZ = currencyZ;
 
-        this.delta.push(new Delta(this, this.currencyX, this.currencyY));
-        this.delta.push(new Delta(this, this.currencyY, this.currencyZ));
-        this.delta.push(new Delta(this, this.currencyZ, this.currencyX));
+        this.deltaChain.push(new Delta(this, this.currencyX, this.currencyY));
+        this.deltaChain.push(new Delta(this, this.currencyY, this.currencyZ));
+        this.deltaChain.push(new Delta(this, this.currencyZ, this.currencyX));
     }
 
     getInputBtc() {
         var minInputBtc = Config.get('minInputBtc') || 0.00051;
         var btcBalances = [];
         var minBtcMarkets = [];
-        for (var i in this.delta) {
+        for (var i in this.deltaChain) {
 //            btcBalance.push(this.delta[i].getBtcBalance());
-            minBtcMarkets.push(this.delta[i].getMinBtcMarket());
+            minBtcMarkets.push(this.deltaChain[i].getMinBtcMarket());
         }
 //        var minBtcBalance = Math.min(...btcBalances);
         var maxMarketRequirement = Math.max(...minBtcMarkets);
@@ -117,12 +146,12 @@ module.exports = class Route {
     }
 
     calculate() {
-        for (var i in this.delta) {
-            this.delta[i].calculate();
+        for (var i in this.deltaChain) {
+            this.deltaChain[i].calculate();
         }
-        this.profitFactorX = (this.delta[2].output - this.delta[0].input) / this.delta[0].input * 100;
-        this.profitFactorY = (this.delta[0].output - this.delta[1].input) / this.delta[1].input * 100;
-        this.profitFactorZ = (this.delta[1].output - this.delta[2].input) / this.delta[2].input * 100;
+        this.profitFactorX = (this.deltaChain[2].output - this.deltaChain[0].input) / this.deltaChain[0].input * 100;
+        this.profitFactorY = (this.deltaChain[0].output - this.deltaChain[1].input) / this.deltaChain[1].input * 100;
+        this.profitFactorZ = (this.deltaChain[1].output - this.deltaChain[2].input) / this.deltaChain[2].input * 100;
         this.profitFactor = this.profitFactorX + this.profitFactorY + this.profitFactorZ;
 
         if (this.isProfitable()) {
@@ -141,8 +170,8 @@ module.exports = class Route {
     }
 
     hasEnoughBalance() {
-        for (var i in this.delta) {
-            if (!this.delta[i].hasEnoughBalance()) {
+        for (var i in this.deltaChain) {
+            if (!this.deltaChain[i].hasEnoughBalance()) {
                 return false;
             }
         }
@@ -171,8 +200,8 @@ module.exports = class Route {
         if (Config.get('trade') && !this.isTrading() && this.hasEnoughBalance()) {
             Route.trading = true;
 
-            for (var i in this.delta) {
-                await this.delta[i].executeTrade();
+            for (var i in this.deltaChain) {
+                await this.deltaChain[i].executeTrade();
             }
             await Balance.get();
 
@@ -190,25 +219,25 @@ module.exports = class Route {
 
     currencyRouteString() {
         var output = Util.spinner();
-        for (var i in this.delta) {
-            output += (i > 0 ? ' > ' : '') + this.delta[i].inputCurrency.symbol.padEnd(4);
+        for (var i in this.deltaChain) {
+            output += (i > 0 ? ' > ' : '') + this.deltaChain[i].inputCurrency.symbol.padEnd(4);
         }
-        output += ' > ' + this.delta[0].inputCurrency.symbol.padEnd(4);
+        output += ' > ' + this.deltaChain[0].inputCurrency.symbol.padEnd(4);
         return output.padEnd(26);
     }
 
     marketRouteString() {
         var output = Util.spinner();
-        for (var i in this.delta) {
-            output += (i > 0 ? ' > ' : '') + this.delta[i].market.symbol.padEnd(9);
+        for (var i in this.deltaChain) {
+            output += (i > 0 ? ' > ' : '') + this.deltaChain[i].market.symbol.padEnd(9);
         }
         return output;
     }
 
     calculationString() {
         var output = Util.spinner();
-        for (var i in this.delta) {
-            output += (i > 0 ? ' > ' : ' ') + Util.pad(Number.parseFloat(this.delta[i].input).toFixed(8)) + ' = ' + Util.pad(Number.parseFloat(this.delta[i].output).toFixed(8));
+        for (var i in this.deltaChain) {
+            output += (i > 0 ? ' > ' : ' ') + Util.pad(Number.parseFloat(this.deltaChain[i].input).toFixed(8)) + ' = ' + Util.pad(Number.parseFloat(this.deltaChain[i].output).toFixed(8));
         }
         return output;
     }

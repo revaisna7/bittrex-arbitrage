@@ -147,12 +147,12 @@ module.exports = class Market {
 
     /**
      * Get a market by its symbol
-     * @param {type} marketName
-     * @returns {nm$_Market.exports.list|MarketsMarketslistinitgetpushsubscribeOrderBooksgetUsedMarketsgetUsedMarketSymbolsgetBySymbolgetByCurrency.list|Array.list|Function.list}
+     * @param {type} marketSymbol
+     * @returns {String}
      */
-    static getBySymbol(marketName) {
+    static getBySymbol(marketSymbol) {
         for (var i in Market.list) {
-            if (Market.list[i].symbol === marketName) {
+            if (Market.list[i].symbol === marketSymbol) {
                 return Market.list[i];
             }
         }
@@ -171,7 +171,7 @@ module.exports = class Market {
     /**
      * Constructor for market
      * 
-     * @param {OBject} market Bittrex market response object
+     * @param {Object} market Bittrex market response object
      * @returns {Market}
      */
     constructor(market) {
