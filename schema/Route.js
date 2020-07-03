@@ -119,32 +119,32 @@ module.exports = class Route {
     }
 
     currencyRouteString() {
-        var output = ' ';
+        var output = Util.spinner();
         for (var i in this.delta) {
-            output += (i > 0 ? ' > ' : '') + this.delta[i].inputCurrency.symbol;
+            output += (i > 0 ? ' > ' : '') + this.delta[i].inputCurrency.symbol.padEnd(4);
         }
-        output += ' > ' + this.delta[0].inputCurrency.symbol.padEnd(5);
-        return output.padEnd(24);
+        output += ' > ' + this.delta[0].inputCurrency.symbol.padEnd(4);
+        return output.padEnd(26);
     }
 
     marketRouteString() {
-        var output = "  ";
+        var output = Util.spinner();
         for (var i in this.delta) {
-            output += this.delta[i].market.symbol.padEnd(10);
+            output += (i > 0 ? ' > ' : '') + this.delta[i].market.symbol.padEnd(9);
         }
         return output;
     }
 
     calculationString() {
-        var output = '  ';
+        var output = Util.spinner();
         for (var i in this.delta) {
             output += (i > 0 ? ' > ' : ' ') + Util.pad(Number.parseFloat(this.delta[i].input).toFixed(8)) + ' = ' + Util.pad(Number.parseFloat(this.delta[i].output).toFixed(8));
         }
-        return output.padEnd(120);
+        return output;
     }
 
     profitString() {
-        return "\t" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
+        return Util.spinner() + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
                 + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%'
                 + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
                 + " ~ " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
@@ -157,10 +157,10 @@ module.exports = class Route {
      * @returns {String}
      */
     consoleOutput() {
-        return this.ouput = ' [' + new Date().toLocaleTimeString() + '] '
+        return this.ouput = ' ' + new Date().toLocaleTimeString()
                 + this.currencyRouteString()
-                + " " + this.marketRouteString()
-                + " " + this.calculationString()
-                + " " + this.profitString();
+                + this.marketRouteString()
+                + this.calculationString()
+                + this.profitString();
     }
 }

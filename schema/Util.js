@@ -2,6 +2,20 @@ var Config = require('./Config.js');
 var fs = require('fs');
 
 module.exports = class Util {
+    
+    static spin = 0;
+    
+    static spinner() {
+        var spins = ['(',')','{','}','[',']',' '];
+        Util.spin = Number.parseInt(Math.random()*spins.length);
+        if(Util.spin === spins.length) {
+            Util.spin = 0;
+        }
+        
+        return "\x1b[30;1m" + spins[Util.spin].padStart(2).padEnd(3) + "\x1b[0m";
+    }
+    
+    
     static addPlusOrSpace(number, decimals) {
         var decimals = decimals || 3;
         var number = Number.parseFloat(number);
@@ -10,11 +24,11 @@ module.exports = class Util {
             str += ' ';
         }
         if (number < 0) {
-            str += "\x1b[31m";
+            str += "\x1b[31;1m";
             str += '-';
         }
         if (number > 0) {
-            str += "\x1b[32m";
+            str += "\x1b[32;1m";
             str += '+';
         }
         if (number < 10 && number > -10) {
