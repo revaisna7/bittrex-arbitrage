@@ -1,8 +1,8 @@
 var Config = require('./Config.js');
-var Bittrex = require('../bittrex/Bittrex.js');
-var Currencies = require('./Currencies.js');
-var Markets = require('./Markets.js');
-var Util = require('./Util.js');
+var Bittrex = require('../lib/bittrex/Bittrex.js');
+var Currency = require('./Currency.js');
+var Market = require('./Market.js');
+var Util = require('../lib/Util.js');
 
 module.exports = class Order {
 
@@ -20,6 +20,103 @@ module.exports = class Order {
     createdAt = null;
     updatedAt = null;
 
+    static list = [];
+
+    static ordersInterval;
+
+    static getting = false;
+
+    /**
+     * 
+     * @returns {undefined}
+     */
+    static async init() {
+        await Order.get();
+        Order.pulse();
+    }
+
+    /**
+     * Whether the orders are current being requested
+     * @returns {boolean}
+     */
+    static isGetting() {
+        return Order.getting;
+    }
+
+    /**
+     * Get orders
+     * @returns {undefined}
+     */
+    static async get() {
+        Order.getting = true;
+        let orders = await Bittrex.openOrder();
+        Order.update(orders);
+        Order.getting = false;
+    }
+
+    /**
+     * (Re)start order request interval
+     * @returns {undefined}
+     */
+    static pulse() {
+        Order.pulseStop();
+        Order.pulseStart();
+    }
+
+    /**
+     * Start order request interval
+     * @returns {undefined}
+     */
+    static pulseStart() {
+        Order.ordersInterval = setInterval(Order.get, 1000);
+    }
+
+    /**
+     * Stop order request interval
+     * @returns {undefined}
+     */
+    static pulseStop() {
+        clearInterval(Order.ordersInterval);
+    }
+
+    /**
+     * Update orders
+     * @param {Object} orders Bittrex order response object
+     * @returns {undefined}
+     */
+    static update(orders) {
+        Order.list = [];
+        for (var i in orders) {
+            Order.list.push(new Order(orders[i]));
+        }
+    }
+
+    /**
+     * Output that gets logged to console
+     * 
+     * @returns {String}
+     */
+    static consoleOutput() {
+        var output = "\n\n [Order]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference\tFactor";
+        for (var i in Order.list) {
+            output += Order.list[i].consoleOutput();
+        }
+        return output;
+    }
+
+    /**
+     * Cancel all orders
+     * @returns {Promise}
+     */
+    static async cancelAll() {
+        return await new Promise(async (resolve, reject) => {
+            for (var i in Order.list) {
+                await Order.list[i].cancel();
+            }
+            return resolve(true);
+        });
+    }
+    
     constructor(order) {
         Object.assign(this, order);
     }
@@ -71,17 +168,17 @@ module.exports = class Order {
     }
 
     getMarket() {
-        return Markets.getBySymbol(this.marketSymbol);
+        return Market.getBySymbol(this.marketSymbol);
     }
 
     getInputCurrency() {
         var currencySymbols = this.marketSymbol.split('-');
-        return this.direction === 'BUY' ? Currencies.getBySymbol(currencySymbols[1]) : Currencies.getBySymbol(currencySymbols[0]);
+        return this.direction === 'BUY' ? Currency.getBySymbol(currencySymbols[1]) : Currency.getBySymbol(currencySymbols[0]);
     }
 
     getOutputCurrency() {
         var currencySymbols = this.marketSymbol.split('-');
-        return this.direction === 'BUY' ? Currencies.getBySymbol(currencySymbols[0]) : Currencies.getBySymbol(currencySymbols[1]);
+        return this.direction === 'BUY' ? Currency.getBySymbol(currencySymbols[0]) : Currency.getBySymbol(currencySymbols[1]);
     }
 
     getCurrenctPrice() {

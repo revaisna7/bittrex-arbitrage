@@ -1,6 +1,6 @@
 var Config = require('./Config.js');
-var Balances = require('./Balances.js');
-var Currencies = require('./Currencies.js');
+var Balance = require('./Balance.js');
+var Currency = require('./Currency.js');
 
 module.exports = class Delta {
 
@@ -19,7 +19,7 @@ module.exports = class Delta {
         this.inputCurrency = inputCurrency;
         this.outputCurrency = outputCurrency;
         this.market = inputCurrency.getMarket(outputCurrency);
-        this.market.routes.push(route);
+        this.market.Route.push(route);
     }
 
     isAllowed() {
@@ -29,7 +29,7 @@ module.exports = class Delta {
     }
 
     getBtcBalance() {
-        return this.inputCurrency.convertToBtc(Balances.getByCurrency(this.inputCurrency).getAvailable());
+        return this.inputCurrency.convertToBtc(Balance.getByCurrency(this.inputCurrency).getAvailable());
     }
 
     getMinBtcMarket() {
@@ -46,7 +46,7 @@ module.exports = class Delta {
     }
 
     getInput() {
-        this.input = Currencies.getBtc().convertTo(this.inputCurrency, this.route.getInputBtc());
+        this.input = Currency.getBtc().convertTo(this.inputCurrency, this.route.getInputBtc());
     }
 
     getOuput() {
@@ -71,7 +71,7 @@ module.exports = class Delta {
     }
 
     hasEnoughBalance() {
-        return Balances.getByCurrency(this.inputCurrency).getAvailable() >= this.input;
+        return Balance.getByCurrency(this.inputCurrency).getAvailable() >= this.input;
     }
 
     /**
@@ -82,4 +82,4 @@ module.exports = class Delta {
         this.trade = this.market.trade(this.inputCurrency, this.outputCurrency, this.input, this.price);
         return await this.trade.execute();
     }
-}
+};

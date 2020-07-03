@@ -1,23 +1,172 @@
 var Config = require('./Config.js');
 var Trade = require('./Trade.js');
 var OrderBook = require('./OrderBook.js');
-var Currencies = require('./Currencies.js');
+var Currency = require('./Currency.js');
+var Bittrex = require('../lib/bittrex/Bittrex.js');
 
 module.exports = class Market {
 
+    /**
+     * @property {String} symbol 
+     */
     symbol = null;
+
+    /**
+     * @property {String} baseCurrencySymbol 
+     */
     baseCurrencySymbol = null;
+
+    /**
+     * @property {String} quoteCurrencySymbol 
+     */
     quoteCurrencySymbol = null;
+
+    /**
+     * @property {Currency} baseCurrency 
+     */
     baseCurrency = null;
+
+    /**
+     * @property {Currency} quoteCurrency 
+     */
     quoteCurrency = null;
+
+    /**
+     * @property {String} minTradeSize 
+     */
     minTradeSize = 0;
+
+    /**
+     * @property {String} precision 
+     */
     precision = 0;
+
+    /**
+     * @property {String} createdAt 
+     */
     createdAt = null;
+
+    /**
+     * @property {String} notice 
+     */
     notice = null;
+
+    /**
+     * @property {Array} prohibitedIn 
+     */
     prohibitedIn = null;
+
+    /**
+     * @property {OrderBook} orderBook 
+     */
     orderBook = null;
+
+    /**
+     * @property {Array|Object[]} tickData 
+     */
     tickData = [];
+
+    /**
+     * @property {Array|Route[]} routes 
+     */
     routes = [];
+
+    static list = [];
+
+    /**
+     * Initialize markets
+     * @returns {undefined}
+     */
+    static async init() {
+        return await Market.getAll();
+    }
+
+    /**
+     * Get markets from bittres and assign them to the list when they are not
+     * already in it
+     * 
+     * @returns {undefined}
+     */
+    static async getAll() {
+        let markets = await Bittrex.markets();
+        for (var i in markets) {
+            if (!Market.getBySymbol(Market.symbol)) {
+                Market.push(new Market(markets[i]));
+            }
+        }
+    }
+
+    /**
+     * Push market to list
+     * 
+     * @param {Market} market
+     * @returns {undefined}
+     */
+    static push(market) {
+        Market.list.push(market);
+    }
+
+    /**
+     * @TODO
+     * 
+     * @returns {undefined}
+     */
+    static subscribeOrderBooks() {
+        Market.startOrderBooksUpdates();
+        Market.subscribeSockets();
+    }
+
+    /**
+     * Get a list of markets that are allowed to trade
+     * 
+     * @returns {Array|Market[]}
+     */
+    static getUsedMarkets() {
+        var markets = [];
+        for (var i in Market.list) {
+            if (Market.list[i].canTrade()) {
+                Market.push(Market.list[i]);
+            }
+        }
+        return markets;
+    }
+
+    /**
+     * List of market symbols that are allowed to trade
+     * 
+     * @returns {Array|String[]}
+     */
+    static getUsedMarketSymbols() {
+        var marketSymbols = [];
+        var markets = Market.getUsedMarkets();
+        for (var i in markets) {
+            marketSymbols.push(markets[i].symbol);
+        }
+        return marketSymbols;
+    }
+
+    /**
+     * Get a market by its symbol
+     * @param {type} marketName
+     * @returns {nm$_Market.exports.list|MarketsMarketslistinitgetpushsubscribeOrderBooksgetUsedMarketsgetUsedMarketSymbolsgetBySymbolgetByCurrency.list|Array.list|Function.list}
+     */
+    static getBySymbol(marketName) {
+        for (var i in Market.list) {
+            if (Market.list[i].symbol === marketName) {
+                return Market.list[i];
+            }
+        }
+    }
+
+    static getByCurrencies(currencyX, currencyY) {
+        for (var i in Market.list) {
+            if (Market.list[i].symbol === currencyX.symbol + '-' + currencyY.symbol
+                    || Market.list[i].symbol === currencyY.symbol + '-' + currencyX.symbol) {
+                return Market.list[i];
+            }
+        }
+        return null;
+    }
 
     /**
      * Constructor for market
@@ -37,13 +186,52 @@ module.exports = class Market {
     }
 
     /**
+     * Get config for class
+     * 
+     * @param {String} property proerty name
+     * @returns {Number|String|Array|Boolean|Object|Null}
+     */
+    static config(property) {
+        return Config.get('Market')[property] || null;
+    }
+
+    /**
+     * List of restricted currency symbols from configuration
+     * 
+     * @returns {Array|String[]}
+     */
+    static getRestricted() {
+        return Market.config('restrict');
+    }
+
+    /**
+     * Whether the market is restricted
+     * 
+     * @returns {Boolean}
+     */
+    isRestricted() {
+        return Market.getRestricted().contains(this.symbol);
+    }
+
+    /**
+     * Whether the configuration allows the market to be traded
+     * 
+     * @returns {Boolean}
+     */
+    isAllowed() {
+        return this.baseCurrency.isAllowed()
+                && this.quoteCurrency.isAllowed()
+                && !this.isRestricted();
+    }
+
+    /**
      * Find base and quote currency and set them
      * 
      * @returns {undefined}
      */
     getCurrencies() {
-        this.baseCurrency = Currencies.getBySymbol(this.baseCurrencySymbol);
-        this.quoteCurrency = Currencies.getBySymbol(this.quoteCurrencySymbol);
+        this.baseCurrency = Currency.getBySymbol(this.baseCurrencySymbol);
+        this.quoteCurrency = Currency.getBySymbol(this.quoteCurrencySymbol);
     }
 
     /**
@@ -64,26 +252,6 @@ module.exports = class Market {
      */
     isQuoteCurrency(currency) {
         return currency.symbol === this.quoteCurrency.symbol;
-    }
-
-    /**
-     * Whether the configuration allows the market to be traded
-     * 
-     * @returns {Boolean}
-     */
-    isAllowed() {
-        return Config.get('currencies').indexOf(this.baseCurrencySymbol) > -1
-                && Config.get('currencies').indexOf(this.quoteCurrencySymbol) > -1
-                && !this.isRestricted();
-    }
-
-    /**
-     * Whether the market is restricted
-     * 
-     * @returns {Boolean}
-     */
-    isRestricted() {
-        return Config.get('restrictedMarkets').indexOf(this.symbol) > -1;
     }
 
     /**
@@ -141,20 +309,14 @@ module.exports = class Market {
      * Get the current market price for the given currency
      * 
      * @param {Currency} currency The currency to get the price for
-     * @param {Number} priceDeviation A factor to deviate the price by
      * @returns {Number}
      */
-    getPrice(currency, priceDeviation) {
-        if (!priceDeviation) {
-            priceDeviation = 0;
-        }
+    getPrice(currency) {
         var price;
         if (this.isBaseCurrency(currency)) {
             price = this.Ask();
-            price += priceDeviation / 100 * price;
         } else {
             price = this.Bid();
-            price -= priceDeviation / 100 * price;
         }
         return Number.parseFloat(price).toFixed(this.getPrecision());
     }
@@ -164,20 +326,14 @@ module.exports = class Market {
      * Does the same as getPrice but switches Ask to Bid and Bid to Ask
      * 
      * @param {Currency} currency The currency to get the price for
-     * @param {Number} priceDeviation A factor to deviate the price by
      * @returns {Number}
      */
-    getPotentialPrice(currency, priceDeviation) {
-        if (!priceDeviation) {
-            priceDeviation = 0;
-        }
+    getPotentialPrice(currency) {
         var price;
         if (this.isBaseCurrency(currency)) {
             price = this.Bid();
-            price += priceDeviation / 100 * price;
         } else {
             price = this.Ask();
-            price -= priceDeviation / 100 * price;
         }
         return Number.parseFloat(price).toFixed(this.getPrecision());
     }
@@ -226,7 +382,7 @@ module.exports = class Market {
      * Get quantity available for given currency
      * 
      * @param {Currency} currency
-     * @param {Number} price
+     * @param {Number} [price]
      * @returns {Number}
      */
     getQuantityAvailable(currency, price) {
@@ -237,7 +393,7 @@ module.exports = class Market {
      * Get quantity available for given currency at the reversed price
      * 
      * @param {Currency} currency
-     * @param {Number} price
+     * @param {Number} [price]
      * @returns {Number}
      */
     getPotentialQuantityAvailable(currency, price) {
@@ -251,12 +407,11 @@ module.exports = class Market {
      * @param {Currency} outputCurrency The currency received
      * @param {Number} inputQauntity The quantity to trade
      * @optional {Number} price The price
-     * @optional {Number} deviaiton Price deviation factor
      * @returns {Trade}
      */
-    trade(inputCurrency, outputCurrency, inputQauntity, price, deviaiton) {
+    trade(inputCurrency, outputCurrency, inputQauntity, price) {
         if (!price) {
-            price = this.getPrice(outputCurrency, deviaiton);
+            price = this.getPrice(outputCurrency);
         }
         return new Trade(this, inputCurrency, outputCurrency, inputQauntity, price);
     }
@@ -269,12 +424,11 @@ module.exports = class Market {
      * @param {Currency} outputCurrency The currency received
      * @param {Number} inputQauntity The quantity to trade
      * @optional {Number} price The price
-     * @optional {Number} deviaiton Price deviation factor
      * @returns {Trade}
      */
-    tradePotential(inputCurrency, outputCurrency, inputQauntity, price, deviaiton) {
+    tradePotential(inputCurrency, outputCurrency, inputQauntity, price) {
         if (!price) {
-            price = this.getPotentialPrice(outputCurrency, deviaiton);
+            price = this.getPotentialPrice(outputCurrency);
         }
         return new Trade(this, inputCurrency, outputCurrency, inputQauntity, price);
     }
@@ -285,13 +439,12 @@ module.exports = class Market {
      * 
      * @param {Currency} outputCurrency The currency to convert
      * @param {Currency} inputQuantity The currency convert to
-     * @param {Number} price
-     * @param {Number} priceDeviation Price deviation factor
+     * @param {Number} [price]
      * @returns {Number}
      */
-    convert(outputCurrency, inputQuantity, price, priceDeviation) {
+    convert(outputCurrency, inputQuantity, price) {
         if (!price) {
-            price = this.getPrice(outputCurrency, priceDeviation);
+            price = this.getPrice(outputCurrency);
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
@@ -304,13 +457,12 @@ module.exports = class Market {
      * 
      * @param {Currency} outputCurrency
      * @param {Currency} inputQuantity
-     * @param {Number} price
-     * @param {Number} priceDeviation
+     * @param {Number} [price]
      * @returns {Number}
      */
-    convertPotential(outputCurrency, inputQuantity, price, priceDeviation) {
+    convertPotential(outputCurrency, inputQuantity, price) {
         if (!price) {
-            price = this.getPotentialPrice(outputCurrency, priceDeviation);
+            price = this.getPotentialPrice(outputCurrency);
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;

@@ -1,0 +1,45 @@
+{
+    "Route" : {
+        "trade" : false,
+        "speculate": false,
+        "inputBtc" : 0.0006,
+        "autoTradeSize": false,
+        "autoTradePercentage": 33,
+        "tradeOnProfit": 0.1,
+        "profitAllThree" : false
+    },
+    "Trade" : {
+        "orderType" : "LIMIT"
+    },
+    "Currency" : {
+        "base" : "USDT",
+        "allow" : [
+            "BTC",
+            "ETH",
+            "USDT",
+            "XRP",
+            "USD",
+            "DASH",
+            "LTC"
+        ],
+        "restrict" : [
+            "BTXCRD",
+            "EUR"
+        ]
+    },
+    "Market": {
+        "comission": 0.2,
+        "restrict" : [
+            "BTXCRD"
+        ]
+    },
+    "Bittrex": {
+        "apikey": "b68f96497ff54ccd86f291cfd80a6a23",
+        "apisecret": "45098aabbe1a482b9ba55bc0092503a5",
+        "subaccountid": ""
+    },
+    "View": {
+        "refreshRate": 250,
+        "routes" : 15
+    }  
+}

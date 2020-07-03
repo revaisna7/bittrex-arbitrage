@@ -1,39 +1,39 @@
 console.log('Initiating...');
-var Config = require('./schema/Config.js');
+var Config = require('./model/Config.js');
 Config.init();
 
-var Markets = require('./schema/Markets.js');
-var OrderBook = require('./schema/OrderBook.js');
-var Currencies = require('./schema/Currencies.js');
-var Balances = require('./schema/Balances.js');
-var Orders = require('./schema/Orders.js');
-var Util = require('./schema/Util.js');
-var Trade = require('./schema/Trade.js');
+var Market = require('./model/Market.js');
+var OrderBook = require('./model/OrderBook.js');
+var Currency = require('./model/Currency.js');
+var Balance = require('./model/Balance.js');
+var Order = require('./model/Order.js');
+var Util = require('./model/Util.js');
+var Trade = require('./model/Trade.js');
 
 (async () => {
-    console.log('Initializing Currencies...');
-    await Currencies.get();
+    console.log('Initializing Currency...');
+    await Currency.get();
 
-    console.log('Initializing Markets...');
-    await Markets.init();
+    console.log('Initializing Market...');
+    await Market.init();
 
     console.log('Initializing Order books...');
     await OrderBook.init();
 
-    console.log('Initializing Balances...');
-    await Balances.init();
+    console.log('Initializing Balance...');
+    await Balance.init();
 
-    console.log('Initializing Orders...');
-    await Orders.init();
+    console.log('Initializing Order...');
+    await Order.init();
 
-    console.log('Close open orders...');
-    await Orders.cancelAll();
+    console.log('Close open Order...');
+    await Order.cancelAll();
 
     setTimeout(() => {
         console.log('Trade all to BTC..');
         for (var i in Config.get('currencies')) {
-            var currency = Currencies.getBySymbol(Config.get('currencies')[i]);
-            var balance = Balances.getByCurrencySymbol(Config.get('currencies')[i]);
+            var currency = Currency.getBySymbol(Config.get('currencies')[i]);
+            var balance = Balance.getByCurrencySymbol(Config.get('currencies')[i]);
             if (balance.getTotal() > 0) {
                 var trade = currency.tradeToBtc(balance.getTotal());
 
@@ -47,18 +47,18 @@ var Trade = require('./schema/Trade.js');
                 }
             }
         }
-        Orders.get();
+        Order.get();
         setTimeout(() => {
             Util.when(() => {
                 console.log('Waiting for orders to fill...');
-                Orders.get();
-                return Orders.list.length !== 0;
+                Order.get();
+                return Order.list.length !== 0;
             }, () => {
-                Balances.get();
+                Balance.get();
                 setTimeout(() => {
-                    var btcQuantity = Balances.getByCurrencySymbol('BTC').getTotal() / Config.get('currencies').length;
+                    var btcQuantity = Balance.getByCurrencySymbol('BTC').getTotal() / Config.get('currencies').length;
                     for (var i in Config.get('currencies')) {
-                        var trade = Currencies.getBtc().tradeTo(Currencies.getBySymbol(Config.get('currencies')[i]), btcQuantity);
+                        var trade = Currency.getBtc().tradeTo(Currency.getBySymbol(Config.get('currencies')[i]), btcQuantity);
                         if (trade) {
                             console.log(trade.meetsMinTradeRequirement());
                             console.log(trade.hasBalance());

@@ -1,4 +1,4 @@
-var Bittrex = require('../bittrex/Bittrex.js');
+var Bittrex = require('../lib/bittrex/Bittrex.js');
 
 module.exports = class OrderBook {
 

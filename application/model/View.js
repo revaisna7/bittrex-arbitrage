@@ -1,9 +1,9 @@
 var Config = require('./Config.js');
 var clear = require('clear');
-var Balances = require('./Balances.js');
-var Routes = require('./Routes.js');
-var Trades = require('./Trades.js');
-var Orders = require('./Orders.js');
+var Balance = require('./Balance.js');
+var Route = require('./Route.js');
+var Trade = require('./Trade.js');
+var Order = require('./Order.js');
 
 module.exports = class View {
 
@@ -52,10 +52,10 @@ module.exports = class View {
 
     static generateOutput() {
         View.output = View.title()
-                + Balances.consoleOutput()
-                + Routes.consoleOutput()
-                + Trades.consoleOutput()
-                + Orders.consoleOutput();
+                + Balance.consoleOutput()
+                + Route.consoleOutput()
+                + Trade.consoleOutput()
+                + Order.consoleOutput();
     }
 
     static logOutput() {

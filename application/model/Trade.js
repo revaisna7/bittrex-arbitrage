@@ -1,9 +1,9 @@
 var Config = require('./Config.js');
-var Trades = require('./Trades.js');
-var Util = require('./Util.js');
-var Balances = require('./Balances.js');
+var Trade = require('./Trade.js');
+var Util = require('../lib/Util.js');
+var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
-var Bittrex = require('../bittrex/Bittrex.js');
+var Bittrex = require('../lib/bittrex/Bittrex.js');
 
 module.exports = class Trade {
 
@@ -25,6 +25,37 @@ module.exports = class Trade {
     respondedAt = null;
     timeInForce = null;
 
+    static list = [];
+
+    static push(trade) {
+        Trade.list.push(trade);
+    }
+
+    static getCurrentTrades() {
+        var trades = [];
+        for (var i in trades) {
+            var trade = trades[i];
+            if (typeof trade === 'object') {
+                if (trade.request && !trade.responeded) {
+                    trades.push(trade);
+                }
+            }
+        }
+        return trades;
+    }
+
+    static consoleOutput() {
+        var output = "\n\n [Trades] (" + Trade.list.length + ")\n " + ["Time\t\t", "Market", "Currency", "Quantity", "Rate", "Request", "Responded"].join("\t\t");
+        for (var i = Trade.list.length - 1; i >= 0; i--) {
+            output += "\n " + Trade.list[i].consoleOutput();
+            if (Trade.list.length - i == 6) {
+                break
+            }
+            ;
+        }
+        return output;
+    }
+
     constructor(market, inputCurrency, outputCurrency, inputQuantity, price) {
         this.createdAt = Date.now();
         this.market = market;
@@ -33,16 +64,16 @@ module.exports = class Trade {
         this.inputQuantity = inputQuantity;
         this.price = price;
         this.getTradeQuantity();
-        Trades.push(this);
+        Trade.push(this);
         return this;
     }
 
     getTradeQuantity() {
         this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity, this.deviation);
-        if(this.getMarket().isBaseCurrency(this.inputCurrency)) {
+        if (this.getMarket().isBaseCurrency(this.inputCurrency)) {
             this.tradeQuantity = this.outputCurrency.convertTo(this.inputCurrency, this.outputQuantity);
         }
-        if(this.getMarket().isBaseCurrency(this.outputCurrency)) {
+        if (this.getMarket().isBaseCurrency(this.outputCurrency)) {
             this.tradeQuantity = this.outputQuantity;
         }
     }
@@ -98,7 +129,7 @@ module.exports = class Trade {
     getRequest() {
         return this.request;
     }
-    
+
     getCreatedAt() {
         return this.createdAt;
     }
@@ -115,7 +146,7 @@ module.exports = class Trade {
     setTypeLimit() {
         this.type = 'LIMIT';
     }
-    
+
     setTypeMarket() {
         this.type = 'MARKET';
         this.timeInForce = 'IMMEDIATE_OR_CANCEL';
@@ -125,21 +156,21 @@ module.exports = class Trade {
         var marketMinTradeSize = this.getMarket().getMinTradeSize();
         var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0005);
         return marketMinTradeSize < this.getQuantity()
-            && btcMinTradeSize < this.getQuantity();
+                && btcMinTradeSize < this.getQuantity();
     }
 
     hasBalance() {
-        return Balances.getByCurrency(this.inputCurrency).getAvailable() >= this.inputQuantity;
+        return Balance.getByCurrency(this.inputCurrency).getAvailable() >= this.inputQuantity;
     }
 
     canExecute() {
         return this.getMarket().canTrade()
-            && this.meetsMinTradeRequirement()
-            && this.hasBalance();
+                && this.meetsMinTradeRequirement()
+                && this.hasBalance();
     }
 
     async execute(callback) {
-        if(this.canExecute()) {
+        if (this.canExecute()) {
             this.logData();
             this.executedAt = Date.now();
             let response = await Bittrex.newOrder(
@@ -156,7 +187,7 @@ module.exports = class Trade {
             this.respondedAt = Date.now();
             this.response = response;
             this.logData();
-            if(callback) {
+            if (callback) {
                 callback(this);
             }
             return response;

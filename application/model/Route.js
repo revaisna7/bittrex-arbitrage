@@ -1,8 +1,8 @@
 var Config = require('./Config.js');
-var Balances = require('./Balances.js');
-var Currencies = require('./Currencies.js');
+var Balance = require('./Balance.js');
+var Currency = require('./Currency.js');
 var Delta = require('./Delta.js');
-var Util = require('./Util.js');
+var Util = require('../lib/Util.js');
 
 /**
  * Route logic
@@ -22,6 +22,76 @@ module.exports = class Route {
 
     delta = [];
 
+    static list = [];
+    static finding = false;
+
+    static init() {
+        this.find();
+    }
+
+    static find() {
+        this.finding = true;
+        var currencues = Currency.getAllowed();
+        for (var x in currencues) {
+            for (var y in currencues) {
+                if (x === y) continue;
+                for (var z in currencues) {
+                    if (y === z || z === x) continue;
+                    if (!Route.exists(currencues[x], currencues[y], currencues[z])) {
+                        var route = Route.find(currencues[x], currencues[y], currencues[z]);
+                        if (route) {
+                            Route.push(route);
+                        }
+                    }
+                }
+            }
+        }
+        this.finding = false;
+    }
+
+    static push(route) {
+        Route.list.push(route);
+    }
+
+    static exists(currencyX, currencyY, currencyZ) {
+        for (var i in Route.list) {
+            if (Route.list[i].currencyX === currencyX
+                    && Route.list[i].currencyY === currencyY
+                    && Route.list[i].currencyZ === currencyZ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static sort() {
+        Route.list.sort(Route.sortComparer);
+    }
+
+    static sortComparer(a, b) {
+        if (a.profitFactor > b.profitFactor)
+            return -1;
+        if (a.profitFactor < b.profitFactor)
+            return 1;
+        return 0;
+    }
+
+    static getTradingRoute() {
+        var routes = [];
+        for (var i in Route.list) {
+            if (Route.list[i] instanceof Route) {
+                if (Route.list[i].isTrading()) {
+                    Route.push(Route.list[i]);
+                }
+            }
+        }
+        return routes;
+    }
+
+    static isTrading() {
+        return Route.getTradingRoute().length > 0;
+    }
+
     constructor(currencyX, currencyY, currencyZ) {
         this.currencyX = currencyX;
         this.currencyY = currencyY;
@@ -37,7 +107,7 @@ module.exports = class Route {
         var btcBalances = [];
         var minBtcMarkets = [];
         for (var i in this.delta) {
-//            btcBalances.push(this.delta[i].getBtcBalance());
+//            btcBalance.push(this.delta[i].getBtcBalance());
             minBtcMarkets.push(this.delta[i].getMinBtcMarket());
         }
 //        var minBtcBalance = Math.min(...btcBalances);
@@ -80,9 +150,9 @@ module.exports = class Route {
     }
 
     static find(currencySymbolX, currencySymbolY, currencySymbolZ) {
-        var currencyX = Currencies.getBySymbol(currencySymbolX);
-        var currencyY = Currencies.getBySymbol(currencySymbolY);
-        var currencyZ = Currencies.getBySymbol(currencySymbolZ);
+        var currencyX = Currency.getBySymbol(currencySymbolX);
+        var currencyY = Currency.getBySymbol(currencySymbolY);
+        var currencyZ = Currency.getBySymbol(currencySymbolZ);
         if (currencyX && currencyY && currencyZ && currencyX.isAllowed() && currencyY.isAllowed() && currencyZ.isAllowed()) {
             var marketX = currencyX.getMarket(currencyY);
             var marketY = currencyY.getMarket(currencyZ);
@@ -104,7 +174,7 @@ module.exports = class Route {
             for (var i in this.delta) {
                 await this.delta[i].executeTrade();
             }
-            await Balances.get();
+            await Balance.get();
 
             Route.trading = false;
         }
@@ -149,6 +219,18 @@ module.exports = class Route {
                 + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
                 + " ~ " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
                 + "  " + (this.hasEnoughBalance() ? "" : "No balance");
+    }
+
+    static consoleOutput() {
+        var output = ("\n\n [Triangular Route]\n");
+        Route.sort();
+        for (var x in Route.list) {
+            if (x === 30) break;
+            if (typeof Route.list[x] === 'object') {
+                output += Route.list[x].consoleOutput() + "\n";
+            }
+        }
+        return output;
     }
 
     /**
