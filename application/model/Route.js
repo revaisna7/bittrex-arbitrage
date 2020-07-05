@@ -256,7 +256,7 @@ module.exports = class Route extends Model {
     }
 
     static consoleOutput() {
-        var output = ("[Triangular Routes]<bt><table> (" + Route.list.length + ")<table>");
+        var output = ("[Triangular Routes (" + Route.list.length + ") ]<br><table>");
         Route.sort();
         for (var x in Route.list) {
             if (x === 30) break;
@@ -279,4 +279,4 @@ module.exports = class Route extends Model {
                 + '<td>' + this.calculationString() + '</td>'
                 + '<td>' + this.profitString() + '</td>';
     }
-}
+};

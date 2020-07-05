@@ -190,9 +190,9 @@ module.exports = class Balance extends Model {
             var balance = Balance.list[i];
             balance.setAccumulateNow(Balance.accumulate(balance.getCurrency()));
             balance.setAccumulateStart(Balance.accumulateStart(balance.getCurrency()));
-            balancesOutput += balance.consoleOutput() + "</table>";
+            balancesOutput += balance.consoleOutput();
         }
-        return output +  + balancesOutput;
+        return output +  + balancesOutput + "</table>";
     }
     
     /**
