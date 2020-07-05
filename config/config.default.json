@@ -53,7 +53,7 @@
         "fileDirectory" : "./web"
     },
     "SocketServer": {
-        "port": 81,
+        "port": 3001,
         "host": "localhost",
         "protocol": "http"
     },
