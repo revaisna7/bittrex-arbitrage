@@ -9,7 +9,7 @@
                 document.getElementById('arbitrage').innerHTML = data;
             }
             
-            var socket = io.connect('http://localhost:45634');
+            var socket = io.connect('http://146.71.79.213:45634');
             socket.on('connect', function(data){
                 console.log(data);
                 socket.emit('arbitrage', 'index');
