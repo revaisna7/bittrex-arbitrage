@@ -1,10 +1,10 @@
-var Config = require('./Config.js');
+var Model = require('../../system/Model.js');
 var Trade = require('./Trade.js');
 var OrderBook = require('./OrderBook.js');
 var Currency = require('./Currency.js');
-var Bittrex = require('../lib/bittrex/Bittrex.js');
+var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 
-module.exports = class Market {
+module.exports = class Market extends Model {
 
     /**
      * @property {String} symbol 
@@ -78,6 +78,7 @@ module.exports = class Market {
      * @returns {undefined}
      */
     static async init() {
+        console.log('Inititialize Market...');
         return await Market.getAll();
     }
 
@@ -175,6 +176,7 @@ module.exports = class Market {
      * @returns {Market}
      */
     constructor(market) {
+        super();
         Object.assign(this, market);
         this.getCurrencies();
         this.orderBook = new OrderBook(this);
@@ -186,22 +188,12 @@ module.exports = class Market {
     }
 
     /**
-     * Get config for class
-     * 
-     * @param {String} property proerty name
-     * @returns {Number|String|Array|Boolean|Object|Null}
-     */
-    static config(property) {
-        return Config.get('Market')[property] || null;
-    }
-
-    /**
      * List of restricted currency symbols from configuration
      * 
      * @returns {Array|String[]}
      */
     static getRestricted() {
-        return Market.config('restrict');
+        return Market.config('restrict') || [];
     }
 
     /**
@@ -210,7 +202,7 @@ module.exports = class Market {
      * @returns {Boolean}
      */
     isRestricted() {
-        return Market.getRestricted().contains(this.symbol);
+        return Market.getRestricted().indexOf(this.symbol) > -1;
     }
 
     /**
@@ -351,7 +343,7 @@ module.exports = class Market {
      * Accumulative quantity of available coins available at and under the given
      * price
      * 
-     * @param {type} price
+     * @param {Number} price
      * @returns {Number}
      */
     Asks(price) {
@@ -371,7 +363,7 @@ module.exports = class Market {
      * Accumulative quantity of available coins available at and above the given
      * price
      * 
-     * @param {type} price
+     * @param {Number} price
      * @returns {Number}
      */
     Bids(price) {
@@ -401,12 +393,12 @@ module.exports = class Market {
     }
 
     /**
-     * Trade the output currency to the input currency of in this market
+     * Trade the input currency to the output currency in this market
      * 
      * @param {Currency} inputCurrency The currency to trade
      * @param {Currency} outputCurrency The currency received
      * @param {Number} inputQauntity The quantity to trade
-     * @optional {Number} price The price
+     * @param {Number} [price] The price
      * @returns {Trade}
      */
     trade(inputCurrency, outputCurrency, inputQauntity, price) {
@@ -417,13 +409,13 @@ module.exports = class Market {
     }
 
     /**
-     * Trade the output currency to the input currency of in this market at
+     * Trade the input currency to the output currency in this market at
      * reversed prices
      * 
      * @param {Currency} inputCurrency The currency to trade
      * @param {Currency} outputCurrency The currency received
      * @param {Number} inputQauntity The quantity to trade
-     * @optional {Number} price The price
+     * @param {Number} [price] The price
      * @returns {Trade}
      */
     tradePotential(inputCurrency, outputCurrency, inputQauntity, price) {
@@ -448,7 +440,7 @@ module.exports = class Market {
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
-        return  output - (Config.get('exchangeCommission') / 100 * output);
+        return  output - (Market.config('exchangeCommission') / 100 * output);
     }
 
     /**
@@ -466,7 +458,7 @@ module.exports = class Market {
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
-        return  output - (Config.get('exchangeCommission') / 100 * output);
+        return  output - (Market.config('exchangeCommission') / 100 * output);
     }
 
     /**

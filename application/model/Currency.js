@@ -1,7 +1,7 @@
-var Config = require('./Config.js');
-var Bittrex = require('../lib/bittrex/Bittrex.js');
+var Model = require('../../system/Model.js');
+var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 
-module.exports = class Currency {
+module.exports = class Currency extends Model {
 
     /**
      * @static
@@ -66,16 +66,11 @@ module.exports = class Currency {
     markets = [];
 
     /**
-     * @static
-     * @property {Array|Currency[]} list 
-     */
-    static list = [];
-
-    /**
      * Init currencies
      * @returns {undefined}
      */
     static async init() {
+        console.log('Inititialize Currency...');
         return this.getAll();
     }
 
@@ -106,35 +101,53 @@ module.exports = class Currency {
     }
 
     /**
-     * Push a currency to Currencies
-     * @param {Currency} currency
-     * @returns {undefined}
-     */
-    static push(currency) {
-        Currency.list.push(currency);
-    }
-
-    /**
      * Get a currency by it's code (example: "BTC","USD","USDT")
      * @param {string} symbol
      * @returns {Currency}
      */
     static getBySymbol(symbol) {
-        for (var i in Currency.list) {
-            if (Currency.list[i].symbol === symbol) {
-                return Currency.list[i];
+        for (var i in this.list) {
+            if (this.list[i].symbol === symbol) {
+                return this.list[i];
             }
         }
         return null;
     }
 
     /**
-     * Insantiate a new currency
+     * Configured base currency
+     * @returns {String}
+     */
+    static getBaseSymbol() {
+        return this.config('base') || 'BTC';
+    }
+
+    /**
+     * List of allowed currency symbols from configuration
+     * 
+     * @returns {Array|String[]}
+     */
+    static getAllowed() {
+        return Currency.config('allow') || [];
+    }
+
+    /**
+     * List of restricted currency symbols from configuration
+     * 
+     * @returns {Array|String[]}
+     */
+    static getRestricted() {
+        return Currency.config('restrict') || [];
+    }
+
+    /**
+     * Instantiate a new Currency
      * 
      * @param {Object} currency Bittrex currency response object
      * @returns {Currency}
      */
     constructor(currency) {
+        super();
         Object.assign(this, currency);
 
         if (this.isBtc()) {
@@ -147,48 +160,12 @@ module.exports = class Currency {
     }
 
     /**
-     * Get config for class
-     * 
-     * @param {String} property proerty name
-     * @returns {Number|String|Array|Boolean|Object|Null}
-     */
-    static config(property) {
-        return Config.get('Currency')[property] || null;
-    }
-
-    /**
-     * Configured base currency
-     * @returns {String}
-     */
-    static getBaseSymbol() {
-        return  Currency.config('base') || 'BTC';
-    }
-
-    /**
-     * List of allowed currency symbols from configuration
-     * 
-     * @returns {Array|String[]}
-     */
-    static getAllowed() {
-        return Currency.config('allow');
-    }
-
-    /**
-     * List of restricted currency symbols from configuration
-     * 
-     * @returns {Array|String[]}
-     */
-    static getRestricted() {
-        return Currency.config('restrict');
-    }
-
-    /**
      * Whether the currenci is restricted
      * 
      * @returns {Boolean}
      */
     isRestricted() {
-        return Currency.getRestricted().contains(this.symbol);
+        return Currency.getRestricted().indexOf(this.symbol) > -1;
     }
 
     /**
@@ -198,7 +175,7 @@ module.exports = class Currency {
      */
     isAllowed() {
         return !this.isRestricted()
-                && Currency.getAllowed().contains(this.symbol);
+                && Currency.getAllowed().indexOf(this.symbol) > -1;
     }
 
     /**
@@ -226,7 +203,7 @@ module.exports = class Currency {
      * @returns {undefined}
      */
     addMarket(market) {
-        this.Market.push(market);
+        this.markets.push(market);
     }
 
     /**
@@ -414,7 +391,7 @@ module.exports = class Currency {
     }
 
     /**
-     * Convert this to the potential of given currency
+     * Convert this Currency to the potential of the given Currency
      * When straight conversion is not possible conversion is attempted through
      * Bitcoin
      * 

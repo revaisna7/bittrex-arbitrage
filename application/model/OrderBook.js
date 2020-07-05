@@ -1,14 +1,15 @@
-var Bittrex = require('../lib/bittrex/Bittrex.js');
+var Model = require('../../system/Model.js');
+var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 
-module.exports = class OrderBook {
+module.exports = class OrderBook extends Model  {
 
-    static list = [];
     market = null;
     ask = [];
     bid = [];
     getting = false;
     interval = null;
     socket = null;
+    static list = [];
     
     /**
      * 
@@ -16,12 +17,14 @@ module.exports = class OrderBook {
      * @returns {OrderBook}
      */
     constructor(market) {
+        super();
         this.market = market;
         OrderBook.list.push(this);
         return this;
     }
 
     static async init() {
+        console.log('Inititialize OrderBook...');
         for(var i in OrderBook.list) {
             await OrderBook.list[i].get();
             OrderBook.list[i].pulse();

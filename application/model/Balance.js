@@ -1,9 +1,9 @@
-var Config = require('./Config.js');
+var Model = require('../../system/Model.js');
 var Currency = require('./Currency.js');
-var Bittrex = require('../lib/bittrex/Bittrex.js');
-var Util = require('../lib/Util.js');
+var Bittrex = require('../../exchange/bittrex/Bittrex.js');
+var Util = require('../../system/Util.js');
 
-module.exports = class Balance {
+module.exports = class Balance extends Model {
 
     static list = [];
     static interval;
@@ -24,6 +24,7 @@ module.exports = class Balance {
      * @returns {undefined}
      */
     static async init() {
+        console.log('Inititialize Balance...');
         await Balance.getAll();
         Balance.pulse();
     }
@@ -80,7 +81,8 @@ module.exports = class Balance {
      * @returns {Boolean}
      */
     static isAllowed(balance) {
-        return Config.get('currencies').indexOf(balance.currencySymbol) > -1;
+        return Currency.getBySymbol(balance.currencySymbol)
+                && Currency.getBySymbol(balance.currencySymbol).isAllowed();
     }
 
     /**
@@ -182,7 +184,7 @@ module.exports = class Balance {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = " [Balances]\n Currency\tBalance\t\tTotal\t\tStart\t\tProfit\t\tFactor\t\tBTC balance\tBTC value\tBTC start\tBTC Profit\tBTC factor";
+        var output = " [Balances]<br> Currency\tBalance\t\tTotal\t\tStart\t\tProfit\t\tFactor\t\tBTC balance\tBTC value\tBTC start\tBTC Profit\tBTC factor";
         var balancesOutput = '';
         for (var i in Balance.list) {
             var balance = Balance.list[i];
@@ -190,7 +192,7 @@ module.exports = class Balance {
             balance.setAccumulateStart(Balance.accumulateStart(balance.getCurrency()));
             balancesOutput += balance.consoleOutput();
         }
-        return output + "\t [ Overall factor: " + Util.addPlusOrSpace(this.totalProfitFactor()) + "% ]\n" + balancesOutput;
+        return output + "\t [ Overall factor: " + Util.addPlusOrSpace(this.totalProfitFactor()) + "% ]<br>" + balancesOutput;
     }
     
     /**
@@ -199,11 +201,17 @@ module.exports = class Balance {
      * @returns {Balance}
      */
     constructor(balance) {
+        super();
         this.update(balance);
         this.startTotal = this.getTotal();
         return this;
     }
 
+    /**
+     * 
+     * @param {Balance} balance
+     * @returns {undefined}
+     */
     update(balance) {
         this.currencySymbol = balance.currencySymbol;
         this.total = balance.total;
@@ -344,6 +352,6 @@ module.exports = class Balance {
                     , Util.pad(this.getBtcStart())
                     , Util.addPlusOrSpace(this.getBtcProfit(), 8)
                     , Util.addPlusOrSpace(this.getBtcProfitFactor()) + '%'
-        ].join("\t") + "\n";
+        ].join("\t") + "<br>";
     }
 }

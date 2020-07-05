@@ -11,7 +11,7 @@ module.exports = class Util {
             Util.spin = 0;
         }
         
-        return "\x1b[30;1m" + spins[Util.spin].padStart(2).padEnd(3) + "\x1b[0m";
+        return " " + spins[Util.spin].padStart(2).padEnd(3) + " ";
     }
     
     
@@ -23,17 +23,17 @@ module.exports = class Util {
             str += ' ';
         }
         if (number < 0) {
-            str += "\x1b[31;1m";
+            str += " ";
             str += '-';
         }
         if (number > 0) {
-            str += "\x1b[32;1m";
+            str += " ";
             str += '+';
         }
         if (number < 10 && number > -10) {
             str += '0';
         }
-        return str + number.toFixed(decimals).replace('-', '') + "\x1b[0m";
+        return str + number.toFixed(decimals).replace('-', '') + " ";
     }
 
     static pad(number, decimals) {

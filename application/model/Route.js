@@ -1,13 +1,13 @@
-var Config = require('./Config.js');
+var Model = require('../../system/Model.js');
 var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
 var Delta = require('./Delta.js');
-var Util = require('../lib/Util.js');
+var Util = require('../../system/Util.js');
 
 /**
  * Route logic
  */
-module.exports = class Route {
+module.exports = class Route extends Model {
 
     static trading = false;
 
@@ -51,6 +51,9 @@ module.exports = class Route {
      */
     deltaChain = [];
 
+    /**
+     * @property {Array|Route[]} list
+     */
     static list = [];
     static finding = false;
 
@@ -67,7 +70,7 @@ module.exports = class Route {
                 for (var z in currencues) {
                     if (y === z || z === x) continue;
                     if (!Route.exists(currencues[x], currencues[y], currencues[z])) {
-                        var route = Route.find(currencues[x], currencues[y], currencues[z]);
+                        var route = Route.possible(currencues[x], currencues[y], currencues[z]);
                         if (route) {
                             Route.push(route);
                         }
@@ -110,7 +113,7 @@ module.exports = class Route {
         for (var i in Route.list) {
             if (Route.list[i] instanceof Route) {
                 if (Route.list[i].isTrading()) {
-                    Route.push(Route.list[i]);
+                    routes.push(Route.list[i]);
                 }
             }
         }
@@ -122,6 +125,8 @@ module.exports = class Route {
     }
 
     constructor(currencyX, currencyY, currencyZ) {
+        super();
+        
         this.currencyX = currencyX;
         this.currencyY = currencyY;
         this.currencyZ = currencyZ;
@@ -132,7 +137,7 @@ module.exports = class Route {
     }
 
     getInputBtc() {
-        var minInputBtc = Config.get('minInputBtc') || 0.00051;
+        var minInputBtc = Route.config('inputBtc') || 0.00051;
         var btcBalances = [];
         var minBtcMarkets = [];
         for (var i in this.deltaChain) {
@@ -160,12 +165,12 @@ module.exports = class Route {
     }
 
     isProfitable() {
-        if(Config.get('profitAllThree')) {
-            return this.profitFactorX >= Config.get('minProfitFactor')
-                && this.profitFactorY >= Config.get('minProfitFactor')
-                && this.profitFactorZ >= Config.get('minProfitFactor');
+        if(Route.config('profitAllThree')) {
+            return this.profitFactorX >= Route.config('minProfitFactor')
+                && this.profitFactorY >= Route.config('minProfitFactor')
+                && this.profitFactorZ >= Route.config('minProfitFactor');
         } else {
-            return this.profitFactor >= Config.get('minProfitFactor');
+            return this.profitFactor >= Route.config('minProfitFactor');
         }
     }
 
@@ -178,7 +183,7 @@ module.exports = class Route {
         return true;
     }
 
-    static find(currencySymbolX, currencySymbolY, currencySymbolZ) {
+    static possible(currencySymbolX, currencySymbolY, currencySymbolZ) {
         var currencyX = Currency.getBySymbol(currencySymbolX);
         var currencyY = Currency.getBySymbol(currencySymbolY);
         var currencyZ = Currency.getBySymbol(currencySymbolZ);
@@ -197,7 +202,7 @@ module.exports = class Route {
      * @returns {undefined}
      */
     async trade() {
-        if (Config.get('trade') && !this.isTrading() && this.hasEnoughBalance()) {
+        if (Route.config('trade') && !this.isTrading() && this.hasEnoughBalance()) {
             Route.trading = true;
 
             for (var i in this.deltaChain) {
@@ -251,12 +256,12 @@ module.exports = class Route {
     }
 
     static consoleOutput() {
-        var output = ("\n\n [Triangular Route]\n");
+        var output = ("<br><br> [Triangular Routes]<br> (" + Route.list.length + ")");
         Route.sort();
         for (var x in Route.list) {
             if (x === 30) break;
             if (typeof Route.list[x] === 'object') {
-                output += Route.list[x].consoleOutput() + "\n";
+                output += Route.list[x].consoleOutput() + "<br>";
             }
         }
         return output;

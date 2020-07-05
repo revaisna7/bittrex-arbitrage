@@ -8,6 +8,9 @@
         "tradeOnProfit": 0.1,
         "profitAllThree" : false
     },
+    "Delta" : {
+        "priceDeviation" : 0
+    },
     "Trade" : {
         "orderType" : "LIMIT"
     },
@@ -34,12 +37,25 @@
         ]
     },
     "Bittrex": {
-        "apikey": "b68f96497ff54ccd86f291cfd80a6a23",
-        "apisecret": "45098aabbe1a482b9ba55bc0092503a5",
+        "apikey": "391b74803226435d86a5c1b0ca613aa1",
+        "apisecret": "09b24777a5f24893af893767166703b6",
         "subaccountid": ""
     },
     "View": {
         "refreshRate": 250,
         "routes" : 15
-    }  
+    },
+    "WebServer": {
+        "port": 80,
+        "host": "localhost",
+        "protocol": "http",
+        "baseController" : "Landing",
+        "fileDirectory" : "./web"
+    },
+    "SocketServer": {
+        "port": 81,
+        "host": "localhost",
+        "protocol": "http",
+        "baseController" : "Landing"
+    }
 }

@@ -1,11 +1,10 @@
-var Config = require('./Config.js');
+var Model = require('../../system/Model.js');
 var Trade = require('./Trade.js');
-var Util = require('../lib/Util.js');
 var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
-var Bittrex = require('../lib/bittrex/Bittrex.js');
+var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 
-module.exports = class Trade {
+module.exports = class Trade extends Model {
 
     market = null;
     inputCurrency = null;
@@ -45,9 +44,9 @@ module.exports = class Trade {
     }
 
     static consoleOutput() {
-        var output = "\n\n [Trades] (" + Trade.list.length + ")\n " + ["Time\t\t", "Market", "Currency", "Quantity", "Rate", "Request", "Responded"].join("\t\t");
+        var output = "<br><br> [Trades] (" + Trade.list.length + ")<br> " + ["Time\t\t", "Market", "Currency", "Quantity", "Rate", "Request", "Responded"].join("\t\t");
         for (var i = Trade.list.length - 1; i >= 0; i--) {
-            output += "\n " + Trade.list[i].consoleOutput();
+            output += "<br> " + Trade.list[i].consoleOutput();
             if (Trade.list.length - i == 6) {
                 break
             }
@@ -57,6 +56,9 @@ module.exports = class Trade {
     }
 
     constructor(market, inputCurrency, outputCurrency, inputQuantity, price) {
+        super();
+        
+        
         this.createdAt = Date.now();
         this.market = market;
         this.inputCurrency = inputCurrency;
@@ -196,7 +198,7 @@ module.exports = class Trade {
     }
 
     logData() {
-        Util.log("\n\n " + (new Date().toLocaleString()) + JSON.stringify([
+        Util.log("<br><br> " + (new Date().toLocaleString()) + JSON.stringify([
             this.getMarketSymbol(),
             this.getDirection(),
             this.getType(),
@@ -207,7 +209,7 @@ module.exports = class Trade {
             this.getNote(),
             this.getUseAwards(),
             this.response
-        ], null, 2) + "\n", 'trade');
+        ], null, 2) + "<br>", 'trade');
     }
 
     /**

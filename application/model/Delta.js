@@ -1,8 +1,8 @@
-var Config = require('./Config.js');
+var Model = require('../../system/Model.js');
 var Balance = require('./Balance.js');
 var Currency = require('./Currency.js');
 
-module.exports = class Delta {
+module.exports = class Delta extends Model {
 
     static trading = false;
 
@@ -15,11 +15,13 @@ module.exports = class Delta {
     priceDeviation = null;
 
     constructor(route, inputCurrency, outputCurrency) {
+        super();
+        
         this.route = route;
         this.inputCurrency = inputCurrency;
         this.outputCurrency = outputCurrency;
         this.market = inputCurrency.getMarket(outputCurrency);
-        this.market.Route.push(route);
+        this.market.routes.push(route);
     }
 
     isAllowed() {
@@ -37,24 +39,24 @@ module.exports = class Delta {
     }
 
     getPrice() {
-        this.priceDeviation = Config.get('priceDeviation') || 0;
-        if (Config.get('speculate')) {
-            this.price = this.market.getPotentialPrice(this.outputCurrency, this.priceDeviation);
+        this.priceDeviation = Delta.config('priceDeviation') || 0;
+        if (Delta.config('speculate')) {
+            return this.price = this.market.getPotentialPrice(this.outputCurrency, this.priceDeviation);
         } else {
-            this.price = this.market.getPrice(this.outputCurrency, this.priceDeviation);
+            return this.price = this.market.getPrice(this.outputCurrency, this.priceDeviation);
         }
     }
 
     getInput() {
-        this.input = Currency.getBtc().convertTo(this.inputCurrency, this.route.getInputBtc());
+        return this.input = Currency.getBtc().convertTo(this.inputCurrency, this.route.getInputBtc());
     }
 
     getOuput() {
-        this.priceDeviation = Config.get('priceDeviation') || 0;
-        if (Config.get('speculate')) {
-            this.output = this.market.convertPotential(this.outputCurrency, this.input, this.price);
+        this.priceDeviation = Delta.config('priceDeviation') || 0;
+        if (Delta.config('speculate')) {
+            return this.output = this.market.convertPotential(this.outputCurrency, this.getInput(), this.getPrice());
         } else {
-            this.output = this.market.convert(this.outputCurrency, this.input, this.price);
+            return this.output = this.market.convert(this.outputCurrency, this.getInput(), this.getPrice());
         }
     }
 
@@ -65,8 +67,6 @@ module.exports = class Delta {
     }
 
     calculate() {
-        this.getPrice();
-        this.getInput();
         this.getOuput();
     }
 

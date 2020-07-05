@@ -1,10 +1,10 @@
-var Config = require('./Config.js');
-var Bittrex = require('../lib/bittrex/Bittrex.js');
+var Model = require('../../system/Model.js');
+var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var Currency = require('./Currency.js');
 var Market = require('./Market.js');
-var Util = require('../lib/Util.js');
+var Util = require('../../system/Util.js');
 
-module.exports = class Order {
+module.exports = class Order extends Model {
 
     canceling = false;
     getting = false;
@@ -97,7 +97,7 @@ module.exports = class Order {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "\n\n [Order]\n Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference\tFactor";
+        var output = "<br><br> [Order]<br> Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference\tFactor";
         for (var i in Order.list) {
             output += Order.list[i].consoleOutput();
         }
@@ -118,6 +118,7 @@ module.exports = class Order {
     }
     
     constructor(order) {
+        super();
         Object.assign(this, order);
     }
 
@@ -206,7 +207,7 @@ module.exports = class Order {
      * @returns {String}
      */
     consoleOutput() {
-        return "\n " + [
+        return "<br> " + [
             this.getMarketSymbol(),
             this.getType(),
             Util.pad(this.getQuantity()),

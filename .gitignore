@@ -1,5 +1,5 @@
 /node_modules/
-/config.json
+/config/config.json
 /nbproject/
 /log/
 package-lock.json
