@@ -8,7 +8,7 @@ module.exports = class ArbitrageController extends Controller {
         response.send(await ArbitrageController.Arbitrage.consoleOutput());
     }
     
-    static async actionStart(uriParts, request, response) {
+    static async actionPleaseStopTriggeringThisHaha(uriParts, request, response) {
         await ArbitrageController.Arbitrage.start();
         response.redirect('/');
         
