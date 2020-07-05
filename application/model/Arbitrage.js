@@ -31,8 +31,6 @@ module.exports = class Arbitrage extends Model {
     static consoleOutput() {
         return Arbitrage.Balance.consoleOutput()
             + Arbitrage.Route.consoleOutput()
-            + Arbitrage.Route.consoleOutput()
-            + Arbitrage.Route.consoleOutput()
             + Arbitrage.Trade.consoleOutput()
             + Arbitrage.Order.consoleOutput();
     }

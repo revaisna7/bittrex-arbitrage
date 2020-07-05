@@ -97,11 +97,11 @@ module.exports = class Order extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "<br><br> [Order]<br> Market\t\tType\t\tQuantity\tRemaining\tTarget price\tCurrent price\tDifference\tFactor";
+        var output = "<br><br> [Order]<br><table><tr><td> Market</td><td>Type</td><td>Quantity</td><td>Remaining</td><td>Target price</td><td>Current price</td><td>Difference</td><td>Factor</td></tr>";
         for (var i in Order.list) {
-            output += Order.list[i].consoleOutput();
+            output += "<tr>" + Order.list[i].consoleOutput() + "</tr>";
         }
-        return output;
+        return output + '</table>';
     }
 
     /**
@@ -207,7 +207,7 @@ module.exports = class Order extends Model {
      * @returns {String}
      */
     consoleOutput() {
-        return "<br> " + [
+        return "<tr><td>" + [
             this.getMarketSymbol(),
             this.getType(),
             Util.pad(this.getQuantity()),
@@ -216,6 +216,6 @@ module.exports = class Order extends Model {
             Util.pad(this.getCurrenctPrice()),
             Util.addPlusOrSpace(this.getPriceDifference(), 8),
             Util.addPlusOrSpace(this.getDifferenceFactor()) + '%'
-        ].join("\t");
+        ].join("</td><td>") + '</td></tr>';
     }
 }
