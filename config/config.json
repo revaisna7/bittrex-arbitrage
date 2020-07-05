@@ -37,8 +37,8 @@
         ]
     },
     "Bittrex": {
-        "apikey": "391b74803226435d86a5c1b0ca613aa1",
-        "apisecret": "09b24777a5f24893af893767166703b6",
+        "apikey": "",
+        "apisecret": "",
         "subaccountid": ""
     },
     "View": {
@@ -55,7 +55,12 @@
     "SocketServer": {
         "port": 81,
         "host": "localhost",
-        "protocol": "http",
-        "baseController" : "Landing"
+        "protocol": "http"
+    },
+    "Controller" : {
+        "base" : "Landing"
+    },
+    "File" : {
+        "webDirectory" : "./web"
     }
 }

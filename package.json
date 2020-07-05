@@ -28,8 +28,8 @@
     "socket.io": "^2.3.0"
   },
   "description": "Bittrex arbitrage, automated triangular arbitrage on Bittrex.",
-  "main": "main.js",
-  "scripts": {
+  "main": "bootstrap.js",
+  "scripts": {"start": "node bootstrap.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

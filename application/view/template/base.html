@@ -3,6 +3,20 @@
     <head>
         <meta charset="UTF-8" />
         <title>Arbitrage</title>
+        <script src="/js/socket.io.js"></script>
+        <script>
+            function updateArbitrage(data) {
+                document.getElementById('arbitrage').innerHTML = data;
+            }
+            
+            var socket = io.connect('http://localhost:81');
+            socket.on('connect', function(data){
+                console.log(data);
+                socket.emit('arbitrage', 'index');
+                
+                socket.on('arbitrage', updateArbitrage)
+            });
+        </script>
     </head>
     <body>
         <h1>Arbitrage</h1>
@@ -10,5 +24,8 @@
             <li><a href="/arbitrage/index">View output</a></li>
             <li><a href="/arbitrage/start">Start arbitrage</a></li>
         </ul>
+        <div id="arbitrage">
+            
+        </div>
     </body>
 </html>

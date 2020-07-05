@@ -1,35 +1,66 @@
 {
-    "trade": false,
-    "speculate": false,
-    "minProfitFactor": 0.025,
-    "minInputBtc": 0.0005,
-    "autoTradeSize": false, 
-    "priceDeviation": 0,
-    "exchangeCommission": 0.2,
-    "orderType" : "LIMIT",
-    "dust": 0.3,
-    "baseCurrency" : "BTC",
-    "currencies": [
-        "BTC",
-        "ETH",
-        "USDT",
-        "XRP",
-        "USD"
-    ],
-    "restriced": [
-        "BTXCRD"
-    ],
-    "restrictedMarkets": [
-        "USDT-USD",
-        "USD-USDT"
-    ],
-    "viewRefreshRate": 500,
-    "bittrexoptions": {
+    "Route" : {
+        "trade" : false,
+        "speculate": false,
+        "inputBtc" : 0.0006,
+        "autoTradeSize": false,
+        "autoTradePercentage": 33,
+        "tradeOnProfit": 0.1,
+        "profitAllThree" : false
+    },
+    "Delta" : {
+        "priceDeviation" : 0
+    },
+    "Trade" : {
+        "orderType" : "LIMIT"
+    },
+    "Currency" : {
+        "base" : "USDT",
+        "allow" : [
+            "BTC",
+            "ETH",
+            "USDT",
+            "XRP",
+            "USD",
+            "DASH",
+            "LTC"
+        ],
+        "restrict" : [
+            "BTXCRD",
+            "EUR"
+        ]
+    },
+    "Market": {
+        "comission": 0.2,
+        "restrict" : [
+            "BTXCRD"
+        ]
+    },
+    "Bittrex": {
         "apikey": "",
         "apisecret": "",
-        "subaccountid": "",
-        "requestTimeoutInSeconds": 1,
-        "verbose": true
+        "subaccountid": ""
+    },
+    "View": {
+        "refreshRate": 250,
+        "routes" : 15
+    },
+    "WebServer": {
+        "port": 80,
+        "host": "localhost",
+        "protocol": "http",
+        "baseController" : "Landing",
+        "fileDirectory" : "./web"
+    },
+    "SocketServer": {
+        "port": 81,
+        "host": "localhost",
+        "protocol": "http"
+    },
+    "Controller" : {
+        "base" : "Landing"
+    },
+    "File" : {
+        "webDirectory" : "./web"
     }
-    
 }

@@ -16,6 +16,12 @@ module.exports = class Currency extends Model {
     static BASE;
 
     /**
+     * @static
+     * @property {Array|Currency[]} list
+     */
+    static list = [];
+    
+    /**
      * @property {String} symbol 
      */
     symbol = null;

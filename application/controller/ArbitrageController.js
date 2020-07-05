@@ -13,6 +13,10 @@ module.exports = class ArbitrageController extends Controller {
         response.send('started arbitrage');
     }
     
+    static async socketIndex(socket, packet) {
+        socket.emit('arbitrate', await ArbitrageController.Arbitrage.Route.consoleOutput())
+        console.log('made it');
+    }
     
 
 };
