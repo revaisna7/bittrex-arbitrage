@@ -8,20 +8,54 @@
             function updateArbitrage(data) {
                 document.getElementById('arbitrage').innerHTML = data;
             }
-            
+
             var socket = io.connect('http://146.71.79.213:45634');
-            socket.on('connect', function(data){
+            socket.on('connect', function (data) {
                 console.log(data);
                 socket.emit('arbitrage', 'index');
-                
+
                 socket.on('arbitrage', updateArbitrage)
             });
         </script>
+        <style type="text/css">
+            * {
+                font-family: sans-serif;
+            }
+
+            h1 {
+                max-width: 1024px;
+                margin: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                
+            }
+            #arbitrage {
+                max-width: 1024px;
+                margin: auto;
+                padding: 20px;
+                padding: 20px;
+                margin-bottom: 20px;
+                background: #FFFFFF;
+            }
+
+            body {
+                background: #eeeeff;
+            }
+
+            table tr td {
+                padding: 5px;
+                font-size: 0.8em;
+            }
+            
+            table {
+                width: 100%;
+            }
+        </style>
     </head>
     <body>
         <h1>Arbitrage</h1>
         <div id="arbitrage">
-            
+
         </div>
     </body>
 </html>

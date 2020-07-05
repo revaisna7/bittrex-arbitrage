@@ -16,7 +16,7 @@ module.exports = class ArbitrageController extends Controller {
     
     static async socketIndex(socket, packet) {
         var _socket = socket;
-        setInterval((socket) => { _socket.emit('arbitrage', ArbitrageController.Arbitrage.consoleOutput()); } , ArbitrageController.config('ArbitrageController'));
+        setInterval((socket) => { _socket.emit('arbitrage', ArbitrageController.Arbitrage.consoleOutput()); } , ArbitrageController.config('socketInterval'));
         console.log('made it');
     }
     

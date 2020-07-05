@@ -184,16 +184,15 @@ module.exports = class Balance extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = " [Balances] [ Overall profit factor: " + Util.addPlusOrSpace(this.totalProfitFactor()) + "% ]<br>"
-                + "<table><tr><th>Currency</th><th>Balance</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th><th>BTC value</th><th>BTC start</th><th>BTC Profit</th><th>BTC factor</th></tr>";
+        var output = "<h3>Balances</h3><table><tr><td>Currency</td><td>Balance</td><td>Total</td><td>Start</td><td>Profit</td><td>Factor</td><td>BTC balance</td><td>BTC value</td><td>BTC start</td><td>BTC Profit</td><td>BTC factor</td></tr>";
         var balancesOutput = '';
         for (var i in Balance.list) {
             var balance = Balance.list[i];
             balance.setAccumulateNow(Balance.accumulate(balance.getCurrency()));
             balance.setAccumulateStart(Balance.accumulateStart(balance.getCurrency()));
-            balancesOutput += balance.consoleOutput();
+            balancesOutput = balancesOutput + "<tr>" + balance.consoleOutput() + "</tr>";
         }
-        return output + +balancesOutput + "</table>";
+        return output + balancesOutput + "</table>";
     }
 
     /**
@@ -341,8 +340,8 @@ module.exports = class Balance extends Model {
      * @returns {String}
      */
     consoleOutput() {
-        return "<tr><td>" + ([
-            this.currencySymbol
+        return "<td>" + ([
+            this.currencySymbol + ""
                     , Util.pad(this.total)
                     , Util.pad(this.accumulateNow)
                     , Util.pad(this.accumulateStart)
@@ -353,6 +352,6 @@ module.exports = class Balance extends Model {
                     , Util.pad(this.getBtcStart())
                     , Util.addPlusOrSpace(this.getBtcProfit(), 8)
                     , Util.addPlusOrSpace(this.getBtcProfitFactor()) + '%'
-        ].join("</td><td>")) + "</td></tr>";
+        ].join("</td><td>")) + "</td>";
     }
 }

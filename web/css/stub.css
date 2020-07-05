@@ -1,0 +1,20 @@
+* {
+    font-family: sans-serif;
+}
+
+#arbitrage {
+    max-width: 960px;
+    margin: auto;
+}
+
+body {
+    background: #eeeeff;
+}
+
+table {
+    padding: 20px;
+}
+table tr td {
+    padding: 5px;
+    font-size: 0.8em;
+}

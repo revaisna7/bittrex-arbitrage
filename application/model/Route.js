@@ -15,12 +15,12 @@ module.exports = class Route extends Model {
      * @property {Currency} currencyX 
      */
     currencyX = null;
-    
+
     /**
      * @property {Currency} currencyZ 
      */
     currencyZ = null;
-    
+
     /**
      * @property {Currency} currencyY 
      */
@@ -30,17 +30,17 @@ module.exports = class Route extends Model {
      * @property {Number} profitFactorX 
      */
     profitFactorX = null;
-    
+
     /**
      * @property {Number} profitFactorX 
      */
     profitFactorY = null;
-    
+
     /**
      * @property {Number} profitFactorX 
      */
     profitFactorZ = null;
-    
+
     /**
      * @property {Number} profitFactorX 
      */
@@ -66,9 +66,11 @@ module.exports = class Route extends Model {
         var currencues = Currency.getAllowed();
         for (var x in currencues) {
             for (var y in currencues) {
-                if (x === y) continue;
+                if (x === y)
+                    continue;
                 for (var z in currencues) {
-                    if (y === z || z === x) continue;
+                    if (y === z || z === x)
+                        continue;
                     if (!Route.exists(currencues[x], currencues[y], currencues[z])) {
                         var route = Route.possible(currencues[x], currencues[y], currencues[z]);
                         if (route) {
@@ -126,7 +128,7 @@ module.exports = class Route extends Model {
 
     constructor(currencyX, currencyY, currencyZ) {
         super();
-        
+
         this.currencyX = currencyX;
         this.currencyY = currencyY;
         this.currencyZ = currencyZ;
@@ -147,7 +149,7 @@ module.exports = class Route extends Model {
 //        var minBtcBalance = Math.min(...btcBalances);
         var maxMarketRequirement = Math.max(...minBtcMarkets);
 
-        return Math.max(maxMarketRequirement,minInputBtc);
+        return Math.max(maxMarketRequirement, minInputBtc);
     }
 
     calculate() {
@@ -165,10 +167,10 @@ module.exports = class Route extends Model {
     }
 
     isProfitable() {
-        if(Route.config('profitAllThree')) {
+        if (Route.config('profitAllThree')) {
             return this.profitFactorX >= Route.config('minProfitFactor')
-                && this.profitFactorY >= Route.config('minProfitFactor')
-                && this.profitFactorZ >= Route.config('minProfitFactor');
+                    && this.profitFactorY >= Route.config('minProfitFactor')
+                    && this.profitFactorZ >= Route.config('minProfitFactor');
         } else {
             return this.profitFactor >= Route.config('minProfitFactor');
         }
@@ -256,10 +258,11 @@ module.exports = class Route extends Model {
     }
 
     static consoleOutput() {
-        var output = ("[Triangular Routes (" + Route.list.length + ") ]<br><table>");
+        var output = ("<h3>Triangular Routes (" + Route.list.length + ")</h3><table>");
         Route.sort();
         for (var x in Route.list) {
-            if (x === 30) break;
+            if (x === 30)
+                break;
             if (typeof Route.list[x] === 'object') {
                 output += '<tr>' + Route.list[x].consoleOutput() + "</tr>";
             }
@@ -274,9 +277,8 @@ module.exports = class Route extends Model {
      */
     consoleOutput() {
         return this.ouput = '<td>' + new Date().toLocaleTimeString() + '</td>'
-                + '<td>' + this.currencyRouteString() + '</td>'
-                + '<td>' + this.marketRouteString() + '</td>'
-                + '<td>' + this.calculationString() + '</td>'
+                + '<td>' + this.currencyRouteString() + ' ' + this.marketRouteString() + ''
+                + '<br>' + this.calculationString() + '</td>'
                 + '<td>' + this.profitString() + '</td>';
     }
 };

@@ -97,7 +97,7 @@ module.exports = class Order extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "<br><br> [Order]<br><table><tr><td> Market</td><td>Type</td><td>Quantity</td><td>Remaining</td><td>Target price</td><td>Current price</td><td>Difference</td><td>Factor</td></tr>";
+        var output = "<h3>Order</h3><table><tr><td> Market</td><td>Type</td><td>Quantity</td><td>Remaining</td><td>Target price</td><td>Current price</td><td>Difference</td><td>Factor</td></tr>";
         for (var i in Order.list) {
             output += "<tr>" + Order.list[i].consoleOutput() + "</tr>";
         }
