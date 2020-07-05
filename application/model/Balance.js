@@ -185,7 +185,7 @@ module.exports = class Balance extends Model {
      */
     static consoleOutput() {
         var output = " [Balances] [ Overall profit factor: " + Util.addPlusOrSpace(this.totalProfitFactor()) + "% ]<br>"
-           + "<table><tr><th>Currency</th><th>Balance</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th><th>BTC value</th><th>BTC start</th><th>BTC Profit</th><th>BTC factor</th></tr>";
+                + "<table><tr><th>Currency</th><th>Balance</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th><th>BTC value</th><th>BTC start</th><th>BTC Profit</th><th>BTC factor</th></tr>";
         var balancesOutput = '';
         for (var i in Balance.list) {
             var balance = Balance.list[i];
@@ -193,9 +193,9 @@ module.exports = class Balance extends Model {
             balance.setAccumulateStart(Balance.accumulateStart(balance.getCurrency()));
             balancesOutput += balance.consoleOutput();
         }
-        return output +  + balancesOutput + "</table>";
+        return output + +balancesOutput + "</table>";
     }
-    
+
     /**
      * 
      * @param {type} balance
@@ -341,8 +341,8 @@ module.exports = class Balance extends Model {
      * @returns {String}
      */
     consoleOutput() {
-        return "<tr>" +[
-             this.currencySymbol
+        return "<tr><td>" + ([
+            this.currencySymbol
                     , Util.pad(this.total)
                     , Util.pad(this.accumulateNow)
                     , Util.pad(this.accumulateStart)
@@ -353,6 +353,6 @@ module.exports = class Balance extends Model {
                     , Util.pad(this.getBtcStart())
                     , Util.addPlusOrSpace(this.getBtcProfit(), 8)
                     , Util.addPlusOrSpace(this.getBtcProfitFactor()) + '%'
-        ].join("</td><td>") + "</td></tr>";
+        ].join("</td><td>")) + "</td></tr>";
     }
 }
