@@ -18,7 +18,6 @@ module.exports = class Arbitrage extends Model {
         await Arbitrage.Market.init();
         await Arbitrage.OrderBook.init();
         await Arbitrage.Balance.init();
-        await Arbitrage.Trade.init();
         await Arbitrage.Order.init();
 
         setTimeout(() => {

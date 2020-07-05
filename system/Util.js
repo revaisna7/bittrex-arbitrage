@@ -5,13 +5,7 @@ module.exports = class Util {
     static spin = 0;
     
     static spinner() {
-        var spins = ['(',')','{','}','[',']',' '];
-        Util.spin = Number.parseInt(Math.random()*spins.length);
-        if(Util.spin === spins.length) {
-            Util.spin = 0;
-        }
-        
-        return " " + spins[Util.spin].padStart(2).padEnd(3) + " ";
+        return '';
     }
     
     
