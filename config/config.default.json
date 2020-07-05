@@ -53,7 +53,7 @@
         "fileDirectory" : "./web"
     },
     "SocketServer": {
-        "port": 3001,
+        "port": 45634,
         "host": "localhost",
         "protocol": "http"
     },
@@ -62,5 +62,11 @@
     },
     "File" : {
         "webDirectory" : "./web"
+    },
+    "ArbitrageController" : {
+        "socketInterval" : 500
+    },
+    "OrderBook" : {
+        "updateInterval" : 333
     }
 }

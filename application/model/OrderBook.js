@@ -176,7 +176,7 @@ module.exports = class OrderBook extends Model  {
 
     pulseStart() {
         var _this = this;
-        this.interval = setInterval(() => { _this.get(); }, 1000);
+        this.interval = setInterval(() => { _this.get(); }, OrderBook.config('updateInterval'));
     }
 
     pulseStop() {
