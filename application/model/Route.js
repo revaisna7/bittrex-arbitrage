@@ -248,7 +248,7 @@ module.exports = class Route extends Model {
     }
 
     profitString() {
-        return Util.spinner() + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
+        return Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
                 + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%'
                 + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
                 + " ~ " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
@@ -256,15 +256,15 @@ module.exports = class Route extends Model {
     }
 
     static consoleOutput() {
-        var output = ("<br><br> [Triangular Routes]<br> (" + Route.list.length + ")");
+        var output = ("[Triangular Routes]<bt><table> (" + Route.list.length + ")<table>");
         Route.sort();
         for (var x in Route.list) {
             if (x === 30) break;
             if (typeof Route.list[x] === 'object') {
-                output += Route.list[x].consoleOutput() + "<br>";
+                output += '<tr>' + Route.list[x].consoleOutput() + "</tr>";
             }
         }
-        return output;
+        return output + '</table>';
     }
 
     /**
@@ -273,10 +273,10 @@ module.exports = class Route extends Model {
      * @returns {String}
      */
     consoleOutput() {
-        return this.ouput = ' ' + new Date().toLocaleTimeString()
-                + this.currencyRouteString()
-                + this.marketRouteString()
-                + this.calculationString()
-                + this.profitString();
+        return this.ouput = '<td>' + new Date().toLocaleTimeString() + '</td>'
+                + '<td>' + this.currencyRouteString() + '</td>'
+                + '<td>' + this.marketRouteString() + '</td>'
+                + '<td>' + this.calculationString() + '</td>'
+                + '<td>' + this.profitString() + '</td>';
     }
 }
