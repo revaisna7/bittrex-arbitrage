@@ -207,7 +207,7 @@ module.exports = class Order extends Model {
      * @returns {String}
      */
     consoleOutput() {
-        return "<tr><td>" + [
+        return "<td>" + [
             this.getMarketSymbol(),
             this.getType(),
             Util.pad(this.getQuantity()),
@@ -216,6 +216,6 @@ module.exports = class Order extends Model {
             Util.pad(this.getCurrenctPrice()),
             Util.addPlusOrSpace(this.getPriceDifference(), 8),
             Util.addPlusOrSpace(this.getDifferenceFactor()) + '%'
-        ].join("</td><td>") + '</td></tr>';
+        ].join("</td><td>") + '</td>';
     }
 }

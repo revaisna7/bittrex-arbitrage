@@ -44,7 +44,7 @@ module.exports = class Trade extends Model {
     }
 
     static consoleOutput() {
-        var output = "<br><br> [Trades] (" + Trade.list.length + ")<br> <table><tr><tr>" + ["Time\t\t", "Market", "Currency", "Quantity", "Rate", "Request", "Responded"].join("</td><td>") + "</td></tr>";
+        var output = "<br><br> [Trades] (" + Trade.list.length + ")<br> <table><tr>" + ["Time\t\t", "Market", "Currency", "Quantity", "Rate", "Request", "Responded"].join("</td><td>") + "</td></tr>";
         for (var i = Trade.list.length - 1; i >= 0; i--) {
             output += "<tr> " + Trade.list[i].consoleOutput() + "</tr>";
             if (Trade.list.length - i == 6) {
@@ -218,12 +218,12 @@ module.exports = class Trade extends Model {
      * @returns {String}
      */
     consoleOutput() {
-        return "<tr><td>"+[
+        return "<td>"+[
             (new Date().setTime(this.getCreatedAt()).toLocaleString()),
             this.getMarketSymbol() + "  ",
             this.getOutputCurrency().getSymbol(),
             Util.pad(this.getQuantity()),
             Util.pad(this.getPrice())
-        ].join("</td><td>") + "</td><td>";
+        ].join("</td><td>") + "</td>";
     }
 }

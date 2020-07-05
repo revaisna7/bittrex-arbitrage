@@ -184,7 +184,8 @@ module.exports = class Balance extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = " [Balances] [ Overall profit factor: " + Util.addPlusOrSpace(this.totalProfitFactor()) + "% ]<br><table><tr><th>Currency</th><th>Balance</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th><th>BTC value</th><th>BTC start</th><th>BTC Profit</th><th>BTC factor</th></tr>";
+        var output = " [Balances] [ Overall profit factor: " + Util.addPlusOrSpace(this.totalProfitFactor()) + "% ]<br>"
+           + "<table><tr><th>Currency</th><th>Balance</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th><th>BTC value</th><th>BTC start</th><th>BTC Profit</th><th>BTC factor</th></tr>";
         var balancesOutput = '';
         for (var i in Balance.list) {
             var balance = Balance.list[i];
