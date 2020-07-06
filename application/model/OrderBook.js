@@ -34,12 +34,23 @@ module.exports = class OrderBook extends Model  {
     }
     
     static updateNext() {
-        if(OrderBook.nextIndex >= OrderBook.list.length) {
+        var list = OrderBook.getUsed();
+        if(OrderBook.nextIndex >= list.length) {
             OrderBook.nextIndex = 0;
         }
-        OrderBook.list[OrderBook.nextIndex].get();
+        list[OrderBook.nextIndex].get();
         OrderBook.nextIndex++;
         
+    }
+    
+    static getUsed() {
+        var orderBooks = [];
+        for(var i in OrderBook.list) {
+            if(OrderBook.list[i].market.canTrade()) {
+                orderBooks.push(OrderBook.list[i]);
+            }
+        }
+        return orderBooks;
     }
 
     async get() {
