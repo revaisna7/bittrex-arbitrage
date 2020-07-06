@@ -250,11 +250,11 @@ module.exports = class Route extends Model {
     }
 
     profitString() {
-        return Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%'
-                + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%'
-                + " " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%'
-                + " ~ " + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%'
-                + "  " + (this.hasEnoughBalance() ? "" : "No balance");
+        return + '<td>' + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%</td>'
+                + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%</td>'
+                + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%</td>'
+                + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%</td>'
+                + "<td>" + (this.hasEnoughBalance() ? "" : "No balance") + '</td>';
     }
 
     static consoleOutput() {
@@ -277,8 +277,8 @@ module.exports = class Route extends Model {
      */
     consoleOutput() {
         return this.ouput = '<td>' + new Date().toLocaleTimeString() + '</td>'
-                + '<td>' + this.currencyRouteString() + ' ' + this.marketRouteString() + ''
-                + '<br>' + this.calculationString() + '</td>'
+                + '<td><table><tr><td>' + this.currencyRouteString() + '</td><td>' + this.marketRouteString() + '</td></tr>'
+                + '<tr><td>' + this.calculationString() + '</td></tr></table></td>'
                 + '<td>' + this.profitString() + '</td>';
     }
 };
