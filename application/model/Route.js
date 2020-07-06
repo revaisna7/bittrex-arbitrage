@@ -63,16 +63,16 @@ module.exports = class Route extends Model {
 
     static find() {
         this.finding = true;
-        var currencues = Currency.getAllowed();
-        for (var x in currencues) {
-            for (var y in currencues) {
+        var currencies = Currency.getAllowed();
+        for (var x in currencies) {
+            for (var y in currencies) {
                 if (x === y)
                     continue;
-                for (var z in currencues) {
+                for (var z in currencies) {
                     if (y === z || z === x)
                         continue;
-                    if (!Route.exists(currencues[x], currencues[y], currencues[z])) {
-                        var route = Route.possible(currencues[x], currencues[y], currencues[z]);
+                    if (!Route.exists(currencies[x], currencies[y], currencies[z])) {
+                        var route = Route.possible(currencies[x], currencies[y], currencies[z]);
                         if (route) {
                             Route.push(route);
                         }
