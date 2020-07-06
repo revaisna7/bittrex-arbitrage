@@ -12,6 +12,7 @@ module.exports = class Delta extends Model {
     trade = null;
     input = null;
     output = null;
+    price = 0;
     priceDeviation = null;
 
     constructor(route, inputCurrency, outputCurrency) {
@@ -50,7 +51,7 @@ module.exports = class Delta extends Model {
         } else {
             this.price += this.priceDeviation / 100 * this.price;
         }
-        return this.price.toFixed(this.market.getPrecision());
+        return Number.parseFloat(this.price).toFixed(this.market.getPrecision());
     }
 
     getInput() {
