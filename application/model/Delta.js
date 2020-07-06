@@ -16,7 +16,7 @@ module.exports = class Delta extends Model {
 
     constructor(route, inputCurrency, outputCurrency) {
         super();
-        
+
         this.route = route;
         this.inputCurrency = inputCurrency;
         this.outputCurrency = outputCurrency;
@@ -45,8 +45,12 @@ module.exports = class Delta extends Model {
         } else {
             this.price = this.market.getPrice(this.outputCurrency, this.priceDeviation);
         }
-        this.price += this.market.isBaseCurrency(this.inputCurrency) ? this.price/100*this.priceDeviation : this.price/100*this.priceDeviation*-1;
-        return this.price;
+        if (this.market.isBaseCurrency(this.inputCurrency)) {
+            this.price += this.price / 100 * this.priceDeviation;
+        } else {
+            this.price -= this.price / 100 * this.priceDeviation;
+        }
+        return this.price.toFixed(this.market.getPrecision());
     }
 
     getInput() {
