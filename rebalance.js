@@ -63,7 +63,7 @@ var Trade = require('./schema/Trade.js');
                             console.log(trade.meetsMinTradeRequirement());
                             console.log(trade.hasBalance());
                             console.log(trade.getQuantity());
-                            trade.execute(() => {
+                            trade.execute((trade) => {
                                 console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
                             });
                         }
