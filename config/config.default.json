@@ -5,7 +5,7 @@
         "inputBtc" : 0.0006,
         "autoTradeSize": false,
         "autoTradePercentage": 33,
-        "tradeOnProfit": 0.1,
+        "minProfitFactor": 0.1,
         "profitAllThree" : false
     },
     "Delta" : {
