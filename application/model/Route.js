@@ -364,7 +364,7 @@ module.exports = class Route extends Model {
                 + "<th>Output</th>"
                 + "<th>Profit</th>"
                 + "<th>Profit Factor</th>"
-                + "<th>Net Profit</th>"
+                + "<th>Profit Average</th>"
                 + "</tr>";
         Route.sort();
         for (var x in Route.list) {
