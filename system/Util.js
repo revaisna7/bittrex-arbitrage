@@ -17,17 +17,17 @@ module.exports = class Util {
             str += ' ';
         }
         if (number < 0) {
-            str += " ";
+            str += '<span class="loss">';
             str += '-';
         }
         if (number > 0) {
-            str += " ";
+            str += '<span class="profit">';
             str += '+';
         }
         if (number < 10 && number > -10) {
             str += '0';
         }
-        return str + number.toFixed(decimals).replace('-', '') + " ";
+        return str + number.toFixed(decimals).replace('-', '') + "</span>";
     }
 
     static pad(number, decimals) {
