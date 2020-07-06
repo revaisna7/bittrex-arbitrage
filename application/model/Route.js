@@ -250,7 +250,7 @@ module.exports = class Route extends Model {
     }
 
     profitString() {
-        return + '<td>' + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%</td>'
+        return '<td>' + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%</td>'
                 + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%</td>'
                 + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%</td>'
                 + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%</td>'
@@ -278,7 +278,7 @@ module.exports = class Route extends Model {
     consoleOutput() {
         return this.ouput = '<td>' + new Date().toLocaleTimeString() + '</td>'
                 + '<td><table><tr><td>' + this.currencyRouteString() + '</td><td>' + this.marketRouteString() + '</td></tr>'
-                + '<tr><td>' + this.calculationString() + '</td></tr></table></td>'
+                + '<tr><td colspan="2">' + this.calculationString() + '</td></tr></table></td>'
                 + '<td>' + this.profitString() + '</td>';
     }
 };
