@@ -258,7 +258,7 @@ module.exports = class Route extends Model {
     }
 
     static consoleOutput() {
-        var output = ("<h3>Triangular Routes (" + Route.list.length + ")</h3><table><tr><th>Time</th><th>Route</th><th>Profit X</th><th>Profit Y</th><th>Profit Z</th><th>Route profitt</th></tr>");
+        var output = ("<h3>Triangular Routes (" + Route.list.length + ")</h3><table><tr><th>Time</th><th>Route</th><th>Profit X</th><th>Profit Y</th><th>Profit Z</th><th>Route profit</th><th></th></tr>");
         Route.sort();
         for (var x in Route.list) {
             if (x === 30)
@@ -279,6 +279,6 @@ module.exports = class Route extends Model {
         return this.ouput = '<td>' + new Date().toLocaleTimeString() + '</td>'
                 + '<td><table><tr><td>' + this.currencyRouteString() + '</td><td>' + this.marketRouteString() + '</td></tr>'
                 + '<tr><td colspan="2">' + this.calculationString() + '</td></tr></table></td>'
-                + '<td>' + this.profitString() + '</td>';
+                + this.profitString();
     }
 };
