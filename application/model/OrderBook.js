@@ -9,6 +9,7 @@ module.exports = class OrderBook extends Model  {
     getting = false;
     interval = null;
     socket = null;
+    static nextIndex = 0;
     static list = [];
     
     /**
@@ -27,8 +28,22 @@ module.exports = class OrderBook extends Model  {
         console.log('Inititialize OrderBook...');
         for(var i in OrderBook.list) {
             await OrderBook.list[i].get();
-            OrderBook.list[i].pulse();
+//            OrderBook.list[i].pulse();
         }
+        OrderBook.updateNext();
+    }
+    
+    static updateNext() {
+        if(OrderBook.nextIndex >= OrderBook.list.length) {
+            OrderBook.nextIndex = 0;
+        }
+        
+        setTimeout(() => {
+            OrderBook.list[OrderBook.nextIndex].get();
+            OrderBook.updateNext();
+        }, OrderBook.config('updateInterval'));
+        
+        OrderBook.nextIndex++;
     }
 
     async get() {
@@ -176,7 +191,7 @@ module.exports = class OrderBook extends Model  {
 
     pulseStart() {
         var _this = this;
-        this.interval = setInterval(() => { _this.get(); }, OrderBook.config('updateInterval'));
+//        this.interval = setInterval(() => { _this.get(); }, OrderBook.config('updateInterval'));
     }
 
     pulseStop() {
