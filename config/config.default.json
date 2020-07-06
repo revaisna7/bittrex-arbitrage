@@ -54,7 +54,7 @@
         "fileDirectory" : "./web"
     },
     "SocketServer": {
-        "port": 45634,
+        "port": 8080,
         "host": "localhost",
         "protocol": "http"
     },

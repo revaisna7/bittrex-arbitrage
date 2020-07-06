@@ -40,7 +40,7 @@ module.exports = class WebServer extends Configurable {
     static route(request, response) {
         if(!Controller.routeAction(request, response)) {
             if(!File.serve(request, response)) {
-                response.send('404. You have found the nonexistent page. This page exists but yet it does not. Good luck finding it.');
+                response.end('404. You have found the nonexistent page. This page exists but yet it does not. Good luck finding it.');
             }
         }
     }
