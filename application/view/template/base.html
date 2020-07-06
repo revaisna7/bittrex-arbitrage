@@ -8,8 +8,8 @@
             function updateArbitrage(data) {
                 document.getElementById('arbitrage').innerHTML = data;
             }
-
-            var socket = io.connect(45634, {});
+            var host = window.location.protocol + "//" + window.location.host + ':45634';
+            var socket = io.connect(host);
             socket.on('connect', function (data) {
                 console.log(data);
                 socket.emit('arbitrage', 'index');
