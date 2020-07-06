@@ -162,7 +162,7 @@ module.exports = class Route extends Model {
         this.profitFactorX = (this.profitX) / this.deltaChain[0].input * 100;
         this.profitFactorY = (this.profitY) / this.deltaChain[1].input * 100;
         this.profitFactorZ = (this.profitZ) / this.deltaChain[2].input * 100;
-        this.profitFactor = (this.profitFactorX + this.profitFactorY + this.profitFactorZ) / 3;
+        this.profitFactor = this.profitFactorX + this.profitFactorY + this.profitFactorZ;
 
         if (this.isProfitable()) {
             this.trade();
@@ -364,7 +364,7 @@ module.exports = class Route extends Model {
                 + "<th>Output</th>"
                 + "<th>Profit</th>"
                 + "<th>Profit Factor</th>"
-                + "<th>Profit Average</th>"
+                + "<th>Net Profit</th>"
                 + "</tr>";
         Route.sort();
         for (var x in Route.list) {
