@@ -16,7 +16,7 @@ module.exports = class File extends Configurable {
                 if (error) {
                     console.log(filePath, error);
                 } else {
-                    response.setHeader("Content-Type", mime.lookup(filePath));
+                    response.setHeader("Content-Type", mime.getType(filePath));
                     response.writeHead(200);
                     response.end(data);
                 }
