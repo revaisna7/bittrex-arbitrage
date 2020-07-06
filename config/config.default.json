@@ -6,7 +6,8 @@
         "autoTradeSize": false,
         "autoTradePercentage": 33,
         "minProfitFactor": 0.1,
-        "profitAllThree" : false
+        "profitAllThree" : false,
+        "nextTradeTimeout" : 2000
     },
     "Delta" : {
         "priceDeviation" : 0

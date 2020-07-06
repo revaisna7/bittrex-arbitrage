@@ -214,8 +214,9 @@ module.exports = class Route extends Model {
                 await this.deltaChain[i].executeTrade();
             }
             await Balance.getAll();
-
-            Route.trading = false;
+            setTimeout(() => {
+                Route.trading = false;
+            }, Route.config('nextTradeTimeout'));
         }
     }
 
@@ -317,37 +318,37 @@ module.exports = class Route extends Model {
         return "<table>"
                 + "<tr>"
                 + "<td>"
-                + Util.addPlusOrSpace(Number.parseFloat(this.profitX),8)
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitX), 8)
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
                 + "<td>"
-                + Util.addPlusOrSpace(Number.parseFloat(this.profitY),8)
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitY), 8)
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
                 + "<td>"
-                + Util.addPlusOrSpace(Number.parseFloat(this.profitZ),8)
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitZ), 8)
                 + "</td>"
                 + "</tr>"
                 + "</table>";
     }
-    
+
     profitFactorTable() {
         return "<table>"
                 + "<tr>"
                 + "<td>"
-                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX),3) + "%"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX), 3) + "%"
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
                 + "<td>"
-                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY),3) + "%"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY), 3) + "%"
                 + "</td>"
                 + "</tr>"
                 + "<tr>"
                 + "<td>"
-                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ),3) + "%"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ), 3) + "%"
                 + "</td>"
                 + "</tr>"
                 + "</table>";
