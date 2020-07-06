@@ -184,7 +184,7 @@ module.exports = class Balance extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "<h3>Balances</h3><table><tr><td>Currency</td><td>Balance</td><td>Total</td><td>Start</td><td>Profit</td><td>Factor</td><td>BTC balance</td><td>BTC value</td><td>BTC start</td><td>BTC Profit</td><td>BTC factor</td></tr>";
+        var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th><th>BTC value</th><th>BTC start</th><th>BTC Profit</th><th>BTC factor</th></tr>";
         var balancesOutput = '';
         for (var i in Balance.list) {
             var balance = Balance.list[i];
