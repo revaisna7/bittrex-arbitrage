@@ -30,19 +30,15 @@ module.exports = class OrderBook extends Model  {
             await OrderBook.list[i].get();
 //            OrderBook.list[i].pulse();
         }
-        OrderBook.updateNext();
+        OrderBook.interval = setInterval(OrderBook.updateNext, OrderBook.config('updateInterval'));
     }
     
     static updateNext() {
         if(OrderBook.nextIndex >= OrderBook.list.length) {
             OrderBook.nextIndex = 0;
         }
-        
-        setTimeout(() => {
-            OrderBook.list[OrderBook.nextIndex].get();
-            OrderBook.nextIndex++;
-            OrderBook.updateNext();
-        }, OrderBook.config('updateInterval'));
+        OrderBook.list[OrderBook.nextIndex].get();
+        OrderBook.nextIndex++;
         
     }
 
