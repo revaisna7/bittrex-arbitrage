@@ -440,7 +440,7 @@ module.exports = class Market extends Model {
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
-        return  output - (Market.config('exchangeCommission') / 100 * output);
+        return  output - (Market.config('commission') / 100 * output);
     }
 
     /**
@@ -458,7 +458,7 @@ module.exports = class Market extends Model {
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
-        return  output - (Market.config('exchangeCommission') / 100 * output);
+        return  output - (Market.config('commission') / 100 * output);
     }
 
     /**
