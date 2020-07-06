@@ -40,10 +40,10 @@ module.exports = class OrderBook extends Model  {
         
         setTimeout(() => {
             OrderBook.list[OrderBook.nextIndex].get();
+            OrderBook.nextIndex++;
             OrderBook.updateNext();
         }, OrderBook.config('updateInterval'));
         
-        OrderBook.nextIndex++;
     }
 
     async get() {
