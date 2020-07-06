@@ -227,4 +227,4 @@ module.exports = class Trade extends Model {
             Util.pad(this.getPrice())
         ].join("</td><td>") + "</td>";
     }
-}
+};

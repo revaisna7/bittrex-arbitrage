@@ -11,20 +11,24 @@ module.exports = class Arbitrage extends Model {
     static Trade = require('./Trade.js');
     static Order = require('./Order.js');
 
+    static initialized = false;
+
     static async start() {
-        console.log('Initializing Arbitrages...');
-        
-        await Arbitrage.Currency.init();
-        await Arbitrage.Market.init();
-        await Arbitrage.OrderBook.init();
-        await Arbitrage.Balance.init();
-        await Arbitrage.Order.init();
+        if(Arbitrage.initialized === false) {
+            Arbitrage.initialized = true;
+            console.log('Initializing Arbitrages...');
 
-        setTimeout(() => {
-            console.log('Initializing Routes...');
-            Arbitrage.Route.init();
-        }, 5000);
+            await Arbitrage.Currency.init();
+            await Arbitrage.Market.init();
+            await Arbitrage.OrderBook.init();
+            await Arbitrage.Balance.init();
+            await Arbitrage.Order.init();
 
+            setTimeout(() => {
+                console.log('Initializing Routes...');
+                Arbitrage.Route.init();
+            }, 5000);
+        }
     }
 
     static consoleOutput() {
