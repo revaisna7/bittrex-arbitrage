@@ -258,7 +258,7 @@ module.exports = class Route extends Model {
     }
 
     static consoleOutput() {
-        var output = ("<h3>Triangular Routes (" + Route.list.length + ")</h3><table>");
+        var output = ("<h3>Triangular Routes (" + Route.list.length + ")</h3><table><tr><th>Time</th><th>Route</th><th>Profit X</th><th>Profit Y</th><th>Profit Z</th><th>Route profitt</th></tr>");
         Route.sort();
         for (var x in Route.list) {
             if (x === 30)
