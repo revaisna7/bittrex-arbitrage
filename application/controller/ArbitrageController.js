@@ -13,6 +13,10 @@ module.exports = class ArbitrageController extends Controller {
         response.redirect('/');
         
     }
+    static async actionCancelAll(uriParts, request, response) {
+        await ArbitrageController.Order.cancelAll();
+        
+    }
     
     static async socketIndex(socket, packet) {
         var _socket = socket;
