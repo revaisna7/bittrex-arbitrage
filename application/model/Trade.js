@@ -106,7 +106,7 @@ module.exports = class Trade extends Model {
     }
 
     getType() {
-        return this.type || Config.get('orderType') || 'LIMIT';
+        return this.type || Trade.config('orderType') || 'LIMIT';
     }
 
     getTimeInForce() {
@@ -126,7 +126,7 @@ module.exports = class Trade extends Model {
     }
 
     getUseAwards() {
-        return Config.get('useAwards') === true || false;
+        return Trade.config('useAwards') === true || false;
     }
 
     getRequest() {
