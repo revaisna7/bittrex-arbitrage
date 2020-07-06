@@ -341,7 +341,7 @@ module.exports = class Balance extends Model {
      */
     consoleOutput() {
         return "<td>" + ([
-            this.currencySymbol + ""
+            "<img src=\"" + this.getCurrency().logoUrl + "\"/> " +this.currencySymbol + ""
                     , Util.pad(this.total)
                     , Util.pad(this.accumulateNow)
                     , Util.pad(this.accumulateStart)

@@ -248,7 +248,7 @@ module.exports = class Route extends Model {
         return "<table>"
                 + "<tr>"
                 + "<td>"
-                + "<img src=" + this.currencyX.logoUrl + " />"
+                + "<img src=\"" + this.currencyX.logoUrl + "\" />"
                 + "</td>"
                 + "<td>"
                 + this.currencyX.symbol
