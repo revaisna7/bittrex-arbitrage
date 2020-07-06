@@ -156,9 +156,12 @@ module.exports = class Route extends Model {
         for (var i in this.deltaChain) {
             this.deltaChain[i].calculate();
         }
-        this.profitFactorX = (this.deltaChain[2].output - this.deltaChain[0].input) / this.deltaChain[0].input * 100;
-        this.profitFactorY = (this.deltaChain[0].output - this.deltaChain[1].input) / this.deltaChain[1].input * 100;
-        this.profitFactorZ = (this.deltaChain[1].output - this.deltaChain[2].input) / this.deltaChain[2].input * 100;
+        this.profitX = (this.deltaChain[2].output - this.deltaChain[0].input);
+        this.profitY = (this.deltaChain[0].output - this.deltaChain[1].input);
+        this.profitZ = (this.deltaChain[1].output - this.deltaChain[2].input);
+        this.profitFactorX = (this.profitX) / this.deltaChain[0].input * 100;
+        this.profitFactorY = (this.profitY) / this.deltaChain[1].input * 100;
+        this.profitFactorZ = (this.profitZ) / this.deltaChain[2].input * 100;
         this.profitFactor = this.profitFactorX + this.profitFactorY + this.profitFactorZ;
 
         if (this.isProfitable()) {
@@ -225,49 +228,153 @@ module.exports = class Route extends Model {
     }
 
     currencyRouteString() {
-        var output = Util.spinner();
+        var output;
         for (var i in this.deltaChain) {
-            output += (i > 0 ? ' > ' : '') + this.deltaChain[i].inputCurrency.symbol.padEnd(4);
+            output += this.deltaChain[i].inputCurrency.symbol;
         }
-        output += ' > ' + this.deltaChain[0].inputCurrency.symbol.padEnd(4);
-        return output.padEnd(26);
+        output += ' > ' + this.deltaChain[0].inputCurrency.symbol;
+        return output;
     }
 
     marketRouteString() {
-        var output = Util.spinner();
+        var output;
         for (var i in this.deltaChain) {
-            output += (i > 0 ? ' > ' : '') + this.deltaChain[i].market.symbol.padEnd(9);
+            output += this.deltaChain[i].market.symbol;
         }
         return output;
     }
 
-    calculationString() {
-        var output = Util.spinner();
-        for (var i in this.deltaChain) {
-            output += (i > 0 ? ' > ' : ' ') + Util.pad(Number.parseFloat(this.deltaChain[i].input).toFixed(8)) + ' = ' + Util.pad(Number.parseFloat(this.deltaChain[i].output).toFixed(8));
-        }
-        return output;
+    currencyTable() {
+        return "<table>"
+                + "<tr>"
+                + "<td>"
+                + "<img src=" + this.currencyX.logoUrl + " />"
+                + "</td>"
+                + "<td>"
+                + this.currencyX.symbol
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + "<img src=" + this.currencyY.logoUrl + " />"
+                + "</td>"
+                + "<td>"
+                + this.currencyY.symbol
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + "<img src=" + this.currencyZ.logoUrl + " />"
+                + "</td>"
+                + "<td>"
+                + this.currencyZ.symbol
+                + "</td>"
+                + "</tr>"
+                + "</table>";
     }
 
-    profitString() {
-        return '<td>' + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX).toFixed(4)) + '%</td>'
-                + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY).toFixed(4)) + '%</td>'
-                + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ).toFixed(4)) + '%</td>'
-                + "<td>" + Util.addPlusOrSpace(Number.parseFloat(this.profitFactor).toFixed(4)) + '%</td>'
-                + "<td>" + (this.hasEnoughBalance() ? "" : "No balance") + '</td>';
+    inputTable() {
+        return "<table>"
+                + "<tr>"
+                + "<td>"
+                + Util.pad(Number.parseFloat(this.deltaChain[0].input))
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + Util.pad(Number.parseFloat(this.deltaChain[1].input))
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + Util.pad(Number.parseFloat(this.deltaChain[2].input))
+                + "</td>"
+                + "</tr>"
+                + "</table>";
+    }
+
+    outputTable() {
+        return "<table>"
+                + "<tr>"
+                + "<td>"
+                + Util.pad(Number.parseFloat(this.deltaChain[2].output))
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + Util.pad(Number.parseFloat(this.deltaChain[0].output))
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + Util.pad(Number.parseFloat(this.deltaChain[1].output))
+                + "</td>"
+                + "</tr>"
+                + "</table>";
+    }
+
+    profitTable() {
+        return "<table>"
+                + "<tr>"
+                + "<td>"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitX),8)
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitY),8)
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitZ),8)
+                + "</td>"
+                + "</tr>"
+                + "</table>";
+    }
+    
+    profitFactorTable() {
+        return "<table>"
+                + "<tr>"
+                + "<td>"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorX),3) + "%"
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorY),3) + "%"
+                + "</td>"
+                + "</tr>"
+                + "<tr>"
+                + "<td>"
+                + Util.addPlusOrSpace(Number.parseFloat(this.profitFactorZ),3) + "%"
+                + "</td>"
+                + "</tr>"
+                + "</table>";
     }
 
     static consoleOutput() {
-        var output = ("<h3>Triangular Routes (" + Route.list.length + ")</h3><table><tr><th>Time</th><th>Route</th><th>Profit X</th><th>Profit Y</th><th>Profit Z</th><th>Route profit</th><th></th></tr>");
+        var output = "<h3>Triangular Routes (" + Route.list.length + ") " + new Date().toLocaleString() + "</h3>"
+                + "<table>"
+                + "<tr>"
+                + "<th>Exchange</th>"
+                + "<th>Type</th>"
+                + "<th>Currency</th>"
+                + "<th>Input</th>"
+                + "<th>Output</th>"
+                + "<th>Profit</th>"
+                + "<th>Profit Factor</th>"
+                + "<th>Net Profit</th>"
+                + "</tr>";
         Route.sort();
         for (var x in Route.list) {
             if (x === 30)
                 break;
-            if (typeof Route.list[x] === 'object') {
-                output += '<tr>' + Route.list[x].consoleOutput() + "</tr>";
+            if (typeof Route.list[x] === "object") {
+                output += Route.list[x].consoleOutput();
             }
         }
-        return output + '</table>';
+        return output + "</table>";
     }
 
     /**
@@ -276,9 +383,15 @@ module.exports = class Route extends Model {
      * @returns {String}
      */
     consoleOutput() {
-        return this.ouput = '<td>' + new Date().toLocaleTimeString() + '</td>'
-                + '<td><table><tr><td>' + this.currencyRouteString() + '</td><td>' + this.marketRouteString() + '</td></tr>'
-                + '<tr><td colspan="2">' + this.calculationString() + '</td></tr></table></td>'
-                + this.profitString();
+        return "<tr>"
+                + "<td>Bittrex</td>"
+                + "<td>" + (Delta.config("speculate") ? "speculative" : "instant") + "</td>"
+                + "<td>" + this.currencyTable() + "</td>"
+                + "<td>" + this.inputTable() + "</td>"
+                + "<td>" + this.outputTable() + "</td>"
+                + "<td>" + this.profitTable() + "</td>"
+                + "<td>" + this.profitFactorTable() + "</td>"
+                + "<td>" + Util.addPlusOrSpace(this.profitFactor) + "%</td>"
+                + "</tr>";
     }
 };
