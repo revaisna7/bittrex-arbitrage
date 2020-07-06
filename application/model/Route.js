@@ -210,7 +210,7 @@ module.exports = class Route extends Model {
             for (var i in this.deltaChain) {
                 await this.deltaChain[i].executeTrade();
             }
-            await Balance.get();
+            await Balance.getAll();
 
             Route.trading = false;
         }

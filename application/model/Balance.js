@@ -225,7 +225,7 @@ module.exports = class Balance extends Model {
      * @returns {Boolean}
      */
     isAllowed() {
-        return Config.get('currencies').indexOf(this.currencySymbol) > -1;
+        return Currency.getBySymbol(this.currencySymbol).isAllowed();
     }
 
     /**
