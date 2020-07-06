@@ -1,4 +1,5 @@
 var fs = require('fs');
+var mime = require('mime');
 var util = require('util');
 var Configurable = require('./Configurable.js');
 
@@ -15,7 +16,9 @@ module.exports = class File extends Configurable {
                 if (error) {
                     console.log(filePath, error);
                 } else {
-                    response.send(data);
+                    response.setHeader("Content-Type", mime.lookup(filePath));
+                    response.writeHead(200);
+                    response.end(data);
                 }
             });
             return true;
