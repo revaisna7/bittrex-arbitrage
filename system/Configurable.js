@@ -26,7 +26,7 @@ module.exports = class Configurable {
      * @returns {undefined}
      */
     static async initConfig(fileName, callback) {
-        if(Configurable.initizialed === false) {
+        if(Configurable.initialized === false) {
             fileName = fileName || Configurable.configFileName;
             await Configurable.getConfigFile(fileName, callback);
             Configurable.watchConfigFile();
