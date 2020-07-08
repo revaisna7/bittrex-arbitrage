@@ -32,7 +32,7 @@
         ]
     },
     "Market": {
-        "comission": 0.2,
+        "commission": 0.2,
         "restrict" : [
             "BTXCRD"
         ]
