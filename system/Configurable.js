@@ -14,8 +14,9 @@ module.exports = class Configurable {
     static configuration = {};
 
     constructor() {
-        
-        Configurable.initConfig();
+        if(Configurable.initialized === false) {
+            Configurable.initConfig();
+        }
     }
 
     /**
@@ -26,12 +27,10 @@ module.exports = class Configurable {
      * @returns {undefined}
      */
     static async initConfig(fileName, callback) {
-        if(Configurable.initialized === false) {
             fileName = fileName || Configurable.configFileName;
             await Configurable.getConfigFile(fileName, callback);
             Configurable.watchConfigFile();
             Configurable.initialized = true;
-        }
     }
     
     /**
