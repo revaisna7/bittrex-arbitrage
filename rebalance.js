@@ -34,7 +34,7 @@ var Trade = require('./schema/Trade.js');
         for (var i in Config.get('currencies')) {
             var currency = Currencies.getBySymbol(Config.get('currencies')[i]);
             var balance = Balances.getByCurrencySymbol(Config.get('currencies')[i]);
-            if (balance.getTotal() > 0) {
+            if (balance && balance.getTotal() > 0) {
                 var trade = currency.tradeToBtc(balance.getTotal());
 
                 if (trade) {
