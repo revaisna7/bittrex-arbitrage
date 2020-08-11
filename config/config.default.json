@@ -1,39 +1,39 @@
 {
-    "Route" : {
-        "trade" : false,
-        "speculate": false,
-        "inputBtc" : 0.0006,
+    "Route": {
+        "trade": false,
+        "inputBtc": 0.0006,
         "autoTradeSize": false,
         "autoTradePercentage": 33,
-        "minProfitFactor": 0.1,
-        "profitAllThree" : false,
-        "nextTradeTimeout" : 2000
+        "minProfitFactor": 1,
+        "profitAllThree": false,
+        "nextTradeTimeout": 2000,
+        "priceFactorWeight": 0.25
     },
-    "Delta" : {
-        "priceDeviation" : 0
+    "Delta": {
+        "priceDeviation": 0.00001,
+        "speculate": true
     },
-    "Trade" : {
-        "orderType" : "LIMIT"
+    "Trade": {
+        "orderType": "LIMIT"
     },
-    "Currency" : {
-        "base" : "USDT",
-        "allow" : [
+    "Currency": {
+        "base": "USDT",
+        "allow": [
             "BTC",
             "ETH",
             "USDT",
             "XRP",
             "USD",
-            "DASH",
             "LTC"
         ],
-        "restrict" : [
+        "restrict": [
             "BTXCRD",
             "EUR"
         ]
     },
     "Market": {
-        "commission": 0.2,
-        "restrict" : [
+        "commission": 0.2005,
+        "restrict": [
             "BTXCRD"
         ]
     },
@@ -44,30 +44,34 @@
     },
     "View": {
         "refreshRate": 250,
-        "routes" : 15
+        "routes": 15
     },
     "WebServer": {
         "port": 80,
+        "httpsPort": 443,
+        "https": false,
         "host": "localhost",
         "protocol": "http",
-        "baseController" : "Landing",
-        "fileDirectory" : "./web"
+        "baseController": "Landing",
+        "fileDirectory": "./web",
+        "keyFile" : "",
+        "certFile" : ""
     },
     "SocketServer": {
-        "port": 8080,
+        "port": 8443,
         "host": "localhost",
-        "protocol": "http"
+        "protocol": "https"
     },
-    "Controller" : {
-        "base" : "Landing"
+    "Controller": {
+        "base": "Landing"
     },
-    "File" : {
-        "webDirectory" : "./web"
+    "File": {
+        "webDirectory": "./web"
     },
-    "ArbitrageController" : {
-        "socketInterval" : 500
+    "ArbitrageController": {
+        "socketInterval": 100
     },
-    "OrderBook" : {
-        "updateInterval" : 333
+    "OrderBook": {
+        "updateInterval": 100
     }
 }

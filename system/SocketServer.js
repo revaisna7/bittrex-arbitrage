@@ -1,6 +1,5 @@
 var io = require('socket.io');
 var Configurable = require('./Configurable.js');
-var WebServer = require('./WebServer.js');
 var Controller = require('./Controller.js');
 var fs = require('fs');
 
