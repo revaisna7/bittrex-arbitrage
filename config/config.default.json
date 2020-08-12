@@ -1,16 +1,13 @@
 {
     "Route": {
-        "trade": false,
-        "inputBtc": 0.0006,
-        "autoTradeSize": false,
-        "autoTradePercentage": 33,
-        "minProfitFactor": 1,
-        "profitAllThree": false,
-        "nextTradeTimeout": 2000,
-        "priceFactorWeight": 0.25
+        "trade": true,
+        "inputBtc": 0.00055,
+        "minProfitFactor": 0.1,
+        "profitAllThree": true,
+        "nextTradeTimeout": 2000
     },
     "Delta": {
-        "priceDeviation": 0.00001,
+        "priceDeviation": -0.3,
         "speculate": true
     },
     "Trade": {
@@ -27,8 +24,7 @@
             "LTC"
         ],
         "restrict": [
-            "BTXCRD",
-            "EUR"
+            "BTXCRD"
         ]
     },
     "Market": {
@@ -38,8 +34,8 @@
         ]
     },
     "Bittrex": {
-        "apikey": "",
-        "apisecret": "",
+        "apikey": "d4a7e550e5494aedb270ab4beb64ae6f",
+        "apisecret": "9e6ceebfd5044f6abe30fcba7edacdd0",
         "subaccountid": ""
     },
     "View": {
@@ -54,7 +50,7 @@
         "protocol": "http",
         "baseController": "Landing",
         "fileDirectory": "./web",
-        "keyFile" : "",
+        "keyFile" : ".",
         "certFile" : ""
     },
     "SocketServer": {
@@ -69,9 +65,9 @@
         "webDirectory": "./web"
     },
     "ArbitrageController": {
-        "socketInterval": 100
+        "socketInterval": 1000
     },
     "OrderBook": {
-        "updateInterval": 100
+        "updateInterval": 333
     }
 }

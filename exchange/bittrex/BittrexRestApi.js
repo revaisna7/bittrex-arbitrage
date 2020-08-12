@@ -495,6 +495,37 @@ module.exports = {
 
         return response.data;
     },
+    
+    marketSymbolTicker: async function(key, secret, subaccountid, market) {
+
+        const method = 'GET';
+        var apiSecret = secret;
+        var apiKey = key;
+        var timestamp = new Date().getTime();
+        const subaccountId = subaccountid;
+
+        var contentHash = CryptoJS.SHA512('').toString(CryptoJS.enc.Hex);
+
+        var uri = 'https://api.bittrex.com/v3/markets/' + market + '/ticker';
+        var preSign = [timestamp, uri, method, contentHash, subaccountId].join('');
+        var signature = CryptoJS.HmacSHA512(preSign, apiSecret).toString(CryptoJS.enc.Hex);
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Api-Key': apiKey,
+            'Api-Timestamp': timestamp,
+            'Api-Content-Hash': contentHash,
+            'Api-Signature': signature,
+        }
+
+        let response = await axios.get(uri, {
+            headers: headers
+        });
+
+
+
+        return response.data;
+    },
 
     marketSymbolSummary: async function(key, secret, subaccountid, currency) {
 

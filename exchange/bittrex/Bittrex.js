@@ -129,6 +129,15 @@ class Bittrex extends Configurable {
                 marketSymbol
         );
     }
+    
+    static async marketSymbolTicker(marketSymbol) {
+        return await bittrexApiV3.marketSymbolTicker(
+                Bittrex.config('apikey'),
+                Bittrex.config('apisecret'),
+                Bittrex.config('subaccountid'),
+                marketSymbol
+        );
+    }
     static async marketSymbolSummary(marketSymbol) {
         return await bittrexApiV3.marketSymbolSummary(
                 Bittrex.config('apikey'),
