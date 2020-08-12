@@ -56,7 +56,6 @@ module.exports = class OrderBook extends Model  {
         if (this.market.canTrade()) {
             this.getting = true;
             var ticker = await Bittrex.marketSymbolTicker(this.market.symbol);
-            console.log(ticker);
             this.ask = ticker.askRate;
             this.bid = ticker.bidRate;
             this.last = ticker.lastTradeRate;
