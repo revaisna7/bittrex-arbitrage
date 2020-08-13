@@ -86,7 +86,7 @@ module.exports = class Delta extends Model {
      * @returns {undefined}
      */
     async executeTrade() {
-        this.trade = this.market.trade(this.inputCurrency, this.outputCurrency, this.input, this.price);
+        this.trade = this.market.trade(this.inputCurrency, this.outputCurrency, this.getInput(), this.getPrice());
         return await this.trade.execute();
     }
 };
