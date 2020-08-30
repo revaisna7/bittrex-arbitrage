@@ -73,12 +73,15 @@ module.exports = class Market extends Model {
 
     static list = [];
 
+    static interval = null;
+
     /**
      * Initialize markets
      * @returns {undefined}
      */
     static async init() {
         console.log('Inititialize Market...');
+        Market.subscribeTickers();
         return await Market.getAll();
     }
 
@@ -477,19 +480,20 @@ module.exports = class Market extends Model {
     getTickData(timeFrame, startDate) {
         // @todo
     }
-    
-    subscribeTickers() {
+
+    static subscribeTickers() {
+        clearInterval(Market.interval);
         Market.interval = setInterval(Market.updateTickers, Market.config('updateInterval'));
     }
-    
-    updateTickers() {
+
+    static  updateTickers() {
         var tickers = Bittrex.marketTickers();
-        for(var i in tickers) {
+        for (var i in tickers) {
             var market = Market.getBySymbol(tickers[i].symbol);
-            if(market) {
-                market.orderBook.update(tickers[i].askRate,tickers[i].bidRate,tickers[i].lastTradeRate);
+            if (market) {
+                market.orderBook.update(tickers[i].askRate, tickers[i].bidRate, tickers[i].lastTradeRate);
             }
         }
     }
-    
+
 };
