@@ -759,7 +759,7 @@ module.exports = {
                     "type": type,
                     "timeInForce": timeInForce,
                     "quantity": quantity,
-                    "useAwards": useAwards
+                    "UseAwards": useAwards
                 }
             }
 
@@ -772,8 +772,8 @@ module.exports = {
                     "timeInForce": timeInForce,
                     "quantity": quantity,
                     "limit": limit,
-                    "useAwards": useAwards
-                }
+                    "UseAwards": useAwards
+                };
             }
 
             if (type === 'CEILING_LIMIT' || type === 'CEILING_MARKET') {
@@ -784,8 +784,8 @@ module.exports = {
                     "timeInForce": timeInForce,
                     "limit": limit,
                     "ceiling": ceiling,
-                    "useAwards": useAwards
-                }
+                    "UseAwards": useAwards
+                };
             }
 
 
@@ -800,8 +800,8 @@ module.exports = {
                 'Api-Key': apiKey,
                 'Api-Timestamp': timestamp,
                 'Api-Content-Hash': contentHash,
-                'Api-Signature': signature,
-            }
+                'Api-Signature': signature
+            };
 
 
             let response = await axios.post(uri, data, {
