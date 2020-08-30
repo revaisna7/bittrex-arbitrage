@@ -488,6 +488,7 @@ module.exports = class Market extends Model {
 
     static  updateTickers() {
         var tickers = Bittrex.marketTickers();
+        console.log(tickers);
         for (var i in tickers) {
             var market = Market.getBySymbol(tickers[i].symbol);
             if (market) {
