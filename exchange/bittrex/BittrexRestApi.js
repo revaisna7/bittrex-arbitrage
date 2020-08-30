@@ -759,6 +759,7 @@ module.exports = {
                     "type": type,
                     "timeInForce": timeInForce,
                     "quantity": quantity,
+                    "useAwards": useAwards
                 }
             }
 
@@ -771,6 +772,7 @@ module.exports = {
                     "timeInForce": timeInForce,
                     "quantity": quantity,
                     "limit": limit,
+                    "useAwards": useAwards
                 }
             }
 
@@ -782,6 +784,7 @@ module.exports = {
                     "timeInForce": timeInForce,
                     "limit": limit,
                     "ceiling": ceiling,
+                    "useAwards": useAwards
                 }
             }
 
