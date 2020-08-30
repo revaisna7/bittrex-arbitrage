@@ -26,41 +26,14 @@ module.exports = class OrderBook extends Model  {
 
     static async init() {
         console.log('Inititialize OrderBook...');
-        for(var i in OrderBook.list) {
-            await OrderBook.list[i].get();
-        }
-        OrderBook.interval = setInterval(OrderBook.updateNext, OrderBook.config('updateInterval'));
     }
     
-    static updateNext() {
-        var list = OrderBook.getUsed();
-        if(OrderBook.nextIndex >= list.length) {
-            OrderBook.nextIndex = 0;
-        }
-        list[OrderBook.nextIndex].get();
-        OrderBook.nextIndex++;
-        
-    }
-    
-    static getUsed() {
-        var orderBooks = [];
-        for(var i in OrderBook.list) {
-            if(OrderBook.list[i].market.canTrade()) {
-                orderBooks.push(OrderBook.list[i]);
-            }
-        }
-        return orderBooks;
-    }
 
-    async get() {
-        if (this.market.canTrade()) {
-            this.getting = true;
-            var ticker = await Bittrex.marketSymbolTicker(this.market.symbol);
-            this.ask = ticker.askRate;
-            this.bid = ticker.bidRate;
-            this.last = ticker.lastTradeRate;
-            this.triggerRoutes();
-        }
+    update(ask,bid,last) {
+        this.ask = ask;
+        this.bid = bid;
+        this.last = last;
+        this.triggerRoutes();
     }
 
     Ask() {
@@ -73,20 +46,6 @@ module.exports = class OrderBook extends Model  {
     
     Last() {
         return Number(this.last);
-    }
-
-    pulse() {
-        this.pulseStop();
-        this.pulseStart();
-    }
-
-    pulseStart() {
-        var _this = this;
-        this.interval = setInterval(() => { _this.get(); }, OrderBook.config('updateInterval'));
-    }
-
-    pulseStop() {
-        clearInterval(this.interval);
     }
 
     triggerRoutes() {
