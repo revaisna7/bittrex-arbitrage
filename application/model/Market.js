@@ -486,8 +486,8 @@ module.exports = class Market extends Model {
         Market.interval = setInterval(Market.updateTickers, Market.config('updateInterval'));
     }
 
-    static  updateTickers() {
-        var tickers = Bittrex.marketTickers();
+    static async updateTickers() {
+        var tickers = await Bittrex.marketTickers();
         console.log(tickers);
         for (var i in tickers) {
             var market = Market.getBySymbol(tickers[i].symbol);
