@@ -95,6 +95,11 @@ module.exports = class Route extends Model {
                 return true;
             }
             if (Route.list[i].currencyX === currencyY
+                    && Route.list[i].currencyY === currencyX
+                    && Route.list[i].currencyZ === currencyZ) {
+                return true;
+            }
+            if (Route.list[i].currencyX === currencyY
                     && Route.list[i].currencyY === currencyZ
                     && Route.list[i].currencyZ === currencyX) {
                 return true;
@@ -102,6 +107,11 @@ module.exports = class Route extends Model {
             if (Route.list[i].currencyX === currencyZ
                     && Route.list[i].currencyY === currencyX
                     && Route.list[i].currencyZ === currencyY) {
+                return true;
+            }
+            if (Route.list[i].currencyX === currencyZ
+                    && Route.list[i].currencyY === currencyY
+                    && Route.list[i].currencyZ === currencyX) {
                 return true;
             }
         }
