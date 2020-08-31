@@ -47,9 +47,9 @@ module.exports = class Delta extends Model {
             this.price = this.market.getPrice(this.outputCurrency);
         }
         if (this.market.isBaseCurrency(this.inputCurrency)) {
-            this.price -= Delta.config('priceDeviation') / 100 * this.price;
+            this.price -= this.price / 100 * Delta.config('priceDeviation');
         } else {
-            this.price += Delta.config('priceDeviation') / 100 * this.price;
+            this.price += this.price / 100 * Delta.config('priceDeviation');
         }
         return Number.parseFloat(this.price).toFixed(8);
     }
