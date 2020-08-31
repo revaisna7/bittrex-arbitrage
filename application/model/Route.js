@@ -172,9 +172,9 @@ module.exports = class Route extends Model {
             minBtcMarkets.push(this.deltaChain[i].getMinBtcMarket());
         }
 //        var minBtcBalance = Math.min(...btcBalances);
-        var maxMarketRequirement = Math.max(...minBtcMarkets);
+        var minMarketRequirement = Math.min(...minBtcMarkets);
 
-        return Math.max(maxMarketRequirement, minInputBtc);
+        return Math.min(minMarketRequirement, minInputBtc);
     }
 
     calculate() {
