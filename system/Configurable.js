@@ -14,7 +14,7 @@ module.exports = class Configurable {
     static configuration = {};
 
     constructor() {
-        if(Configurable.initialized === false) {
+        if (Configurable.initialized === false) {
             Configurable.initConfig();
         }
     }
@@ -27,12 +27,14 @@ module.exports = class Configurable {
      * @returns {undefined}
      */
     static async initConfig(fileName, callback) {
-            fileName = fileName || Configurable.configFileName;
-            await Configurable.getConfigFile(fileName, callback);
+        fileName = fileName || Configurable.configFileName;
+        await Configurable.getConfigFile(fileName, callback);
+        if (Configurable.initialized === false) {
             Configurable.watchConfigFile();
-            Configurable.initialized = true;
+        }
+        Configurable.initialized = true;
     }
-    
+
     /**
      * Initialize a configurable
      * 
@@ -44,19 +46,20 @@ module.exports = class Configurable {
         var fileName = Configurable.configFileName;
         await Configurable.initConfig(fileName, callback);
     }
-    
+
     static getConfig(property) {
         return Configurable.configuration[property] || null;
     }
 
     static async getConfigFile(fileName, callback) {
         fs.readFile(fileName, 'utf8', (error, data) => {
-            if(data) {
+            if (data) {
                 Configurable.configuration = JSON.parse(data);
                 Configurable.triggerConfigChanges();
-                if(callback) callback(data);
+                if (callback)
+                    callback(data);
             }
-            if(error) {
+            if (error) {
                 console.log(error);
             }
         });
@@ -87,7 +90,7 @@ module.exports = class Configurable {
     config(property) {
         return Configurable.getConfig(this.constructor.toString())[property] || null;
     }
-    
+
     /**
      * Get config for class
      * 
