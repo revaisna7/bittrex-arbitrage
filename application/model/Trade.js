@@ -189,17 +189,19 @@ module.exports = class Trade extends Model {
                     );
             this.respondedAt = Date.now();
             this.response = response;
+            console.log(response);
             this.logData();
             if (callback) {
                 callback(this);
             }
             return response;
+            
         }
         return null;
     }
 
     logData() {
-        Util.log("<br><br> " + (new Date().toLocaleString()) + JSON.stringify([
+        Util.log("\n\n" + (new Date().toLocaleString()) + JSON.stringify([
             this.getMarketSymbol(),
             this.getDirection(),
             this.getType(),
@@ -210,7 +212,7 @@ module.exports = class Trade extends Model {
             this.getNote(),
             this.getUseAwards(),
             this.response
-        ], null, 2) + "<br>", 'trade');
+        ], null, 2) + "\n", 'trade');
     }
 
     /**

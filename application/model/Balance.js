@@ -184,7 +184,7 @@ module.exports = class Balance extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th><th>BTC value</th><th>BTC start</th><th>BTC Profit</th><th>BTC factor</th></tr>";
+        var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th></tr>";
         var balancesOutput = '';
         for (var i in Balance.list) {
             var balance = Balance.list[i];
@@ -343,15 +343,12 @@ module.exports = class Balance extends Model {
         return "<td>" + ([
             "<img src=\"" + this.getCurrency().logoUrl + "\"/> " +this.currencySymbol + ""
                     , Util.pad(this.total)
+                    , Util.pad(this.total-this.available)
                     , Util.pad(this.accumulateNow)
                     , Util.pad(this.accumulateStart)
                     , Util.addPlusOrSpace(this.getProfit(), 8)
                     , Util.addPlusOrSpace(this.getProfitFactor()) + '%'
                     , Util.pad(this.getBtcBalance())
-                    , Util.pad(this.getBtcNow())
-                    , Util.pad(this.getBtcStart())
-                    , Util.addPlusOrSpace(this.getBtcProfit(), 8)
-                    , Util.addPlusOrSpace(this.getBtcProfitFactor()) + '%'
         ].join("</td><td>")) + "</td>";
     }
 }
