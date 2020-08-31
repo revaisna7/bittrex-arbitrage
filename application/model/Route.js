@@ -174,7 +174,7 @@ module.exports = class Route extends Model {
 //        var minBtcBalance = Math.min(...btcBalances);
         var minMarketRequirement = Math.min(...minBtcMarkets);
 
-        return Math.min(minMarketRequirement, minInputBtc);
+        return Math.max(minMarketRequirement, minInputBtc);
     }
 
     calculate() {
