@@ -94,6 +94,11 @@ module.exports = class Route extends Model {
                     && Route.list[i].currencyZ === currencyZ) {
                 return true;
             }
+            if (Route.list[i].currencyX === currencyX
+                    && Route.list[i].currencyY === currencyZ
+                    && Route.list[i].currencyZ === currencyY) {
+                return true;
+            }
             if (Route.list[i].currencyX === currencyY
                     && Route.list[i].currencyY === currencyX
                     && Route.list[i].currencyZ === currencyZ) {
