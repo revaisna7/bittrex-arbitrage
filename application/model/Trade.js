@@ -110,7 +110,7 @@ module.exports = class Trade extends Model {
     }
 
     getTimeInForce() {
-        return this.timeInForce || 'GOOD_TIL_CANCELLED';
+        return this.getType() === 'MARKET' ? 'FILL_OR_KILL' : 'GOOD_TIL_CANCELLED';
     }
 
     getConditionType() {
