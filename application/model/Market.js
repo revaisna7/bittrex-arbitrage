@@ -333,6 +333,20 @@ module.exports = class Market extends Model {
         return Number.parseFloat(price).toFixed(this.getPrecision());
     }
 
+
+
+    /**
+     * Get the current reversed market prices for the given currency
+     * Does the same as getPrice but switches Ask to Bid and Bid to Ask
+     * 
+     * @param {Currency} currency The currency to get the price for
+     * @returns {Number}
+     */
+    getMedianPrice(currency) {
+        var price = this.Bid() + ((this.Ask() - this.Bid())/2);;
+        return Number.parseFloat(price).toFixed(this.getPrecision());
+    }
+
     /**
      * Current ask price from the order book
      * 
