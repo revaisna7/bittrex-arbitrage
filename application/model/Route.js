@@ -89,34 +89,34 @@ module.exports = class Route extends Model {
 
     static exists(currencyX, currencyY, currencyZ) {
         for (var i in Route.list) {
-            if (Route.list[i].currencyX === currencyX
-                    && Route.list[i].currencyY === currencyY
-                    && Route.list[i].currencyZ === currencyZ) {
+            if (Route.list[i].currencyX.Symbol === currencyX
+                    && Route.list[i].currencyY.Symbol === currencyY
+                    && Route.list[i].currencyZ.Symbol === currencyZ) {
                 return true;
             }
-            if (Route.list[i].currencyX === currencyX
-                    && Route.list[i].currencyY === currencyZ
-                    && Route.list[i].currencyZ === currencyY) {
+            if (Route.list[i].currencyX.Symbol === currencyX
+                    && Route.list[i].currencyY.Symbol === currencyZ
+                    && Route.list[i].currencyZ.Symbol === currencyY) {
                 return true;
             }
-            if (Route.list[i].currencyX === currencyY
-                    && Route.list[i].currencyY === currencyX
-                    && Route.list[i].currencyZ === currencyZ) {
+            if (Route.list[i].currencyX.Symbol === currencyY
+                    && Route.list[i].currencyY.Symbol === currencyX
+                    && Route.list[i].currencyZ.Symbol === currencyZ) {
                 return true;
             }
-            if (Route.list[i].currencyX === currencyY
-                    && Route.list[i].currencyY === currencyZ
-                    && Route.list[i].currencyZ === currencyX) {
+            if (Route.list[i].currencyX.Symbol === currencyY
+                    && Route.list[i].currencyY.Symbol === currencyZ
+                    && Route.list[i].currencyZ.Symbol === currencyX) {
                 return true;
             }
-            if (Route.list[i].currencyX === currencyZ
-                    && Route.list[i].currencyY === currencyX
-                    && Route.list[i].currencyZ === currencyY) {
+            if (Route.list[i].currencyX.Symbol === currencyZ
+                    && Route.list[i].currencyY.Symbol === currencyX
+                    && Route.list[i].currencyZ.Symbol === currencyY) {
                 return true;
             }
-            if (Route.list[i].currencyX === currencyZ
-                    && Route.list[i].currencyY === currencyY
-                    && Route.list[i].currencyZ === currencyX) {
+            if (Route.list[i].currencyX.Symbol === currencyZ
+                    && Route.list[i].currencyY.Symbol === currencyY
+                    && Route.list[i].currencyZ.Symbol === currencyX) {
                 return true;
             }
         }
