@@ -23,6 +23,8 @@ module.exports = class BookBalancer extends Model {
         await BookBalancer.Balance.init();
         await BookBalancer.Order.init();
 
+        BookBalancer.Order.cancelAll();
+
         setTimeout(() => {
             BookBalancer.output += 'Trade all to BTC..<br>';
             for (var i in BookBalancer.Currency.config('allowed')) {
