@@ -23,24 +23,18 @@ module.exports = class BookBalancer extends Model {
             var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]);
             var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.getAllowed()[i]);
             var trade = currency.tradeToBtc(balance.getTotal());
-
-            if (trade.canExecute()) {
-                var _trade = trade;
-                await trade.executeMarket(() => {
-                    console.log('Placed trade ' + _trade.outputCurrency.symbol + ' ' + _trade.getQuantity());
-                });
-            }
+            await trade.executeMarket((trade) => {
+                console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
+            });
         }
         await BookBalancer.Balance.getAll();
+        console.log('Trade BTC to all..');
         var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.getAllowed().length;
         for (var i in BookBalancer.Currency.getAllowed()) {
             var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]), btcQuantity);
-            if (trade.canExecute()) {
-                var _trade = trade;
-                await trade.executeMarket(() => {
-                    console.log('Placed trade ' + _trade.outputCurrency.symbol + ' ' + _trade.getQuantity());
-                });
-            }
+            await trade.executeMarket((trade) => {
+                console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
+            });
         }
     }
 
