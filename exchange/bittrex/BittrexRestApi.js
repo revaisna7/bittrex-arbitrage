@@ -741,7 +741,6 @@ module.exports = {
     },
 
     newOrder: async function(key, secret, subaccountid, marketSymbol, direction, type, timeInForce, quantity, ceiling, limit, clientOrderId, useAwards) {
-        try {
 
             const method = 'POST';
             var apiSecret = secret;
@@ -812,9 +811,7 @@ module.exports = {
 
             return response.data;
 
-        } catch (err) {
-            console.log(err);
-        }
+        
 
     },
 
