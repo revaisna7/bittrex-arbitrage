@@ -208,7 +208,7 @@ module.exports = class Trade extends Model {
                     this.getMarketSymbol(),
                     this.getDirection(),
                     "MARKET",
-                    this.getTimeInForce(),
+                    "FILL_OR_KILL",
                     this.getQuantity(),
                     this.getCeiling(),
                     this.getPrice(),
