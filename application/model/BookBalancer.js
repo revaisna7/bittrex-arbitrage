@@ -20,7 +20,7 @@ module.exports = class BookBalancer extends Model {
         BookBalancer.Order.cancelAll();
 
         setTimeout(() => {
-            console.log'Trade all to BTC..<br>';
+            console.log('Trade all to BTC..<br>');
             for (var i in BookBalancer.Currency.config('allowed')) {
                 var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.config('currencies')[i]);
                 var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.config('currencies')[i]);
