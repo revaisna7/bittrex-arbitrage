@@ -250,7 +250,7 @@ module.exports = class Trade extends Model {
      */
     consoleOutput() {
         return "<td>"+[
-            this.getCreatedAt(),
+            new Date(this.getCreatedAt()).toLocaleString(),
             this.getMarketSymbol() + "  ",
             this.getOutputCurrency().getSymbol(),
             Util.pad(this.getQuantity()),
