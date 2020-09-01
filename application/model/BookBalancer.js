@@ -20,7 +20,7 @@ module.exports = class BookBalancer extends Model {
         BookBalancer.Order.cancelAll();
 
         setTimeout(() => {
-            BookBalancer.output += 'Trade all to BTC..<br>';
+            console.log'Trade all to BTC..<br>';
             for (var i in BookBalancer.Currency.config('allowed')) {
                 var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.config('currencies')[i]);
                 var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.config('currencies')[i]);
@@ -28,11 +28,11 @@ module.exports = class BookBalancer extends Model {
                     var trade = currency.tradeToBtc(balance.getTotal());
 
                     if (trade) {
-                        BookBalancer.output += (trade.meetsMinTradeRequirement()) + "<br>";
-                        BookBalancer.output += (trade.hasBalance()) + "<br>";
-                        BookBalancer.output += (trade.getQuantity()) + "<br>";
+                        console.log(trade.meetsMinTradeRequirement()) + "<br>";
+                        console.log(trade.hasBalance()) + "<br>";
+                        console.log(trade.getQuantity()) + "<br>";
                         trade.execute(() => {
-                            BookBalancer.output += ('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
+                            console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
                         });
                     }
                 }
@@ -40,7 +40,7 @@ module.exports = class BookBalancer extends Model {
             BookBalancer.Order.init();
             setTimeout(() => {
                 Util.when(() => {
-                    BookBalancer.output += ('Waiting for orders to fill...');
+                    console.log('Waiting for orders to fill...');
                     BookBalancer.Order.get();
                     return BookBalancer.Order.list.length !== 0;
                 }, () => {
@@ -50,11 +50,11 @@ module.exports = class BookBalancer extends Model {
                         for (var i in BookBalancer.Currency.config('allowed')) {
                             var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.config('allowed')[i]), btcQuantity);
                             if (trade) {
-                                BookBalancer.output += (trade.meetsMinTradeRequirement()) + "<br>";
-                                BookBalancer.output += (trade.hasBalance()) + "<br>";
-                                BookBalancer.output += (trade.getQuantity()) + "<br>";
+                                console.log(trade.meetsMinTradeRequirement()) + "<br>";
+                                console.log(trade.hasBalance()) + "<br>";
+                                console.log(trade.getQuantity()) + "<br>";
                                 trade.execute((trade) => {
-                                    BookBalancer.output += ('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
+                                    console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
                                 });
                             }
                         }
