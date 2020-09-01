@@ -16,52 +16,32 @@ module.exports = class BookBalancer extends Model {
 
     static async start() {
         console.log('Initializing Balancer...');
+        console.log('Close all orders...');
+        await BookBalancer.Order.cancelAll();
+        console.log('Trade all to BTC..');
+        for (var i in BookBalancer.Currency.getAllowed()) {
+            var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]);
+            var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.getAllowed()[i]);
+            var trade = currency.tradeToBtc(balance.getTotal());
 
-        BookBalancer.Order.cancelAll();
-
-        setTimeout(() => {
-            console.log('Trade all to BTC..<br>');
-            for (var i in BookBalancer.Currency.getAllowed()) {
-                var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]);
-                var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.getAllowed()[i]);
-                if (balance && balance.getTotal() > 0) {
-                    var trade = currency.tradeToBtc(balance.getTotal());
-
-                    if (trade) {
-                        console.log(trade.meetsMinTradeRequirement()) + "<br>";
-                        console.log(trade.hasBalance()) + "<br>";
-                        console.log(trade.getQuantity()) + "<br>";
-                        trade.executeMarket(() => {
-                            console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
-                        });
-                    }
-                }
+            if (trade.canExecute()) {
+                var _trade = trade;
+                await trade.executeMarket(() => {
+                    console.log('Placed trade ' + _trade.outputCurrency.symbol + ' ' + _trade.getQuantity());
+                });
             }
-            BookBalancer.Order.init();
-            setTimeout(() => {
-                Util.when(() => {
-                    console.log('Waiting for orders to fill...');
-                    BookBalancer.Order.get();
-                    return BookBalancer.Order.list.length !== 0;
-                }, () => {
-                    BookBalancer.Balance.getAll();
-                    setTimeout(() => {
-                        var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.getAllowed().length;
-                        for (var i in BookBalancer.Currency.getAllowed()) {
-                            var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]), btcQuantity);
-                            if (trade) {
-                                console.log(trade.meetsMinTradeRequirement()) + "<br>";
-                                console.log(trade.hasBalance()) + "<br>";
-                                console.log(trade.getQuantity()) + "<br>";
-                                trade.executeMarket((trade) => {
-                                    console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
-                                });
-                            }
-                        }
-                    }, 5000);
-                }, 5000);
-            }, 5000);
-        }, 5000);
+        }
+        await BookBalancer.Balance.getAll();
+        var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.getAllowed().length;
+        for (var i in BookBalancer.Currency.getAllowed()) {
+            var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]), btcQuantity);
+            if (trade.canExecute()) {
+                var _trade = trade;
+                await trade.executeMarket(() => {
+                    console.log('Placed trade ' + _trade.outputCurrency.symbol + ' ' + _trade.getQuantity());
+                });
+            }
+        }
     }
 
     static consoleOutput() {
