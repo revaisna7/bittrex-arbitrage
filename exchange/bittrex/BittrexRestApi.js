@@ -759,7 +759,7 @@ module.exports = {
                     "timeInForce": timeInForce,
                     "quantity": quantity,
                     "UseAwards": useAwards
-                }
+                };
             }
 
             if (type === 'LIMIT') {
