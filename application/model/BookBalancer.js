@@ -31,7 +31,7 @@ module.exports = class BookBalancer extends Model {
                         console.log(trade.meetsMinTradeRequirement()) + "<br>";
                         console.log(trade.hasBalance()) + "<br>";
                         console.log(trade.getQuantity()) + "<br>";
-                        trade.execute(() => {
+                        trade.executeMarket(() => {
                             console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
                         });
                     }
@@ -53,7 +53,7 @@ module.exports = class BookBalancer extends Model {
                                 console.log(trade.meetsMinTradeRequirement()) + "<br>";
                                 console.log(trade.hasBalance()) + "<br>";
                                 console.log(trade.getQuantity()) + "<br>";
-                                trade.execute((trade) => {
+                                trade.executeMarket((trade) => {
                                     console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
                                 });
                             }

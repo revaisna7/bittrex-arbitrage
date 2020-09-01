@@ -199,6 +199,34 @@ module.exports = class Trade extends Model {
         }
         return null;
     }
+    
+    async executeMarket(callback) {
+        if (this.canExecute()) {
+            this.logData();
+            this.executedAt = Date.now();
+            let response = await Bittrex.newOrder(
+                    this.getMarketSymbol(),
+                    this.getDirection(),
+                    "MARKET",
+                    this.getTimeInForce(),
+                    this.getQuantity(),
+                    this.getCeiling(),
+                    this.getPrice(),
+                    this.getNote(),
+                    this.getUseAwards()
+                    );
+            this.respondedAt = Date.now();
+            this.response = response;
+            console.log(response);
+            this.logData();
+            if (callback) {
+                callback(this);
+            }
+            return response;
+            
+        }
+        return null;
+    }
 
     logData() {
         Util.log("\n\n" + (new Date().toLocaleString()) + JSON.stringify([
