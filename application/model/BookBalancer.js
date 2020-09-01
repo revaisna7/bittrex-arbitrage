@@ -44,7 +44,7 @@ module.exports = class BookBalancer extends Model {
                     BookBalancer.Order.get();
                     return BookBalancer.Order.list.length !== 0;
                 }, () => {
-                    BookBalancer.Balance.get();
+                    BookBalancer.Balance.getAll();
                     setTimeout(() => {
                         var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.config('allowed').length;
                         for (var i in BookBalancer.Currency.config('allowed')) {
