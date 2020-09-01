@@ -97,7 +97,7 @@ module.exports = class Order extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "<h3>Order ("+Order.list.length+")</h3><table><tr><th>Market</th><th>Type</th><th>Quantity</th><th>Remaining</th><th>Target price</th><th>Current price</th><th>Difference</th><th>Factor</th></tr>";
+        var output = "<h3>Order ("+Order.list.length+")</h3><table><tr><th>Market</th><th>Type</th><th>Direction</th><th>Quantity</th><th>Remaining</th><th>Target price</th><th>Current price</th><th>Difference</th><th>Factor</th></tr>";
         for (var i in Order.list) {
             output += "<tr>" + Order.list[i].consoleOutput() + "</tr>";
         }
@@ -150,6 +150,10 @@ module.exports = class Order extends Model {
 
     getLimit() {
         return Number.parseFloat(this.limit);
+    }
+    
+    getDirection() {
+        return this.diretion;
     }
 
     getFillQuantity() {
@@ -210,6 +214,7 @@ module.exports = class Order extends Model {
         return "<td>" + [
             this.getMarketSymbol(),
             this.getType(),
+            this.getDirection(),
             Util.pad(this.getQuantity()),
             Util.pad(this.getRemaining()),
             Util.pad(this.getLimit()),
@@ -218,4 +223,4 @@ module.exports = class Order extends Model {
             Util.addPlusOrSpace(this.getDifferenceFactor()) + '%'
         ].join("</td><td>") + '</td>';
     }
-}
+};
