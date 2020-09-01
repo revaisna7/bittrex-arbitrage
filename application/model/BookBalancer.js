@@ -21,9 +21,9 @@ module.exports = class BookBalancer extends Model {
 
         setTimeout(() => {
             console.log('Trade all to BTC..<br>');
-            for (var i in BookBalancer.Currency.config('allowed')) {
-                var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.config('currencies')[i]);
-                var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.config('currencies')[i]);
+            for (var i in BookBalancer.Currency.getAllowed()) {
+                var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]);
+                var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.getAllowed()[i]);
                 if (balance && balance.getTotal() > 0) {
                     var trade = currency.tradeToBtc(balance.getTotal());
 
@@ -46,9 +46,9 @@ module.exports = class BookBalancer extends Model {
                 }, () => {
                     BookBalancer.Balance.getAll();
                     setTimeout(() => {
-                        var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.config('allowed').length;
-                        for (var i in BookBalancer.Currency.config('allowed')) {
-                            var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.config('allowed')[i]), btcQuantity);
+                        var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.getAllowed().length;
+                        for (var i in BookBalancer.Currency.getAllowed()) {
+                            var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]), btcQuantity);
                             if (trade) {
                                 console.log(trade.meetsMinTradeRequirement()) + "<br>";
                                 console.log(trade.hasBalance()) + "<br>";
