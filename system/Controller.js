@@ -6,17 +6,10 @@ var existsSync = util.promisify(fs.existsSync);
 
 module.exports = class Controller extends Configurable {
 
-    static render(view, response, callback) {
-        fs.readFile('./application/view/' + view, 'utf8', (error, data) => {
-            if (data) {
-                response.send(data);
-            }
-            if (error) {
-                response.send(error);
-            }
-            if (callback)
-                callback();
-        });
+    static templateName = 'template/base';
+
+    static render() {
+        
     }
 
     static routeAction(request, response) {
@@ -24,7 +17,6 @@ module.exports = class Controller extends Configurable {
         var controllerName;
         var actionName;
         var controllerPath;
-        console.log(uriParts);
         if (uriParts[1]) {
             controllerName = (uriParts[1].charAt(0).toUpperCase()) + (uriParts[1].slice(1)) + 'Controller';
         } else {
@@ -36,9 +28,6 @@ module.exports = class Controller extends Configurable {
             actionName = 'actionIndex';
         }
         var controllerPath = './application/controller/' + controllerName + '.js';
-
-        console.log(controllerName, actionName, controllerPath);
-
         if (fs.existsSync(controllerPath)) {
             var controller = require('.' + controllerPath);
             if (controller && controller[actionName] && typeof controller[actionName] === 'function') {
@@ -57,8 +46,6 @@ module.exports = class Controller extends Configurable {
     }
 
     static routeSocket(socket, packet) {
-        console.log("socket inbound");
-        console.log(packet)
         var controllerName = (packet[0].charAt(0).toUpperCase()) + (packet[0].slice(1)) + 'Controller';
         var actionName = 'socket' + (packet[1].charAt(0).toUpperCase()) + (packet[1].slice(1));
         var controllerPath = './application/controller/' + controllerName + '.js';

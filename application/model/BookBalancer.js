@@ -1,95 +1,75 @@
-//var Config = require('./Config.js');
-//var bittrex = require('node-bittrex-api');
-//bittrex.options(Config.get('bittrexoptions'));
-//
-//var bittrexv3 = require('bittrex-node-api');
-//
-//var Balance = require('./Balance.js');
-//var Currency = require('./Currency.js');
-//var Currencies = require('./Currency.js');
-//var Routes = require('./Route.js');
-//var Util = require('../../system/Util.js');
-//
-//module.exports = class BookBalancer {
-//
-//    static consoleOutput() {
-//        
-//    }
-//
-//}
+var Model = require('../../system/Model.js');
+var Util = require('../../system/Util.js');
 
-console.log('Initiating...');
-var Config = require('./model/Config.js');
-Config.init();
 
-var Market = require('./model/Market.js');
-var OrderBook = require('./model/OrderBook.js');
-var Currency = require('./model/Currency.js');
-var Balance = require('./model/Balance.js');
-var Order = require('./model/Order.js');
-var Util = require('./model/Util.js');
-var Trade = require('./model/Trade.js');
+module.exports = class BookBalancer extends Model {
 
-(async () => {
-    console.log('Initializing Currency...');
-    await Currency.get();
+    static Currency = require('./Currency.js');
+    static Market = require('./Market.js');
+    static OrderBook = require('./OrderBook.js');
+    static Balance = require('./Balance.js');
+    static Route = require('./Route.js');
+    static Trade = require('./Trade.js');
+    static Order = require('./Order.js');
 
-    console.log('Initializing Market...');
-    await Market.init();
+    static output = "";
 
-    console.log('Initializing Order books...');
-    await OrderBook.init();
+    static async start() {
+        console.log('Initializing Balancer...');
 
-    console.log('Initializing Balance...');
-    await Balance.init();
+        BookBalancer.Order.cancelAll();
 
-    console.log('Initializing Order...');
-    await Order.init();
+        setTimeout(() => {
+            BookBalancer.output += 'Trade all to BTC..<br>';
+            for (var i in BookBalancer.Currency.config('allowed')) {
+                var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.config('currencies')[i]);
+                var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.config('currencies')[i]);
+                if (balance && balance.getTotal() > 0) {
+                    var trade = currency.tradeToBtc(balance.getTotal());
 
-    console.log('Close open Order...');
-    await Order.cancelAll();
-
-    setTimeout(() => {
-        console.log('Trade all to BTC..');
-        for (var i in Config.get('currencies')) {
-            var currency = Currency.getBySymbol(Config.get('currencies')[i]);
-            var balance = Balance.getByCurrencySymbol(Config.get('currencies')[i]);
-            if (balance.getTotal() > 0) {
-                var trade = currency.tradeToBtc(balance.getTotal());
-
-                if (trade) {
-                    console.log(trade.meetsMinTradeRequirement());
-                    console.log(trade.hasBalance());
-                    console.log(trade.getQuantity());
-                    trade.execute(() => {
-                        console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
-                    });
+                    if (trade) {
+                        BookBalancer.output += (trade.meetsMinTradeRequirement()) + "<br>";
+                        BookBalancer.output += (trade.hasBalance()) + "<br>";
+                        BookBalancer.output += (trade.getQuantity()) + "<br>";
+                        trade.execute(() => {
+                            BookBalancer.output += ('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
+                        });
+                    }
                 }
             }
-        }
-        Order.get();
-        setTimeout(() => {
-            Util.when(() => {
-                console.log('Waiting for orders to fill...');
-                Order.get();
-                return Order.list.length !== 0;
-            }, () => {
-                Balance.get();
-                setTimeout(() => {
-                    var btcQuantity = Balance.getByCurrencySymbol('BTC').getTotal() / Config.get('currencies').length;
-                    for (var i in Config.get('currencies')) {
-                        var trade = Currency.getBtc().tradeTo(Currency.getBySymbol(Config.get('currencies')[i]), btcQuantity);
-                        if (trade) {
-                            console.log(trade.meetsMinTradeRequirement());
-                            console.log(trade.hasBalance());
-                            console.log(trade.getQuantity());
-                            trade.execute(() => {
-                                console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
-                            });
+            BookBalancer.Order.init();
+            setTimeout(() => {
+                Util.when(() => {
+                    BookBalancer.output += ('Waiting for orders to fill...');
+                    BookBalancer.Order.get();
+                    return BookBalancer.Order.list.length !== 0;
+                }, () => {
+                    BookBalancer.Balance.get();
+                    setTimeout(() => {
+                        var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.config('allowed').length;
+                        for (var i in BookBalancer.Currency.config('allowed')) {
+                            var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.config('allowed')[i]), btcQuantity);
+                            if (trade) {
+                                BookBalancer.output += (trade.meetsMinTradeRequirement()) + "<br>";
+                                BookBalancer.output += (trade.hasBalance()) + "<br>";
+                                BookBalancer.output += (trade.getQuantity()) + "<br>";
+                                trade.execute((trade) => {
+                                    BookBalancer.output += ('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity()) + "<br>";
+                                });
+                            }
                         }
-                    }
-                }, 2000);
-            }, 2000);
-        }, 2000);
-    }, 2000);
-})();
+                    }, 5000);
+                }, 5000);
+            }, 5000);
+        }, 5000);
+    }
+
+    static consoleOutput() {
+        return BookBalancer.output;
+    }
+
+    static stop() {
+        // todo
+    }
+
+};
