@@ -17,12 +17,6 @@ module.exports = class BookBalancer extends Model {
     static async start() {
         console.log('Initializing Balancer...');
 
-        await BookBalancer.Currency.init();
-        await BookBalancer.Market.init();
-        await BookBalancer.OrderBook.init();
-        await BookBalancer.Balance.init();
-        await BookBalancer.Order.init();
-
         BookBalancer.Order.cancelAll();
 
         setTimeout(() => {
