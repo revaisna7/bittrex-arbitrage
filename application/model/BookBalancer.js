@@ -14,10 +14,19 @@ module.exports = class BookBalancer extends Model {
 
     static output = "";
 
-    static async start() {
+    static async rebalance() {
         console.log('Initializing Balancer...');
+        await BookBalancer.closeOrders();
+        await BookBalancer.tradeToBtc();
+        await BookBalancer.tradeBtcToAll();
+    }
+    
+    static async closeOrders() {
         console.log('Close all orders...');
-        await BookBalancer.Order.cancelAll();
+        return await BookBalancer.Order.cancelAll();
+    }
+    
+    static async tradeToBtc() {
         console.log('Trade all to BTC..');
         for (var i in BookBalancer.Currency.getAllowed()) {
             var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]);
@@ -29,7 +38,10 @@ module.exports = class BookBalancer extends Model {
                 });
             }
         }
-        await BookBalancer.Balance.getAll();
+        return await BookBalancer.Balance.getAll();
+    }
+    
+    static async tradeBtcToAll() {
         console.log('Trade BTC to all..');
         var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.getAllowed().length;
         for (var i in BookBalancer.Currency.getAllowed()) {
@@ -40,6 +52,7 @@ module.exports = class BookBalancer extends Model {
                 });
             }
         }
+        return await BookBalancer.Balance.getAll();
     }
 
     static consoleOutput() {
