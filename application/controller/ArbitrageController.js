@@ -19,6 +19,7 @@ module.exports = class ArbitrageController extends Controller {
         await ArbitrageController.BookBalancer.rebalance();
     }
     static async actionTradeToBtc(uriParts, request, response) {
+        await ArbitrageController.BookBalancer.closeOrders();
         await ArbitrageController.BookBalancer.tradeToBtc();
     }
     
