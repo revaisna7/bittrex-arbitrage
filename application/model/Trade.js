@@ -157,7 +157,7 @@ module.exports = class Trade extends Model {
 
     meetsMinTradeRequirement() {
         var marketMinTradeSize = this.getMarket().getMinTradeSize();
-        var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0005);
+        var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0001);
         return marketMinTradeSize < this.getQuantity()
                 && btcMinTradeSize < this.getQuantity();
     }
