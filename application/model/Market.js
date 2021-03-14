@@ -501,13 +501,17 @@ module.exports = class Market extends Model {
     }
 
     static async updateTickers() {
-        var tickers = await Bittrex.marketTickers();
-        for (var i in tickers) {
-            var market = Market.getBySymbol(tickers[i].symbol);
-            if (market) {
-                market.orderBook.update(tickers[i].askRate, tickers[i].bidRate, tickers[i].lastTradeRate);
+        try {
+            var tickers = await Bittrex.marketTickers();
+            for (var i in tickers) {
+                var market = Market.getBySymbol(tickers[i].symbol);
+                if (market) {
+                    market.orderBook.update(tickers[i].askRate, tickers[i].bidRate, tickers[i].lastTradeRate);
+                }
             }
+        } catch(e) {
         }
+    }
     }
 
 };
