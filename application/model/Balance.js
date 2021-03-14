@@ -44,8 +44,12 @@ module.exports = class Balance extends Model {
      */
     static async getAll() {
         Balance.getting = true;
-        let balances = await Bittrex.balances();
-        Balance.update(balances);
+        try {
+            let balances = await Bittrex.balances();
+            Balance.update(balances);
+        } catch(e) {
+
+        }
         Balance.getting = false;
     }
 
