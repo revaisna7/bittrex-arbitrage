@@ -47,7 +47,7 @@ module.exports = class Balance extends Model {
         try {
             let balances = await Bittrex.balances();
             Balance.update(balances);
-        } catch(e) {
+        } catch (e) {
 
         }
         Balance.getting = false;
@@ -345,9 +345,9 @@ module.exports = class Balance extends Model {
      */
     consoleOutput() {
         return "<td>" + ([
-            "<img src=\"" + this.getCurrency().logoUrl + "\"/> " +this.currencySymbol + ""
+            "<img src=\"" + this.getCurrency().logoUrl + "\"/> " + this.currencySymbol + ""
                     , Util.pad(this.total)
-                    , Util.pad(this.total-this.available)
+                    , Util.pad(this.total - this.available)
                     , Util.pad(this.accumulateNow)
                     , Util.pad(this.accumulateStart)
                     , Util.addPlusOrSpace(this.getProfit(), 8)

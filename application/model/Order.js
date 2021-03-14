@@ -49,8 +49,12 @@ module.exports = class Order extends Model {
      */
     static async get() {
         Order.getting = true;
-        let orders = await Bittrex.openOrder();
-        Order.update(orders);
+        try {
+            let orders = await Bittrex.openOrder();
+            Order.update(orders);
+        } catch (e) {
+
+        }
         Order.getting = false;
     }
 
@@ -97,7 +101,7 @@ module.exports = class Order extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "<h3>Order ("+Order.list.length+")</h3><table><tr><th>Market</th><th>Type</th><th>Direction</th><th>Quantity</th><th>Remaining</th><th>Target price</th><th>Current price</th><th>Difference</th><th>Factor</th></tr>";
+        var output = "<h3>Order (" + Order.list.length + ")</h3><table><tr><th>Market</th><th>Type</th><th>Direction</th><th>Quantity</th><th>Remaining</th><th>Target price</th><th>Current price</th><th>Difference</th><th>Factor</th></tr>";
         for (var i in Order.list) {
             output += "<tr>" + Order.list[i].consoleOutput() + "</tr>";
         }
@@ -116,7 +120,7 @@ module.exports = class Order extends Model {
             return resolve(true);
         });
     }
-    
+
     constructor(order) {
         super();
         Object.assign(this, order);
@@ -151,7 +155,7 @@ module.exports = class Order extends Model {
     getLimit() {
         return Number.parseFloat(this.limit);
     }
-    
+
     getDirection() {
         return this.diretion;
     }
@@ -193,7 +197,7 @@ module.exports = class Order extends Model {
     getPriceDifference() {
         return this.direction === 'SELL' ? this.getCurrenctPrice() - this.getLimit() : this.getLimit() - this.getCurrenctPrice();
     }
-    
+
     getDifferenceFactor() {
         return this.getPriceDifference() / this.getCurrenctPrice() * 100;
     }
