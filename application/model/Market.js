@@ -512,6 +512,5 @@ module.exports = class Market extends Model {
         } catch(e) {
         }
     }
-    }
 
 };
