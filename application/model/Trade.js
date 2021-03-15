@@ -67,7 +67,6 @@ module.exports = class Trade extends Model {
         this.inputQuantity = inputQuantity;
         this.price = price;
         this.getTradeQuantity();
-        Trade.push(this);
         return this;
     }
 
@@ -157,7 +156,7 @@ module.exports = class Trade extends Model {
 
     meetsMinTradeRequirement() {
         var marketMinTradeSize = this.getMarket().getMinTradeSize();
-        var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0001);
+        var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0005);
         return marketMinTradeSize < this.getQuantity()
                 && btcMinTradeSize < this.getQuantity();
     }
@@ -174,6 +173,7 @@ module.exports = class Trade extends Model {
 
     async execute(callback) {
         if (this.canExecute()) {
+            Trade.push(this);
             this.logData();
             this.executedAt = Date.now();
             let response = await Bittrex.newOrder(
@@ -189,7 +189,6 @@ module.exports = class Trade extends Model {
                     );
             this.respondedAt = Date.now();
             this.response = response;
-            console.log(response);
             this.logData();
             if (callback) {
                 callback(this);
@@ -217,7 +216,6 @@ module.exports = class Trade extends Model {
                     );
             this.respondedAt = Date.now();
             this.response = response;
-            console.log(response);
             this.logData();
             if (callback) {
                 callback(this);
@@ -229,7 +227,7 @@ module.exports = class Trade extends Model {
     }
 
     logData() {
-        Util.log("\n\n" + (new Date().toLocaleString()) + JSON.stringify([
+        var data = "\n\n" + (new Date().toLocaleString()) + JSON.stringify([
             this.getMarketSymbol(),
             this.getDirection(),
             this.getType(),
@@ -240,7 +238,9 @@ module.exports = class Trade extends Model {
             this.getNote(),
             this.getUseAwards(),
             this.response
-        ], null, 2) + "\n", 'trade');
+        ], null, 2) + "\n";
+        Util.log(data, 'trade');
+        console.log(data);
     }
 
     /**

@@ -9,7 +9,6 @@ module.exports = class Delta extends Model {
     route = null;
     inputCurrency = null;
     outputCurrency = null;
-    trade = null;
     input = null;
     output = null;
     price = 0;
@@ -65,10 +64,11 @@ module.exports = class Delta extends Model {
     getOuput() {
         this.priceDeviation = Delta.config('priceDeviation') || 0;
         if (Delta.config('speculate')) {
-            return this.output = this.market.convertPotential(this.outputCurrency, this.getInput(), this.getPrice());
+            this.output = this.market.convertPotential(this.outputCurrency, this.getInput(), this.getPrice());
         } else {
-            return this.output = this.market.convert(this.outputCurrency, this.getInput(), this.getPrice());
+            this.output = this.market.convert(this.outputCurrency, this.getInput(), this.getPrice());
         }
+        return this.output;
     }
 
     isRestricted() {
@@ -89,8 +89,8 @@ module.exports = class Delta extends Model {
      * Trade the route
      * @returns {undefined}
      */
-    async executeTrade() {
-        this.trade = this.market.trade(this.inputCurrency, this.outputCurrency, this.getInput(), this.getPrice());
-        return await this.trade.execute();
+    trade() {
+        var trade = this.market.trade(this.inputCurrency, this.outputCurrency, this.getInput(), this.getPrice());
+        return trade;
     }
 };

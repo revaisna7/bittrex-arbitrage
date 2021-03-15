@@ -231,14 +231,22 @@ module.exports = class Route extends Model {
      * Trade the route
      * @returns {undefined}
      */
-    trade() {
-        if (Route.config('trade') && !this.isTrading() && this.hasEnoughBalance()) {
-            Route.trading = true;
+    async trade() {
+        var tradeX = this.deltaChain[0].trade();
+        var tradeY = this.deltaChain[1].trade();
+        var tradeZ = this.deltaChain[2].trade();
 
-            for (var i in this.deltaChain) {
-                this.deltaChain[i].executeTrade();
-            }
-            Balance.getAll();
+//        console.log(tradeX.canExecute(),tradeY.canExecute() ,tradeZ.canExecute() )
+
+        if (Route.config('trade') && !this.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
+            Route.trading = true;
+            console.log(tradeX);
+            await tradeX.execute();
+            await tradeY.execute();
+            await tradeZ.execute();
+
+            await Balance.getAll();
+
             setTimeout(() => {
                 Route.trading = false;
             }, Route.config('nextTradeTimeout'));

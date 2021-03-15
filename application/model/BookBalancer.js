@@ -33,7 +33,7 @@ module.exports = class BookBalancer extends Model {
             var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.getAllowed()[i]);
             var trade = currency.tradeToBtc(balance.getTotal());
             if (trade) {
-                await trade.executeMarket((trade) => {
+                await trade.execute((trade) => {
                     console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
                 });
             }
@@ -47,7 +47,7 @@ module.exports = class BookBalancer extends Model {
         for (var i in BookBalancer.Currency.getAllowed()) {
             var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]), btcQuantity);
             if (trade) {
-                await trade.executeMarket((trade) => {
+                await trade.execute((trade) => {
                     console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
                 });
             }

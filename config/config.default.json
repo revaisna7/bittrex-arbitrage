@@ -8,7 +8,7 @@
     },
     "Delta": {
         "priceDeviation": -0.3,
-        "speculate": true
+        "mode": "speculate"
     },
     "Trade": {
         "orderType": "LIMIT"
