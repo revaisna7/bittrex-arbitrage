@@ -419,7 +419,7 @@ module.exports = class Route extends Model {
     consoleOutput() {
         return "<tr>"
                 + "<td>Bittrex</td>"
-                + "<td>" + (Delta.config("speculate") ? "speculative" : "instant") + "</td>"
+                + "<td>" + Delta.config("mode") + "</td>"
                 + "<td>" + this.currencyTable() + "</td>"
                 + "<td>" + this.inputTable() + "</td>"
                 + "<td>" + this.outputTable() + "</td>"
