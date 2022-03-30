@@ -164,16 +164,13 @@ module.exports = class Route extends Model {
     }
 
     getInputBtc() {
-        var minInputBtc = Route.config('inputBtc') || 0.00051;
-//        var btcBalances = [];
-//        var minBtcMarkets = [];
-//        for (var i in this.deltaChain) {
-////            btcBalance.push(this.delta[i].getBtcBalance());
-//            minBtcMarkets.push(this.deltaChain[i].getMinBtcMarket());
-//        }
-////        var minBtcBalance = Math.min(...btcBalances);
-//        var minMarketRequirement = Math.min(...minBtcMarkets);
-
+        var minInputBtc = 0;
+        for(var i in this.deltaChain) {
+            var deltaMinInputBtc = this.deltaChain[i].market.baseCurrency.convertToBtc(this.deltaChain[i].market.minTradeSize);
+            if(deltaMinInputBtc > minInputBtc) {
+                minInputBtc = deltaMinInputBtc*Route.config("minInputMultiplier");
+            }
+        }
         return minInputBtc;
     }
 
