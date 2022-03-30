@@ -71,6 +71,16 @@ module.exports = class Market extends Model {
      */
     routes = [];
 
+    /**
+     * @property {Integer} makerFee
+     */
+    makerFee = 0;
+
+    /**
+     * @property {Integer} takerFee
+     */
+    takerFee = 0;
+
     static list = [];
 
     static interval = null;
@@ -98,6 +108,7 @@ module.exports = class Market extends Model {
                 Market.push(new Market(markets[i]));
             }
         }
+        await Market.getFees();
     }
 
     /**
@@ -333,8 +344,6 @@ module.exports = class Market extends Model {
         return Number.parseFloat(price).toFixed(this.getPrecision());
     }
 
-
-
     /**
      * Get the current reversed market prices for the given currency
      * Does the same as getPrice but switches Ask to Bid and Bid to Ask
@@ -343,7 +352,7 @@ module.exports = class Market extends Model {
      * @returns {Number}
      */
     getMedianPrice(currency) {
-        var price = this.Bid() + ((this.Ask() - this.Bid())/2);;
+        var price = this.Bid() + ((this.Ask() - this.Bid()) / 2);
         return Number.parseFloat(price).toFixed(this.getPrecision());
     }
 
@@ -457,7 +466,7 @@ module.exports = class Market extends Model {
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
-        return  output - (Market.config('commission') / 100 * output);
+        return  output - (this.takerFee / 100 * output);
     }
 
     /**
@@ -475,7 +484,7 @@ module.exports = class Market extends Model {
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
-        return  output - (Market.config('commission') / 100 * output);
+        return  output - (this.makerFee / 100 * output);
     }
 
     /**
@@ -488,6 +497,21 @@ module.exports = class Market extends Model {
             if (typeof this.routes[i] === 'object') {
                 this.routes[i].calculate();
             }
+        }
+    }
+
+    static async getFees() {
+        try {
+            var fees = await Bittrex.getAccountFees();
+            for (var x in fees) {
+                var market = Market.getBySymbol(fees.marketSymbol);
+                if(market) {
+                    market.takerFee = Number.parseFloat(fees[x].takerRate);
+                    market.makerFee = Number.parseFloat(fees[x].makerRate);
+                }
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -509,7 +533,7 @@ module.exports = class Market extends Model {
                     market.orderBook.update(tickers[i].askRate, tickers[i].bidRate, tickers[i].lastTradeRate);
                 }
             }
-        } catch(e) {
+        } catch (e) {
         }
     }
 

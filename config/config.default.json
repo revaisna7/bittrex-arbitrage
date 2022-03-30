@@ -28,7 +28,6 @@
         ]
     },
     "Market": {
-        "commission": 0.0,
         "restrict": [
             "BTXCRD"
         ],

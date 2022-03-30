@@ -3,7 +3,7 @@ var axios = require("axios");
 
 module.exports = {
 
-    account: async function(key, secret, subaccountid) {
+    account: async function (key, secret, subaccountid) {
 
         const method = 'GET'
         var apiSecret = secret;
@@ -32,7 +32,7 @@ module.exports = {
         return response.data;
     },
 
-    accountVolume: async function(key, secret, subaccountid) {
+    accountVolume: async function (key, secret, subaccountid) {
 
         const method = 'GET'
         var apiSecret = secret;
@@ -62,7 +62,7 @@ module.exports = {
 
     },
 
-    addresses: async function(key, secret, subaccountid) {
+    addresses: async function (key, secret, subaccountid) {
 
         const method = 'GET'
         var apiSecret = secret;
@@ -92,7 +92,7 @@ module.exports = {
 
     },
 
-    address: async function(key, secret, subaccountid, currency) {
+    address: async function (key, secret, subaccountid, currency) {
 
         const method = 'GET'
         var apiSecret = secret;
@@ -122,7 +122,7 @@ module.exports = {
 
     },
 
-    newaddress: async function(key, secret, subaccountid, currency) {
+    newaddress: async function (key, secret, subaccountid, currency) {
 
         try {
 
@@ -164,7 +164,7 @@ module.exports = {
 
     },
 
-    balances: async function(key, secret, subaccountid) {
+    balances: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -193,7 +193,7 @@ module.exports = {
         return response.data;
     },
 
-    balance: async function(key, secret, subaccountid, currency) {
+    balance: async function (key, secret, subaccountid, currency) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -222,13 +222,13 @@ module.exports = {
         return response.data;
     },
 
-    currencies: async function() {
+    currencies: async function () {
         var uri = 'https://api.bittrex.com/v3/currencies';
         let response = await axios.get(uri);
         return response.data;
     },
 
-    currency: async function(key, secret, subaccountid, currency) {
+    currency: async function (key, secret, subaccountid, currency) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -257,7 +257,7 @@ module.exports = {
         return response.data;
     },
 
-    openDeposits: async function(key, secret, subaccountid) {
+    openDeposits: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -286,7 +286,7 @@ module.exports = {
         return response.data;
     },
 
-    closedDeposits: async function(key, secret, subaccountid) {
+    closedDeposits: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -315,8 +315,7 @@ module.exports = {
         return response.data;
     },
 
-
-    depositByTxId: async function(key, secret, subaccountid, id) {
+    depositByTxId: async function (key, secret, subaccountid, id) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -345,7 +344,7 @@ module.exports = {
         return response.data;
     },
 
-    depositId: async function(key, secret, subaccountid, id) {
+    depositId: async function (key, secret, subaccountid, id) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -374,7 +373,7 @@ module.exports = {
         return response.data;
     },
 
-    markets: async function(key, secret, subaccountid) {
+    markets: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -403,7 +402,7 @@ module.exports = {
         return response.data;
     },
 
-    marketSummaries: async function(key, secret, subaccountid) {
+    marketSummaries: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -434,7 +433,7 @@ module.exports = {
         return response.data;
     },
 
-    marketTickers: async function(key, secret, subaccountid) {
+    marketTickers: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -465,7 +464,7 @@ module.exports = {
         return response.data;
     },
 
-    marketBySymbol: async function(key, secret, subaccountid, currency) {
+    marketBySymbol: async function (key, secret, subaccountid, currency) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -495,8 +494,8 @@ module.exports = {
 
         return response.data;
     },
-    
-    marketSymbolTicker: async function(key, secret, subaccountid, market) {
+
+    marketSymbolTicker: async function (key, secret, subaccountid, market) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -527,7 +526,7 @@ module.exports = {
         return response.data;
     },
 
-    marketSymbolSummary: async function(key, secret, subaccountid, currency) {
+    marketSymbolSummary: async function (key, secret, subaccountid, currency) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -558,7 +557,7 @@ module.exports = {
         return response.data;
     },
 
-    marketSymbolOrderbook: async function(key, secret, subaccountid, currency) {
+    marketSymbolOrderbook: async function (key, secret, subaccountid, currency) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -587,7 +586,7 @@ module.exports = {
         return response.data;
     },
 
-    marketSymbolTrades: async function(key, secret, subaccountid, currency) {
+    marketSymbolTrades: async function (key, secret, subaccountid, currency) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -618,7 +617,7 @@ module.exports = {
         return response.data;
     },
 
-    closedOrder: async function(key, secret, subaccountid) {
+    closedOrder: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -649,7 +648,7 @@ module.exports = {
         return response.data;
     },
 
-    openOrder: async function(key, secret, subaccountid) {
+    openOrder: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -680,7 +679,7 @@ module.exports = {
         return response.data;
     },
 
-    orderId: async function(key, secret, subaccountid, id) {
+    orderId: async function (key, secret, subaccountid, id) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -709,7 +708,7 @@ module.exports = {
         return response.data;
     },
 
-    deleteOrder: async function(key, secret, subaccountid, id) {
+    deleteOrder: async function (key, secret, subaccountid, id) {
 
         const method = 'DELETE';
         var apiSecret = secret;
@@ -740,82 +739,82 @@ module.exports = {
         return response.data;
     },
 
-    newOrder: async function(key, secret, subaccountid, marketSymbol, direction, type, timeInForce, quantity, ceiling, limit, clientOrderId, useAwards) {
+    newOrder: async function (key, secret, subaccountid, marketSymbol, direction, type, timeInForce, quantity, ceiling, limit, clientOrderId, useAwards) {
 
-            const method = 'POST';
-            var apiSecret = secret;
-            var apiKey = key;
-            var timestamp = new Date().getTime();
-            const subaccountId = '';
+        const method = 'POST';
+        var apiSecret = secret;
+        var apiKey = key;
+        var timestamp = new Date().getTime();
+        const subaccountId = '';
 
-            let data;
+        let data;
 
-            if (type === 'MARKET') {
+        if (type === 'MARKET') {
 
-                data = {
-                    "marketSymbol": marketSymbol,
-                    "direction": direction,
-                    "type": type,
-                    "timeInForce": timeInForce,
-                    "quantity": quantity,
-                    "UseAwards": useAwards
-                };
-            }
-
-            if (type === 'LIMIT') {
-
-                data = {
-                    "marketSymbol": marketSymbol,
-                    "direction": direction,
-                    "type": type,
-                    "timeInForce": timeInForce,
-                    "quantity": quantity,
-                    "limit": limit,
-                    "UseAwards": useAwards
-                };
-            }
-
-            if (type === 'CEILING_LIMIT' || type === 'CEILING_MARKET') {
-                data = {
-                    "marketSymbol": marketSymbol,
-                    "direction": direction,
-                    "type": type,
-                    "timeInForce": timeInForce,
-                    "limit": limit,
-                    "ceiling": ceiling,
-                    "UseAwards": useAwards
-                };
-            }
-
-
-            var contentHash = CryptoJS.SHA512(JSON.stringify(data)).toString(CryptoJS.enc.Hex);
-
-            var uri = 'https://api.bittrex.com/v3/orders';
-            var preSign = [timestamp, uri, method, contentHash].join('');
-            var signature = CryptoJS.HmacSHA512(preSign, apiSecret).toString(CryptoJS.enc.Hex);
-
-            const headers = {
-                'Content-Type': 'application/json',
-                'Api-Key': apiKey,
-                'Api-Timestamp': timestamp,
-                'Api-Content-Hash': contentHash,
-                'Api-Signature': signature
+            data = {
+                "marketSymbol": marketSymbol,
+                "direction": direction,
+                "type": type,
+                "timeInForce": timeInForce,
+                "quantity": quantity,
+                "UseAwards": useAwards
             };
+        }
+
+        if (type === 'LIMIT') {
+
+            data = {
+                "marketSymbol": marketSymbol,
+                "direction": direction,
+                "type": type,
+                "timeInForce": timeInForce,
+                "quantity": quantity,
+                "limit": limit,
+                "UseAwards": useAwards
+            };
+        }
+
+        if (type === 'CEILING_LIMIT' || type === 'CEILING_MARKET') {
+            data = {
+                "marketSymbol": marketSymbol,
+                "direction": direction,
+                "type": type,
+                "timeInForce": timeInForce,
+                "limit": limit,
+                "ceiling": ceiling,
+                "UseAwards": useAwards
+            };
+        }
 
 
-            let response = await axios.post(uri, data, {
-                headers: headers
-            });
+        var contentHash = CryptoJS.SHA512(JSON.stringify(data)).toString(CryptoJS.enc.Hex);
+
+        var uri = 'https://api.bittrex.com/v3/orders';
+        var preSign = [timestamp, uri, method, contentHash].join('');
+        var signature = CryptoJS.HmacSHA512(preSign, apiSecret).toString(CryptoJS.enc.Hex);
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Api-Key': apiKey,
+            'Api-Timestamp': timestamp,
+            'Api-Content-Hash': contentHash,
+            'Api-Signature': signature
+        };
+
+
+        let response = await axios.post(uri, data, {
+            headers: headers
+        });
 
 
 
-            return response.data;
+        return response.data;
 
-        
+
 
     },
 
-    subaccounts: async function(key, secret, subaccountid) {
+    subaccounts: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -846,7 +845,7 @@ module.exports = {
         return response.data;
     },
 
-    sentTransfers: async function(key, secret, subaccountid) {
+    sentTransfers: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -877,8 +876,7 @@ module.exports = {
         return response.data;
     },
 
-
-    receivedTransfers: async function(key, secret, subaccountid) {
+    receivedTransfers: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -909,7 +907,7 @@ module.exports = {
         return response.data;
     },
 
-    transfersById: async function(key, secret, subaccountid, id) {
+    transfersById: async function (key, secret, subaccountid, id) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -940,7 +938,7 @@ module.exports = {
         return response.data;
     },
 
-    newTransfer: async function(key, secret, subaccountid, toSubaccountId, requestId, currencySymbol, amount, toMasterAccount) {
+    newTransfer: async function (key, secret, subaccountid, toSubaccountId, requestId, currencySymbol, amount, toMasterAccount) {
 
         try {
 
@@ -986,7 +984,7 @@ module.exports = {
 
     },
 
-    openWithdrawals: async function(key, secret, subaccountid) {
+    openWithdrawals: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -1017,7 +1015,7 @@ module.exports = {
         return response.data;
     },
 
-    closedWithdrawals: async function(key, secret, subaccountid) {
+    closedWithdrawals: async function (key, secret, subaccountid) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -1048,8 +1046,7 @@ module.exports = {
         return response.data;
     },
 
-
-    withdrawalByTxId: async function(key, secret, subaccountid, id) {
+    withdrawalByTxId: async function (key, secret, subaccountid, id) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -1080,8 +1077,7 @@ module.exports = {
         return response.data;
     },
 
-
-    withdrawalById: async function(key, secret, subaccountid, id) {
+    withdrawalById: async function (key, secret, subaccountid, id) {
 
         const method = 'GET';
         var apiSecret = secret;
@@ -1112,7 +1108,7 @@ module.exports = {
         return response.data;
     },
 
-    deleteWithdrawals: async function(key, secret, subaccountid, id) {
+    deleteWithdrawals: async function (key, secret, subaccountid, id) {
 
         const method = 'DELETE';
         var apiSecret = secret;
@@ -1143,7 +1139,7 @@ module.exports = {
         return response.data;
     },
 
-    newWithdraw: async function(key, secret, subaccountid, currencySymbol, quantity, cryptoAddress, cryptoAddressTag) {
+    newWithdraw: async function (key, secret, subaccountid, currencySymbol, quantity, cryptoAddress, cryptoAddressTag) {
 
         try {
 
@@ -1186,6 +1182,68 @@ module.exports = {
             console.log(err);
         }
 
+    },
+
+    getAccountFees: async function (key, secret, subaccountid) {
+
+        const method = 'GET';
+        var apiSecret = secret;
+        var apiKey = key;
+        var timestamp = new Date().getTime();
+        const subaccountId = subaccountid;
+
+        var contentHash = CryptoJS.SHA512('').toString(CryptoJS.enc.Hex);
+
+        var uri = 'https://api.bittrex.com/v3/account/fees/trading';
+        var preSign = [timestamp, uri, method, contentHash, subaccountId].join('');
+        var signature = CryptoJS.HmacSHA512(preSign, apiSecret).toString(CryptoJS.enc.Hex);
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Api-Key': apiKey,
+            'Api-Timestamp': timestamp,
+            'Api-Content-Hash': contentHash,
+            'Api-Signature': signature,
+        }
+
+        let response = await axios.get(uri, {
+            headers: headers
+        });
+
+
+
+        return response.data;
+    },
+
+    getAccountFeesByMarketSymbol: async function (key, secret, subaccountid, marketSymbol) {
+
+        const method = 'GET';
+        var apiSecret = secret;
+        var apiKey = key;
+        var timestamp = new Date().getTime();
+        const subaccountId = subaccountid;
+
+        var contentHash = CryptoJS.SHA512('').toString(CryptoJS.enc.Hex);
+
+        var uri = 'https://api.bittrex.com/v3/account/fees/trading/' + marketSymbol;
+        var preSign = [timestamp, uri, method, contentHash, subaccountId].join('');
+        var signature = CryptoJS.HmacSHA512(preSign, apiSecret).toString(CryptoJS.enc.Hex);
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Api-Key': apiKey,
+            'Api-Timestamp': timestamp,
+            'Api-Content-Hash': contentHash,
+            'Api-Signature': signature,
+        }
+
+        let response = await axios.get(uri, {
+            headers: headers
+        });
+
+
+
+        return response.data;
     },
 
 }
