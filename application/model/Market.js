@@ -83,7 +83,9 @@ module.exports = class Market extends Model {
 
     static list = [];
 
-    static interval = null;
+    static tickerInterval = null;
+    
+    static updateInterval = null;
 
     /**
      * Initialize markets
@@ -505,7 +507,7 @@ module.exports = class Market extends Model {
             var fees = await Bittrex.getAccountFees();
             for (var x in fees) {
                 var market = Market.getBySymbol(fees[x].marketSymbol);
-                if(market) {
+                if (market) {
                     market.takerFee = Number.parseFloat(fees[x].takerRate);
                     market.makerFee = Number.parseFloat(fees[x].makerRate);
                 }
@@ -515,13 +517,33 @@ module.exports = class Market extends Model {
         }
     }
 
-    getTickData(timeFrame, startDate) {
-        // @todo
+    static async getMinTradeSize() {
+        try {
+            let markets = await Bittrex.markets();
+            for (var i in markets) {
+                var market = market.getBySymbol(markets[i].symbol);
+                if(market) {
+                    market.minTradeSize = markets[i].minTradeSize;
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    
+    static subscribeTickers() {
+        clearInterval(Market.tickerInterval);
+        Market.tickerInterval = setInterval(Market.updateTickers, Market.config('updateInterval'));
+    }
+    
+    static subscribeFeesAndMinTradeSizes() {
+        clearInterval(Market.updateInterval);
+        Market.interval = setInterval(Market.updateFeesAndMinTradeSizes, 5000);
     }
 
-    static subscribeTickers() {
-        clearInterval(Market.interval);
-        Market.interval = setInterval(Market.updateTickers, Market.config('updateInterval'));
+    static async updateFeesAndMinTradeSizes() {
+        await Market.getFees();
+        await Market.getMinTradeSize();
     }
 
     static async updateTickers() {
@@ -534,7 +556,9 @@ module.exports = class Market extends Model {
                 }
             }
         } catch (e) {
+            console.log(e);
         }
     }
+    
 
 };
