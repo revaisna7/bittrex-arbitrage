@@ -72,12 +72,12 @@ module.exports = class Market extends Model {
     routes = [];
 
     /**
-     * @property {Integer} makerFee
+     * @property {Float} makerFee
      */
     makerFee = 0;
 
     /**
-     * @property {Integer} takerFee
+     * @property {Float} takerFee
      */
     takerFee = 0;
 
@@ -504,7 +504,7 @@ module.exports = class Market extends Model {
         try {
             var fees = await Bittrex.getAccountFees();
             for (var x in fees) {
-                var market = Market.getBySymbol(fees.marketSymbol);
+                var market = Market.getBySymbol(fees[x].marketSymbol);
                 if(market) {
                     market.takerFee = Number.parseFloat(fees[x].takerRate);
                     market.makerFee = Number.parseFloat(fees[x].makerRate);
