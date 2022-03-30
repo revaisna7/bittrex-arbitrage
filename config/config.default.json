@@ -7,8 +7,8 @@
         "nextTradeTimeout": 2000
     },
     "Delta": {
-        "priceDeviation": -0.3,
-        "mode": "speculate"
+        "priceDeviation": -0.0,
+        "mode": "instant"
     },
     "Trade": {
         "orderType": "LIMIT"
@@ -28,14 +28,15 @@
         ]
     },
     "Market": {
-        "commission": 0.2005,
+        "commission": 0.0,
         "restrict": [
             "BTXCRD"
-        ]
+        ],
+        "updateInterval" : 30
     },
     "Bittrex": {
-        "apikey": "d4a7e550e5494aedb270ab4beb64ae6f",
-        "apisecret": "9e6ceebfd5044f6abe30fcba7edacdd0",
+        "apikey": "1e282ead749d400ebe4b08c9c8ee1dda",
+        "apisecret": "9bc33a91bd4b476ba84d88246eeca748",
         "subaccountid": ""
     },
     "View": {
@@ -65,9 +66,6 @@
         "webDirectory": "./web"
     },
     "ArbitrageController": {
-        "socketInterval": 1000
-    },
-    "OrderBook": {
-        "updateInterval": 333
+        "socketInterval": 250
     }
 }
