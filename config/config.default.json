@@ -7,7 +7,7 @@
         "nextTradeTimeout": 2000
     },
     "Delta": {
-        "priceDeviation": -0.0,
+        "deviate": true,
         "mode": "speculate"
     },
     "Trade": {

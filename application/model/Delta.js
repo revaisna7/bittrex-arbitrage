@@ -49,10 +49,12 @@ module.exports = class Delta extends Model {
         if (Delta.config('mode') === "instant") {
             this.price = this.market.getPrice(this.outputCurrency);
         }
-        if (this.market.isBaseCurrency(this.inputCurrency)) {
-            this.price -= this.price / 100 * Delta.config('priceDeviation');
-        } else {
-            this.price += this.price / 100 * Delta.config('priceDeviation');
+        if(Delta.config('deviate')) {
+            if (this.market.isBaseCurrency(this.inputCurrency)) {
+                this.price += this.price * this.market.makerFee;
+            } else {
+                this.price -= this.price * this.market.makerFee;
+            }
         }
         return Number.parseFloat(this.price).toFixed(8);
     }
