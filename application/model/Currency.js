@@ -387,6 +387,22 @@ module.exports = class Currency extends Model {
         var market = this.getMarket(outputCurrency);
         return market ? market.convertPotential(outputCurrency, inputQuantity, price) : false;
     }
+    
+    /**
+     * Convert this to median of the given currency
+     * 
+     * @param {Currency} outputCurrency
+     * @param {Number} inputQuantity
+     * @param {Number} price
+     * @returns {Number|Boolean}
+     */
+    convertMedian(outputCurrency, inputQuantity, price) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        var market = this.getMarket(outputCurrency);
+        return market ? market.convertMedian(outputCurrency, inputQuantity, price) : false;
+    }
 
     /**
      * Convert this to the given currency

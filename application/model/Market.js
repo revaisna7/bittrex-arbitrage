@@ -468,7 +468,7 @@ module.exports = class Market extends Model {
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
-        return  output - (this.takerFee / 100 * output);
+        return  output;
     }
 
     /**
@@ -486,7 +486,25 @@ module.exports = class Market extends Model {
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
-        return  output - (this.makerFee / 100 * output);
+        return  output;
+    }
+    
+    /**
+     * Convert the input currency to the output currency at median market price
+     * Also calculates commission
+     * 
+     * @param {Currency} outputCurrency
+     * @param {Currency} inputQuantity
+     * @param {Number} [price]
+     * @returns {Number}
+     */
+    convertMedian(outputCurrency, inputQuantity, price) {
+        if (!price) {
+            price = this.getMedianPrice(outputCurrency);
+        }
+        var isBase = this.isBaseCurrency(outputCurrency);
+        var output = isBase ? inputQuantity / price : price * inputQuantity;
+        return  output;
     }
 
     /**

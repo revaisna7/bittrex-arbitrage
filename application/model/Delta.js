@@ -63,10 +63,15 @@ module.exports = class Delta extends Model {
 
     getOuput() {
         this.priceDeviation = Delta.config('priceDeviation') || 0;
-        if (Delta.config('speculate')) {
+        if (Delta.config('mode') === 'speculate') {
             this.output = this.market.convertPotential(this.outputCurrency, this.getInput(), this.getPrice());
+            this.output -= (this.market.makerFee / 100 * this.output)
+        } else if(Delta.config('mode') === 'median') {
+            this.output = this.market.convertMedian(this.outputCurrency, this.getInput(), this.getPrice());
+            this.output -= (this.market.makerFee / 100 * this.output)
         } else {
             this.output = this.market.convert(this.outputCurrency, this.getInput(), this.getPrice());
+            this.output -= (this.market.takerFee / 100 * this.output)
         }
         return this.output;
     }
