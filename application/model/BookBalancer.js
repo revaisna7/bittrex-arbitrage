@@ -31,10 +31,12 @@ module.exports = class BookBalancer extends Model {
         for (var i in BookBalancer.Currency.getAllowed()) {
             var currency = BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]);
             var balance = BookBalancer.Balance.getByCurrencySymbol(BookBalancer.Currency.getAllowed()[i]);
-            var trade = currency.tradeToBtc(balance.getTotal());
+            var price = currency.getMarket(BookBalancer.Currency.BTC).getPrice(BookBalancer.Currency.BTC);
+            var trade = currency.tradeToBtc(balance.getTotal(), price);
             if (trade) {
-                await trade.execute((trade) => {
                     console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
+                await trade.execute((trade) => {
+                    console.log('Executed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
                 });
             }
         }
@@ -46,11 +48,19 @@ module.exports = class BookBalancer extends Model {
         var btcQuantity = BookBalancer.Balance.getByCurrencySymbol('BTC').getTotal() / BookBalancer.Currency.getAllowed().length;
         for (var i in BookBalancer.Currency.getAllowed()) {
             var trade = BookBalancer.Currency.getBtc().tradeTo(BookBalancer.Currency.getBySymbol(BookBalancer.Currency.getAllowed()[i]), btcQuantity);
-            if (trade) {
-                await trade.execute((trade) => {
-                    console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
-                });
-            }
+            console.log(trade);
+//            if (trade) {
+//                try {
+//                    console.log(trade);
+//                   await trade.execute((trade) => {
+//                        console.log('Placed trade ' + trade.outputCurrency.symbol + ' ' + trade.getQuantity());
+//                    });
+//                } catch(e) {
+//                    console.log(e);
+//                }
+//            } else {
+//                console.log(trade);
+//            }
         }
         return await BookBalancer.Balance.getAll();
     }

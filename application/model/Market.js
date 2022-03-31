@@ -574,7 +574,7 @@ module.exports = class Market extends Model {
                 }
             }
         } catch (e) {
-            console.log(e);
+//            console.log(e);
         }
     }
     

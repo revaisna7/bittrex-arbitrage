@@ -156,7 +156,7 @@ module.exports = class Trade extends Model {
 
     meetsMinTradeRequirement() {
         var marketMinTradeSize = this.getMarket().getMinTradeSize();
-        var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.0005);
+        var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.);
         return marketMinTradeSize < this.getQuantity()
                 && btcMinTradeSize < this.getQuantity();
     }
@@ -167,7 +167,7 @@ module.exports = class Trade extends Model {
 
     canExecute() {
         return this.getMarket().canTrade()
-                && this.meetsMinTradeRequirement()
+//                && this.meetsMinTradeRequirement()
                 && this.hasBalance();
     }
 
@@ -195,6 +195,9 @@ module.exports = class Trade extends Model {
             }
             return response;
             
+        } else {
+            console.log("Cannot execute trade");
+            console.log(this);
         }
         return null;
     }

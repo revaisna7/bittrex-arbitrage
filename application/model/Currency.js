@@ -475,6 +475,9 @@ module.exports = class Currency extends Model {
         if (this.symbol === outputCurrency.symbol)
             return;
 
+        console.log(inputQuantity);
+        console.log(price);
+
         var market = this.getMarket(outputCurrency);
         return market ? market.trade(this, outputCurrency, inputQuantity, price) : false;
     }
