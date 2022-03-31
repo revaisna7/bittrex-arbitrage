@@ -168,7 +168,7 @@ module.exports = class Route extends Model {
         for(var i in this.deltaChain) {
             var deltaMinInputBtc = this.deltaChain[i].market.baseCurrency.convertToBtc(this.deltaChain[i].market.minTradeSize);
             if(deltaMinInputBtc > minInputBtc) {
-                minInputBtc = deltaMinInputBtc*Route.config("minInputMultiplier");
+                minInputBtc = deltaMinInputBtc;
             }
         }
         return minInputBtc;
