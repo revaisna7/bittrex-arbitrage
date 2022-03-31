@@ -110,7 +110,7 @@ module.exports = class Market extends Model {
                 Market.push(new Market(markets[i]));
             }
         }
-        await Market.getFees();
+        await Market.updateFees();
     }
 
     /**
@@ -520,7 +520,7 @@ module.exports = class Market extends Model {
         }
     }
 
-    static async getFees() {
+    static async updateFees() {
         try {
             var fees = await Bittrex.getAccountFees();
             for (var x in fees) {
@@ -535,7 +535,7 @@ module.exports = class Market extends Model {
         }
     }
 
-    static async getMinTradeSize() {
+    static async updateMinTradeSize() {
         try {
             let markets = await Bittrex.markets();
             for (var i in markets) {
@@ -560,8 +560,8 @@ module.exports = class Market extends Model {
     }
 
     static async updateFeesAndMinTradeSizes() {
-        await Market.getFees();
-        await Market.getMinTradeSize();
+        await Market.updateFees();
+        await Market.updateMinTradeSize();
     }
 
     static async updateTickers() {

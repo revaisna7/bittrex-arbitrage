@@ -1,14 +1,14 @@
 {
     "Route": {
-        "trade": true,
-        "minInputMultiplier": 1.5,
-        "minProfitFactor": 0.1,
+        "trade": false,
+        "minInputBtc": 0.0002,
+        "minProfitFactor": 0.001,
         "profitAllThree": true,
         "nextTradeTimeout": 2000
     },
     "Delta": {
         "priceDeviation": -0.0,
-        "mode": "instant"
+        "mode": "speculate"
     },
     "Trade": {
         "orderType": "LIMIT"
@@ -20,27 +20,23 @@
             "ETH",
             "USDT",
             "XRP",
-            "USD",
             "LTC"
         ],
         "restrict": [
-            "BTXCRD"
+            "BTXCRD",
+            "USDT-USD"
         ]
     },
     "Market": {
         "restrict": [
             "BTXCRD"
         ],
-        "updateInterval" : 30
+        "updateInterval" : 100
     },
     "Bittrex": {
-        "apikey": "1e282ead749d400ebe4b08c9c8ee1dda",
-        "apisecret": "9bc33a91bd4b476ba84d88246eeca748",
+        "apikey": "",
+        "apisecret": "",
         "subaccountid": ""
-    },
-    "View": {
-        "refreshRate": 250,
-        "routes": 15
     },
     "WebServer": {
         "port": 80,
@@ -65,6 +61,6 @@
         "webDirectory": "./web"
     },
     "ArbitrageController": {
-        "socketInterval": 250
+        "socketInterval": 200
     }
 }
