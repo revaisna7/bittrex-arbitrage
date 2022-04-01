@@ -123,18 +123,6 @@ module.exports = class Route extends Model {
         return false;
     }
 
-    static sort() {
-        Route.list.sort(Route.sortComparer);
-    }
-
-    static sortComparer(a, b) {
-        if (a.profitFactor > b.profitFactor)
-            return -1;
-        if (a.profitFactor < b.profitFactor)
-            return 1;
-        return 0;
-    }
-
     static getTradingRoute() {
         var routes = [];
         for (var i in Route.list) {
@@ -397,7 +385,7 @@ module.exports = class Route extends Model {
                 + "<th>Profit Factor</th>"
                 + "<th>Net Profit</th>"
                 + "</tr>";
-        Route.sort();
+
         for (var x in Route.list) {
             if (x === 30)
                 break;
