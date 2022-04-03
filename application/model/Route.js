@@ -153,9 +153,9 @@ module.exports = class Route extends Model {
 
     getInputBtc() {
         var minInputBtc = Route.config("minInputBtc");
-        for(var i in this.deltaChain) {
+        for (var i in this.deltaChain) {
             var deltaMinInputBtc = this.deltaChain[i].market.baseCurrency.convertToBtc(this.deltaChain[i].market.minTradeSize);
-            if(deltaMinInputBtc > minInputBtc) {
+            if (deltaMinInputBtc > minInputBtc) {
                 minInputBtc = deltaMinInputBtc;
             }
         }
@@ -174,6 +174,25 @@ module.exports = class Route extends Model {
         this.profitFactorZ = (this.profitZ) / this.deltaChain[2].input * 100;
         this.profitFactor = this.profitFactorX + this.profitFactorY + this.profitFactorZ;
 
+        if (this.deltaChain[0].getMode() === "fixed") {
+            this.deltaChain[0].fixPrices(this.profitFactorY);
+            this.deltaChain[1].fixPrices(this.profitFactorZ);
+            this.deltaChain[2].fixPrices(this.profitFactorX);
+
+            this.deltaChain[0].recalculate();
+            this.deltaChain[1].recalculate();
+            this.deltaChain[2].recalculate();
+           
+            
+            this.profitX = (this.deltaChain[2].output - this.deltaChain[0].input);
+            this.profitY = (this.deltaChain[0].output - this.deltaChain[1].input);
+            this.profitZ = (this.deltaChain[1].output - this.deltaChain[2].input);
+            this.profitFactorX = (this.profitX) / this.deltaChain[0].input * 100;
+            this.profitFactorY = (this.profitY) / this.deltaChain[1].input * 100;
+            this.profitFactorZ = (this.profitZ) / this.deltaChain[2].input * 100;
+            this.profitFactor = this.profitFactorX + this.profitFactorY + this.profitFactorZ;
+        }
+
         if (this.isProfitable()) {
             this.trade();
         }
@@ -181,9 +200,10 @@ module.exports = class Route extends Model {
 
     isProfitable() {
         if (Route.config('profitAllThree')) {
-            return this.profitFactorX >= Route.config('minProfitFactor')
-                    && this.profitFactorY >= Route.config('minProfitFactor')
-                    && this.profitFactorZ >= Route.config('minProfitFactor');
+            return this.profitFactorX > 0
+                    && this.profitFactorY > 0
+                    && this.profitFactorZ > 0
+                    && this.profitFactor >= Route.config('minProfitFactor');
         } else {
             return this.profitFactor >= Route.config('minProfitFactor');
         }
