@@ -123,6 +123,18 @@ module.exports = class Route extends Model {
         return false;
     }
 
+    static findByCurrency(currency) {
+        var routes = [];
+        for (var i in Route.list) {
+            if (Route.list[i].currencyX.symbol === currency.symbol
+                    || Route.list[i].currencyY.symbol === currency.symbol
+                    || Route.list[i].currencyZ.symbol === currency.symbol) {
+                    routes.push(Route.list[i]);
+            }
+        }
+        return routes;
+    }
+
     static getTradingRoute() {
         var routes = [];
         for (var i in Route.list) {
@@ -182,8 +194,8 @@ module.exports = class Route extends Model {
             this.deltaChain[0].recalculate();
             this.deltaChain[1].recalculate();
             this.deltaChain[2].recalculate();
-           
-            
+
+
             this.profitX = (this.deltaChain[2].output - this.deltaChain[0].input);
             this.profitY = (this.deltaChain[0].output - this.deltaChain[1].input);
             this.profitZ = (this.deltaChain[1].output - this.deltaChain[2].input);

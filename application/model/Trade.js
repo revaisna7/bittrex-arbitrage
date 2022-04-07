@@ -58,8 +58,8 @@ module.exports = class Trade extends Model {
 
     constructor(market, inputCurrency, outputCurrency, inputQuantity, price) {
         super();
-        
-        
+
+
         this.createdAt = Date.now();
         this.market = market;
         this.inputCurrency = inputCurrency;
@@ -71,13 +71,17 @@ module.exports = class Trade extends Model {
     }
 
     getTradeQuantity() {
-        this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity, this.deviation);
-        if (this.getMarket().isBaseCurrency(this.inputCurrency)) {
+        this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity);
+        if (this.getMarket().isBaseCurrency(this.outputCurrency)) {
             this.tradeQuantity = this.outputCurrency.convertTo(this.inputCurrency, this.outputQuantity);
         }
-        if (this.getMarket().isBaseCurrency(this.outputCurrency)) {
-            this.tradeQuantity = this.outputQuantity;
+        if (this.getMarket().isBaseCurrency(this.inputCurrency)) {
+                this.tradeQuantity = this.outputCurrency.convertTo(this.inputCurrency, this.outputQuantity);
         }
+       
+        this.tradeQuantity = Number.parseFloat(this.tradeQuantity).toFixed(8);
+        console.log(this.tradeQuantity);
+        return this.tradeQuantity;
     }
 
     getDirection() {
@@ -155,24 +159,37 @@ module.exports = class Trade extends Model {
     }
 
     meetsMinTradeRequirement() {
-        var marketMinTradeSize = this.getMarket().getMinTradeSize();
-        var btcMinTradeSize = Currency.BTC.convertTo(this.getMarket().baseCurrency, 0.);
-        return marketMinTradeSize < this.getQuantity()
-                && btcMinTradeSize < this.getQuantity();
+        return this.getMarket().getMinTradeSize() <= this.getTradeQuantity()
     }
 
     hasBalance() {
-        return Balance.getByCurrency(this.inputCurrency).getAvailable() >= this.inputQuantity;
+        return Balance.getByCurrency(this.inputCurrency).getAvailable() >= this.getTradeQuantity();
     }
 
-    canExecute() {
-        return this.getMarket().canTrade()
-//                && this.meetsMinTradeRequirement()
-                && this.hasBalance();
+    canExecute(debug) {
+        if (!this.getMarket().canTrade()) {
+            if (debug) {
+                console.log("Market not available " + this.getMarket().symbol);
+            }
+            return false;
+        }
+        if (!this.meetsMinTradeRequirement()) {
+            if (debug) {
+                console.log("Trade does not meet minimum requirement. Requirement: " + this.getMarket().getMinTradeSize() + " Quantity: " + this.getTradeQuantity());
+            }
+            return false;
+        }
+        if (!this.hasBalance()) {
+            if (debug) {
+                console.log("Not enough balance for trade. Balance: " + Balance.getByCurrency(this.inputCurrency).getAvailable() + " Quantity: " + this.getTradeQuantity());
+                return false;
+            }
+        }
+        return true;
     }
 
     async execute(callback) {
-        if (this.canExecute()) {
+        if (this.canExecute(true)) {
             Trade.push(this);
             this.logData();
             this.executedAt = Date.now();
@@ -194,14 +211,13 @@ module.exports = class Trade extends Model {
                 callback(this);
             }
             return response;
-            
+
         } else {
-            console.log("Cannot execute trade");
-            console.log(this);
+            console.log("Cannot execute trade " + this.getMarketSymbol() + " " + this.getType() + " " + this.getDirection());
         }
         return null;
     }
-    
+
     async executeMarket(callback) {
         if (this.canExecute()) {
             this.logData();
@@ -224,7 +240,7 @@ module.exports = class Trade extends Model {
                 callback(this);
             }
             return response;
-            
+
         }
         return null;
     }
@@ -252,7 +268,7 @@ module.exports = class Trade extends Model {
      * @returns {String}
      */
     consoleOutput() {
-        return "<td>"+[
+        return "<td>" + [
             new Date(this.getCreatedAt()).toLocaleString(),
             this.getMarketSymbol() + "  ",
             this.getOutputCurrency().getSymbol(),
