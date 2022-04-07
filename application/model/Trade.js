@@ -80,7 +80,6 @@ module.exports = class Trade extends Model {
         }
        
         this.tradeQuantity = Number.parseFloat(this.tradeQuantity).toFixed(8);
-        console.log(this.tradeQuantity);
         return this.tradeQuantity;
     }
 
@@ -259,7 +258,6 @@ module.exports = class Trade extends Model {
             this.response
         ], null, 2) + "\n";
         Util.log(data, 'trade');
-        console.log(data);
     }
 
     /**
