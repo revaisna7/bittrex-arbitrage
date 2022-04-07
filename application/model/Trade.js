@@ -58,8 +58,8 @@ module.exports = class Trade extends Model {
 
     constructor(market, inputCurrency, outputCurrency, inputQuantity, price) {
         super();
-
-
+        
+        
         this.createdAt = Date.now();
         this.market = market;
         this.inputCurrency = inputCurrency;
@@ -71,16 +71,13 @@ module.exports = class Trade extends Model {
     }
 
     getTradeQuantity() {
-        this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity);
-        if (this.getMarket().isBaseCurrency(this.outputCurrency)) {
+        this.outputQuantity = this.inputCurrency.convertTo(this.outputCurrency, this.inputQuantity, this.deviation);
+        if (this.getMarket().isBaseCurrency(this.inputCurrency)) {
             this.tradeQuantity = this.outputCurrency.convertTo(this.inputCurrency, this.outputQuantity);
         }
-        if (this.getMarket().isBaseCurrency(this.inputCurrency)) {
-                this.tradeQuantity = this.outputCurrency.convertTo(this.inputCurrency, this.outputQuantity);
+        if (this.getMarket().isBaseCurrency(this.outputCurrency)) {
+            this.tradeQuantity = this.outputQuantity;
         }
-       
-        this.tradeQuantity = Number.parseFloat(this.tradeQuantity).toFixed(8);
-        return this.tradeQuantity;
     }
 
     getDirection() {
@@ -158,31 +155,31 @@ module.exports = class Trade extends Model {
     }
 
     meetsMinTradeRequirement() {
-        return this.getMarket().getMinTradeSize() <= this.getTradeQuantity()
+        return this.getMarket().getMinTradeSize() <= this.getQuantity()
     }
 
     hasBalance() {
-        return Balance.getByCurrency(this.inputCurrency).getAvailable() >= this.getTradeQuantity();
+        return Balance.getByCurrency(this.inputCurrency).getAvailable() >= this.inputQuantity;
     }
 
     canExecute(debug) {
         if (!this.getMarket().canTrade()) {
             if (debug) {
                 console.log("Market not available " + this.getMarket().symbol);
-            }
+    }
             return false;
         }
         if (!this.meetsMinTradeRequirement()) {
             if (debug) {
-                console.log("Trade does not meet minimum requirement. Requirement: " + this.getMarket().getMinTradeSize() + " Quantity: " + this.getTradeQuantity());
+                console.log("Trade does not meet minimum requirement. Requirement: " + this.getMarket().getMinTradeSize() + " Quantity: " + this.getQuantity());
             }
             return false;
         }
         if (!this.hasBalance()) {
             if (debug) {
-                console.log("Not enough balance for trade. Balance: " + Balance.getByCurrency(this.inputCurrency).getAvailable() + " Quantity: " + this.getTradeQuantity());
-                return false;
+                console.log("Not enough balance for trade. Balance: " + Balance.getByCurrency(this.inputCurrency).getAvailable() + " Quantity: " + this.getQuantity());
             }
+            return false;
         }
         return true;
     }
@@ -190,12 +187,12 @@ module.exports = class Trade extends Model {
     async execute(callback) {
         if (this.canExecute(true)) {
             try {
-            Trade.push(this);
+                Trade.push(this);
             this.logData();
             this.executedAt = Date.now();
             let response = await Bittrex.newOrder(
                     this.getMarketSymbol(),
-                    this.getDirection(),
+                        this.getDirection(),
                     this.getType(),
                     this.getTimeInForce(),
                     this.getQuantity(),
@@ -206,20 +203,21 @@ module.exports = class Trade extends Model {
                     );
             this.respondedAt = Date.now();
             this.response = response;
+            console.log(response);
             this.logData();
             if (callback) {
                 callback(this);
             }
             return response;
-        } catch(e) {
-            console.log(e);
+            } catch (e) {
+                console.log(e);
         }
         } else {
             console.log("Cannot execute trade " + this.getMarketSymbol() + " " + this.getType() + " " + this.getDirection());
         }
         return null;
     }
-
+    
     async executeMarket(callback) {
         if (this.canExecute()) {
             this.logData();
@@ -237,12 +235,13 @@ module.exports = class Trade extends Model {
                     );
             this.respondedAt = Date.now();
             this.response = response;
+            console.log(response);
             this.logData();
             if (callback) {
                 callback(this);
             }
             return response;
-
+            
         }
         return null;
     }

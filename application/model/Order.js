@@ -218,7 +218,7 @@ module.exports = class Order extends Model {
         return "<td>" + [
             this.getMarketSymbol(),
             this.getType(),
-            this.getDirection(),
+            this.direction,
             Util.pad(this.getQuantity()),
             Util.pad(this.getRemaining()),
             Util.pad(this.getLimit()),

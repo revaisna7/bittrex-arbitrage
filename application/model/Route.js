@@ -129,7 +129,7 @@ module.exports = class Route extends Model {
             if (Route.list[i].currencyX.symbol === currency.symbol
                     || Route.list[i].currencyY.symbol === currency.symbol
                     || Route.list[i].currencyZ.symbol === currency.symbol) {
-                    routes.push(Route.list[i]);
+                routes.push(Route.list[i]);
             }
         }
         return routes;
@@ -253,17 +253,20 @@ module.exports = class Route extends Model {
         var tradeY = this.deltaChain[1].trade();
         var tradeZ = this.deltaChain[2].trade();
 
-        if (Route.config('trade') && !this.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
-            Route.trading = true;
-            await tradeX.execute();
-            await tradeY.execute();
-            await tradeZ.execute();
-
+        if (Route.config('trade') && !Route.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
             await Balance.getAll();
+            if (Route.config('trade') && !Route.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
+                Route.trading = true;
+                tradeX.execute();
+                tradeY.execute();
+                tradeZ.execute();
 
-            setTimeout(() => {
-                Route.trading = false;
-            }, Route.config('nextTradeTimeout'));
+                await Balance.getAll();
+
+                setTimeout(() => {
+                    Route.trading = false;
+                }, Route.config('nextTradeTimeout'));
+            }
         }
     }
 
@@ -271,7 +274,7 @@ module.exports = class Route extends Model {
      * Whether there is currently a route trading
      * @returns {Boolean}
      */
-    isTrading() {
+    static isTrading() {
         return Route.trading;
     }
 
