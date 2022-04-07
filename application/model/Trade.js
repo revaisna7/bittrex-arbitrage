@@ -189,6 +189,7 @@ module.exports = class Trade extends Model {
 
     async execute(callback) {
         if (this.canExecute(true)) {
+            try {
             Trade.push(this);
             this.logData();
             this.executedAt = Date.now();
@@ -210,7 +211,9 @@ module.exports = class Trade extends Model {
                 callback(this);
             }
             return response;
-
+        } catch(e) {
+            console.log(e);
+        }
         } else {
             console.log("Cannot execute trade " + this.getMarketSymbol() + " " + this.getType() + " " + this.getDirection());
         }

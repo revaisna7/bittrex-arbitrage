@@ -253,11 +253,8 @@ module.exports = class Route extends Model {
         var tradeY = this.deltaChain[1].trade();
         var tradeZ = this.deltaChain[2].trade();
 
-//        console.log(tradeX.canExecute(),tradeY.canExecute() ,tradeZ.canExecute() )
-
         if (Route.config('trade') && !this.isTrading() && tradeX.canExecute() && tradeY.canExecute() && tradeZ.canExecute()) {
             Route.trading = true;
-            console.log(tradeX);
             await tradeX.execute();
             await tradeY.execute();
             await tradeZ.execute();
