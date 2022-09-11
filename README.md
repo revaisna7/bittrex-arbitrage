@@ -9,7 +9,7 @@ To enable trades the trader must hold enough balance in each currency.
 
 ![screenshot](https://i.snipboard.io/5qQg4j.jpg)
 
-## Installation
+# Installation
 Bittrex Arbitrage requires [Node.js](https://nodejs.org/) v12+ to run.
 ```
 git clone https://github.com/ChristopherBenjaminHemmens/bittrex-arbitrage.git
@@ -17,18 +17,27 @@ cd bittrex-arbitrage
 npm install
 ```
 
-## Configuration
+# Configuration
 To configure, copy `/config/config.default.json` to `/config/config.json`
 
 ```
 copy /config/config.default.json /config/config.json
 ```
+# Run
+```
+run
+```
+or
+```
+node bootstrap.js
+```
+Visit [http://localhost/](http://localhost/) in your browser
 
 Put your Bittrex API key and secret in `/config/config.defualt.json` under "Bittrex" configuration settings. 
 [How to create an API key.](https://bittrex.zendesk.com/hc/en-us/articles/360031921872-How-to-create-an-API-key-)
 
 
-## Parameters
+# Configuration Parameters
 ### Route
 | option | type | description |
 | ------ | ------ | ------ |
@@ -102,16 +111,6 @@ Put your Bittrex API key and secret in `/config/config.defualt.json` under "Bitt
 | option | type | description |
 | ------ | ------ | ------ |
 | socketInterval | number | How frequently to send data to the client through the socket in milliseconds. |
-
-### Run
-```
-run
-```
-or
-```
-node bootstrap.js
-```
-Visit [http://localhost/](http://localhost/) in your browser
 
 ### Todos
  - Integrate API v3
