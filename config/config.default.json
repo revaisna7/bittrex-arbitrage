@@ -1,0 +1,66 @@
+{
+    "Route": {
+        "trade": false,
+        "minInputBtc": 0.0002,
+        "minProfitFactor": 0.001,
+        "profitAllThree": true,
+        "nextTradeTimeout": 2000
+    },
+    "Delta": {
+        "deviate": true,
+        "mode": "speculate"
+    },
+    "Trade": {
+        "orderType": "LIMIT"
+    },
+    "Currency": {
+        "base": "USDT",
+        "allow": [
+            "BTC",
+            "ETH",
+            "USDT",
+            "XRP",
+            "LTC"
+        ],
+        "restrict": [
+            "BTXCRD",
+            "USDT-USD"
+        ]
+    },
+    "Market": {
+        "restrict": [
+            "BTXCRD"
+        ],
+        "updateInterval" : 100
+    },
+    "Bittrex": {
+        "apikey": "",
+        "apisecret": "",
+        "subaccountid": ""
+    },
+    "WebServer": {
+        "port": 80,
+        "httpsPort": 443,
+        "https": false,
+        "host": "localhost",
+        "protocol": "http",
+        "baseController": "Landing",
+        "fileDirectory": "./web",
+        "keyFile" : ".",
+        "certFile" : ""
+    },
+    "SocketServer": {
+        "port": 8443,
+        "host": "localhost",
+        "protocol": "https"
+    },
+    "Controller": {
+        "base": "Landing"
+    },
+    "File": {
+        "webDirectory": "./web"
+    },
+    "ArbitrageController": {
+        "socketInterval": 200
+    }
+}
