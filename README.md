@@ -12,7 +12,7 @@ To enable trades the trader must hold enough balance in each currency.
 ## Installation
 Bittrex Arbitrage requires [Node.js](https://nodejs.org/) v12+ to run.
 ```
-git clone https://github.com/Hemmsoft/bittrex-arbitrage.git
+git clone https://github.com/ChristopherBenjaminHemmens/bittrex-arbitrage.git
 cd bittrex-arbitrage
 npm install
 ```
