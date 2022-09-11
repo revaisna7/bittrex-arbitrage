@@ -105,6 +105,10 @@ Put your Bittrex API key and secret in `/config/config.defualt.json` under "Bitt
 
 ### Run
 ```
+run
+```
+or
+```
 node bootstrap.js
 ```
 Visit [http://localhost/](http://localhost/) in your browser
