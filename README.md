@@ -3,7 +3,7 @@
 Bittrex Arbitrage web server/client app designed to perform triangular arbitrage on [Bittrex.com](https://bittrex.com/)
 
 # Features
-Automatically calculates arbitrage opportunities [Bittrex.com](https://bittrex.com/).
+Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittrex.com/).
 Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable discrepency in the market.
 To enable trades the trader must hold enough balance in each currency.
 
