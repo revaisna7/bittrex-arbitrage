@@ -112,6 +112,6 @@ Put your Bittrex API key and secret in `/config/config.defualt.json` under "Bitt
 | ------ | ------ | ------ |
 | socketInterval | number | How frequently to send data to the client through the socket in milliseconds. |
 
-### Todos
+# Todos
  - Integrate API v3
  - Add features to the user interface such as rebalancing, configuration, etc.
