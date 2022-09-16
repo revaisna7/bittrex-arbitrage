@@ -37,7 +37,7 @@ Fill out the form to create a password you will use later to login
 
 ### Create a password
 Fill in your bittrex API key and Secret, sub account id is not required.
-![screenshot](https://i.snipboard.io/ZL1GuF.jpg)
+![screenshot](https://i.snipboard.io/KZnjHt.jpg)
 
 ### Login
 Login using your password
