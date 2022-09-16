@@ -34,3 +34,7 @@ h3 {
 .text-center {
     text-align: center;
 }
+a {
+    color: #61FCA1;
+    text-decoration: underline;
+}
