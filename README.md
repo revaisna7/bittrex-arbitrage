@@ -31,6 +31,18 @@ Visit [http://localhost/](http://localhost/) in your browser
 
 Follow instructions during first time setup when you visit the URL.
 
+### Create a password
+Fill out the form to create a password you will use later to login
+![screenshot](https://i.snipboard.io/WMiYAj.jpg)
+
+### Create a password
+Fill in your bittrex API key and Secret, sub account id is not required.
+![screenshot](https://i.snipboard.io/ZL1GuF.jpg)
+
+### Login
+Login
+![screenshot](https://i.snipboard.io/kMXKb1.jpg)
+
 # Configuration Parameters
 ### Route
 | option | type | description |
@@ -106,6 +118,12 @@ Follow instructions during first time setup when you visit the URL.
 | ------ | ------ | ------ |
 | socketInterval | number | How frequently to send data to the client through the socket in milliseconds. |
 
+### User
+| option | type | description |
+| ------ | ------ | ------ |
+| password | strring | Password for login in. |
+
 # Todos
  - Integrate API v3
- - Add features to the user interface such as rebalancing, configuration, etc.
+ - Add features to the user interface such as rebalancing, currency configuration, strategy configuration etc.
+ - Backtesting feature.
