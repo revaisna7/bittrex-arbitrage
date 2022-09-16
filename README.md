@@ -35,7 +35,7 @@ Follow instructions during first time setup when you visit the URL.
 Fill out the form to create a password you will use later to login
 ![screenshot](https://i.snipboard.io/WMiYAj.jpg)
 
-### Create a password
+### Fill in Bittrex API key and secret
 Fill in your bittrex API key and Secret, sub account id is not required.
 ![screenshot](https://i.snipboard.io/KZnjHt.jpg)
 
