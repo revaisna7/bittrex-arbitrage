@@ -40,10 +40,12 @@ Fill in your bittrex API key and Secret, sub account id is not required.
 ![screenshot](https://i.snipboard.io/ZL1GuF.jpg)
 
 ### Login
-Login
+Login using your password
 ![screenshot](https://i.snipboard.io/kMXKb1.jpg)
 
 # Configuration Parameters
+You may optionally configure in the json file './config/config.json'. This file will be created automatically on initial run.
+
 ### Route
 | option | type | description |
 | ------ | ------ | ------ |
