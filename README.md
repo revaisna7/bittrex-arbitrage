@@ -50,7 +50,7 @@ You may optionally configure in the json file './config/config.json'. This file 
 | option | type | description |
 | ------ | ------ | ------ |
 | trade | boolean | Whether to enable trade. |
-| minInputBtc | number | The minimum amount of BTC to trade per route. [Bittrex has a minimum size of 0.0005 BTC](https://bittrex.zendesk.com/hc/en-us/articles/360001473863-Bittrex-Trading-Rules) |
+| minInputBtc | number | The minimum amount of BTC to trade per route. [Bittrex has a minimum size of 0.001 BTC](https://bittrex.zendesk.com/hc/en-us/articles/360001473863-Bittrex-Trading-Rules) |
 | minProfitFactor | number | The minimum amount of profit to make per route based as a percentage. |
 | profitAllThree | boolean | Whehter to only trade routes where all three currencies make a profit. |
 | nextTradeTimeout | number | The amount of time to wait between trading routes in milliseconds. |
