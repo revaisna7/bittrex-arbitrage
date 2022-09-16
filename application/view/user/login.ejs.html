@@ -1,0 +1,29 @@
+<form action="/landing/login" method="POST">
+    <div class="row">
+        <div class="col-xs-8 push-xs-8">
+            <div class="col-xs-24">
+                <h2 class="text-center">Login</h2>
+            </div>
+            <div class="row">
+                <div class="col-xs-24">
+                    <% if(error) { %>
+                    <span>Valdation error, please review your input</span>
+                    <% } %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-24">
+                    <label for="password" class="text-left">Password</label>
+                </div>
+                <div class="col-xs-24">
+                    <input type="password" name="password" id="password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-24 text-center">
+                    <button type="submit">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

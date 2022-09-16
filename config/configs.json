@@ -7,7 +7,7 @@
         "nextTradeTimeout": 10000
     },
     "Delta": {
-        "mode": "instant",
+        "mode": "fixed",
         "deviate": false,
         "fix": 0.1
     },
@@ -38,8 +38,8 @@
         "updateInterval" : 100
     },
     "Bittrex": {
-        "apikey": "",
-        "apisecret": "",
+        "apikey": "1e282ead749d400ebe4b08c9c8ee1dda",
+        "apisecret": "9bc33a91bd4b476ba84d88246eeca748",
         "subaccountid": ""
     },
     "WebServer": {
@@ -68,6 +68,7 @@
         "socketInterval": 100
     },
     "User": {
-        "password" : ""
+        "password" : "test"
     }
+
 }

@@ -1,0 +1,46 @@
+<form action="/landing/setBittrexSettings" method="POST">
+    <div class="row">
+        <div class="col-xs-14 push-xs-5">
+            <div class="col-xs-24">
+                <h2 class="text-center">Bittrex API settings</h2>
+            </div>
+            <div class="row">
+                <div class="col-xs-24">
+                    <p>You must set your Bittrrex API settings. <a herf="https://bittrex.zendesk.com/hc/en-us/articles/360031921872-How-to-create-an-API-key-" target="_blank">How to create API key</a></p>
+                    <% if(error) { %>
+                    <span><%= error; %></span><br>
+                    <% } %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-10">
+                    <label for="apikey">Api key</label>
+                </div>
+                <div class="col-xs-14">
+                    <input type="text" name="apikey" id="apikey">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-10">
+                    <label for="apisecret">Api secret</label>
+                </div>
+                <div class="col-xs-14">
+                    <input type="text" name="apisecret" id="apisecret">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-10">
+                    <label for="subaccountid">Repeat password:</label>
+                </div>
+                <div class="col-xs-14">
+                    <input type="text" name="subaccountid" id="subaccountid">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-24 text-center">
+                    <button type="submit">Set keys</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

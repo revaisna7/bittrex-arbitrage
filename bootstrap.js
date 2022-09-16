@@ -1,14 +1,16 @@
-// init models
-var Config = require('./system/WebServer.js');
+console.log("Inititializing config");
+var Configurable = require('./system/Configurable.js');
+Configurable.initConfig()
 
-// init web server
-var WebServer = require('./system/WebServer.js');
-var SocketServer = require('./system/SocketServer.js');
-WebServer.init();
-SocketServer.init();
+
 setTimeout(() => {
-var ArbitrageController = require('./application/controller/ArbitrageController.js');
-ArbitrageController.Arbitrage.start();
-}, 1000);
+    // init web server
+    var WebServer = require('./system/WebServer.js');
+    var SocketServer = require('./system/SocketServer.js');
 
-// init socket server
+    console.log("Initializing webserver");
+    WebServer.init();
+
+    console.log("Initializing socketserver");
+    SocketServer.init();
+}, 2000);

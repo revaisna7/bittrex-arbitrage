@@ -17,16 +17,6 @@ cd bittrex-arbitrage
 npm install
 ```
 
-# Configuration
-To configure, copy `/config/config.default.json` to `/config/config.json`
-
-```
-copy /config/config.default.json /config/config.json
-```
-
-Put your Bittrex API key and secret in `/config/config.json` under "Bittrex" configuration settings. 
-[How to create an API key.](https://bittrex.zendesk.com/hc/en-us/articles/360031921872-How-to-create-an-API-key-)
-
 # Run
 ```
 run
@@ -37,7 +27,9 @@ node bootstrap.js
 ```
 Visit [http://localhost/](http://localhost/) in your browser
 
+# Configuration
 
+Follow instructions during first time setup when you visit the URL.
 
 # Configuration Parameters
 ### Route
