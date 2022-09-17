@@ -35,7 +35,7 @@ Follow instructions during first time setup when you visit the URL.
 Fill out the form to create a password you will use later to login
 ![screenshot](https://i.snipboard.io/WMiYAj.jpg)
 
-### Fill in Bittrex API key and secret
+### Create a password
 Fill in your bittrex API key and Secret, sub account id is not required.
 ![screenshot](https://i.snipboard.io/KZnjHt.jpg)
 
@@ -129,3 +129,16 @@ You may optionally configure in the json file './config/config.json'. This file 
  - Integrate API v3
  - Add features to the user interface such as rebalancing, currency configuration, strategy configuration etc.
  - Backtesting feature.
+
+# DISCLAIMER
+THIS SOFTWARE IS PROVIDED BY Christopher Benjamin Hemmens AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Christopher Benjamin Hemmens BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+# COPYRIGHT NOTICE
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * All advertising materials mentioning features or use of this software must display the following acknowledgement: This product includes software developed by Christopher Benjamin Hemmens.
+ * Neither the name of the Christopher Benjamin Hemmens nor the
+ * names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
