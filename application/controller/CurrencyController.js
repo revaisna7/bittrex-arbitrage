@@ -18,6 +18,7 @@ module.exports = class CurrencyController extends SecurityController {
                 Currency.setConfig('allow', request.body['symbol[]']);
                 Currency.commitConfig();
                 ArbitrageController.Arbitrage.Route.init();
+                ArbitrageController.Arbitrage.Balance.init();
                 setTimeout(() => {
                     View.render('currency/config', {allCurrencies: allCurrencies}, response);
                 }, 1000);

@@ -63,6 +63,7 @@ module.exports = class Route extends Model {
 
     static find() {
         this.finding = true;
+        this.clear();
         var currencies = Currency.getAllowed();
         for (var x in currencies) {
             for (var y in currencies) {
@@ -81,6 +82,10 @@ module.exports = class Route extends Model {
             }
         }
         this.finding = false;
+    }
+
+    static clear() {
+        Route.list = [];
     }
 
     static push(route) {
