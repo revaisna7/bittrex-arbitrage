@@ -12,7 +12,6 @@ module.exports = class ArbitrageController extends SecurityController {
 
     static async actionCancelAll(uriParts, request, response) {
         await ArbitrageController.Order.cancelAll();
-
     }
 
     static async actionRebalance(uriParts, request, response) {
@@ -28,10 +27,10 @@ module.exports = class ArbitrageController extends SecurityController {
         var _socket = socket;
         setInterval(() => {
             _socket.emit('arbitrage', JSON.stringify({
-                'routes' : ArbitrageController.Arbitrage.Route.consoleOutput(),
-                'balances' : ArbitrageController.Arbitrage.Balance.consoleOutput(),
-                'trades' : ArbitrageController.Arbitrage.Trade.consoleOutput(),
-                'orders' : ArbitrageController.Arbitrage.Order.consoleOutput(),
+                routes: ArbitrageController.Arbitrage.Route.consoleOutput(),
+                balances: ArbitrageController.Arbitrage.Balance.consoleOutput(),
+                trades: ArbitrageController.Arbitrage.Trade.consoleOutput(),
+                orders: ArbitrageController.Arbitrage.Order.consoleOutput(),
             }));
         }, ArbitrageController.config('socketInterval'));
     }
