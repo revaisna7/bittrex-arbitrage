@@ -73,6 +73,10 @@ module.exports = class Controller extends Configurable {
     static actionReload(uriParts, request, response) {
         View.render('util/reload', {}, response);
     }
+    
+    static reload(uriParts, request, response) {
+        this.actionReload('util/reload', {}, response);
+    }
 
 
 };
