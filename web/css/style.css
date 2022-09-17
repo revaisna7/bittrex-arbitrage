@@ -16,3 +16,7 @@ img {
     border-radius: 20px;
     overflow: auto;
 }
+
+input [type='submit'] {
+    font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
