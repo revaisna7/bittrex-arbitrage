@@ -24,6 +24,7 @@ module.exports = class Balance extends Model {
      * @returns {undefined}
      */
     static async init() {
+        Balance.list = [];
         console.log('Inititialize Balance...');
         await Balance.getAll();
         Balance.pulse();
@@ -96,9 +97,11 @@ module.exports = class Balance extends Model {
      * @returns {undefined}
      */
     static update(balances) {
+        Balance.list = [];
         for (var i in balances) {
-            if (Balance.isAllowed(balances[i])) {
-                var balance = Balance.getByCurrencySymbol(balances[i].currencySymbol);
+            var balance = Balance.getByCurrencySymbol(balances[i].currencySymbol);
+            var currency = Currency.getBySymbol(balances[i].currencySymbol);
+            if (currency.isAllowed()) {
                 if (balance) {
                     balance.update(balances[i]);
                 } else {
@@ -106,6 +109,22 @@ module.exports = class Balance extends Model {
                     Balance.list.push(balance);
                 }
             }
+        }
+        var currencies = Currency.getAllowed();
+        for (var i in currencies) {
+            var balance = Balance.getByCurrencySymbol(currencies[i]);
+            if (!balance) {
+                balance = new Balance({
+                    currencySymbol: currencies[i],
+                    total: 0,
+                    available: 0,
+                    updatedAt: 0
+                });
+                Balance.list.push(balance);
+            }
+        }
+        for (var i in Balance.list) {
+            this.list[i].setAccumulateStart(this.accumulateStart(this.list[i].getCurrency()));
         }
     }
 
@@ -188,13 +207,11 @@ module.exports = class Balance extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>BTC balance</th></tr>";
+        var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>USDT balance</th></tr>";
         var balancesOutput = '';
         for (var i in Balance.list) {
-            var balance = Balance.list[i];
-            balance.setAccumulateNow(Balance.accumulate(balance.getCurrency()));
-            balance.setAccumulateStart(Balance.accumulateStart(balance.getCurrency()));
-            balancesOutput = balancesOutput + "<tr>" + balance.consoleOutput() + "</tr>";
+            Balance.list[i].setAccumulateNow(Balance.accumulate(Balance.list[i].getCurrency()));
+            balancesOutput = balancesOutput + "<tr>" + Balance.list[i].consoleOutput() + "</tr>";
         }
         return output + balancesOutput + "</table>";
     }
@@ -229,7 +246,7 @@ module.exports = class Balance extends Model {
      * @returns {Boolean}
      */
     isAllowed() {
-        return Currency.getBySymbol(this.currencySymbol).isAllowed();
+        return this.getCurrency().isAllowed();
     }
 
     /**
@@ -310,8 +327,24 @@ module.exports = class Balance extends Model {
      * Get total
      * @returns {Number}
      */
+    getUsdtStart() {
+        return this.getCurrency().convertToUsdt(this.accumulateStart);
+    }
+
+    /**
+     * Get total
+     * @returns {Number}
+     */
     getBtcBalance() {
         return this.getCurrency().convertToBtc(this.getTotal());
+    }
+
+    /**
+     * Get total
+     * @returns {Number}
+     */
+    getUsdtBalance() {
+        return this.getCurrency().convertToUsdt(this.getTotal());
     }
 
     /**
@@ -326,6 +359,14 @@ module.exports = class Balance extends Model {
      * Get total
      * @returns {Number}
      */
+    getUsdtNow() {
+        return this.getCurrency().convertToUsdt(this.accumulateNow);
+    }
+
+    /**
+     * Get total
+     * @returns {Number}
+     */
     getBtcProfit() {
         return this.getBtcNow() - this.getBtcStart();
     }
@@ -334,8 +375,16 @@ module.exports = class Balance extends Model {
      * Get total
      * @returns {Number}
      */
+    getUsdtProfit() {
+        return this.getUsdtNow() - this.getUsdtStart();
+    }
+
+    /**
+     * Get total
+     * @returns {Number}
+     */
     getBtcProfitFactor() {
-        return this.getBtcProfit() / this.getBtcStart() * 100;
+        return this.getBtcNow() / this.getBtcStart() * 100;
     }
 
     /**
@@ -351,8 +400,8 @@ module.exports = class Balance extends Model {
                     , Util.pad(this.accumulateNow)
                     , Util.pad(this.accumulateStart)
                     , Util.addPlusOrSpace(this.getProfit(), 8)
-                    , Util.addPlusOrSpace(this.getProfitFactor()) + '%'
-                    , Util.pad(this.getBtcBalance())
+                    , Util.addPlusOrSpace(this.getProfitFactor() ? this.getProfitFactor() : 0) + '%'
+                    , Util.pad(this.getUsdtBalance() ? this.getUsdtBalance() : 0)
         ].join("</td><td>")) + "</td>";
     }
 }

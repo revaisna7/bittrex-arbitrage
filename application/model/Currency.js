@@ -11,6 +11,12 @@ module.exports = class Currency extends Model {
 
     /**
      * @static
+     * @property {Currency} BTC 
+     */
+    static USDT;
+
+    /**
+     * @static
      * @property {Currency} BASE 
      */
     static BASE;
@@ -20,7 +26,7 @@ module.exports = class Currency extends Model {
      * @property {Array|Currency[]} list
      */
     static list = [];
-    
+
     /**
      * @property {String} symbol 
      */
@@ -102,6 +108,13 @@ module.exports = class Currency extends Model {
     /**
      * @returns {Currency}
      */
+    static getUsdt() {
+        return Currency.USDT;
+    }
+
+    /**
+     * @returns {Currency}
+     */
     static getBase() {
         return Currency.BASE;
     }
@@ -159,6 +172,9 @@ module.exports = class Currency extends Model {
         if (this.isBtc()) {
             Currency.BTC = this;
         }
+        if (this.isUsdt()) {
+            Currency.USDT = this;
+        }
         if (this.isBase()) {
             Currency.BASE = this;
         }
@@ -200,6 +216,15 @@ module.exports = class Currency extends Model {
      */
     isBtc() {
         return this.symbol === 'BTC';
+    }
+
+    /**
+     * Whethter this currency is USDT
+     * 
+     * @returns {Boolean}
+     */
+    isUsdt() {
+        return this.symbol === 'USDT';
     }
 
     /**
@@ -292,7 +317,7 @@ module.exports = class Currency extends Model {
     getPotentialPrice(currency) {
         return this.getMarket(currency).getPotentialPrice(currency);
     }
-    
+
     /**
      * Get median currency price
      * 
@@ -314,13 +339,33 @@ module.exports = class Currency extends Model {
     }
 
     /**
+     * Convert the given amount of this currency into USDT
+     * 
+     * @param {Number} inputQuantity
+     * @returns {Number}
+     */
+    convertToUsdt(inputQuantity) {
+        return this.isUsdt() ? inputQuantity : this.convertTo(Currency.USDT, inputQuantity);
+    }
+
+    /**
+     * Convert the given amount of this currency into USDT
+     * 
+     * @param {Number} inputQuantity
+     * @returns {Number}
+     */
+    convertToPotentialUsdt(inputQuantity) {
+        return this.isUsdt() ? inputQuantity : this.convertToPotential(Currency.USDT, inputQuantity);
+    }
+
+    /**
      * Convert the given amount of this currency into Bitcoins
      * 
      * @param {Number} inputQuantity
      * @returns {Number}
      */
     convertToPotentialBtc(inputQuantity) {
-        return this.isBtc() ? inputQuantity : this.convertToPotential(Currency.BTC, inputQuantity);
+        return this.isUsdt() ? inputQuantity : this.convertToPotential(Currency.USDT, inputQuantity);
     }
 
     /**
@@ -357,6 +402,22 @@ module.exports = class Currency extends Model {
     }
 
     /**
+     * Convert this currency to the given output currency through USDT
+     * 
+     * @param {Currency} outputCurrency
+     * @param {Number} inputQuantity
+     * @returns {Boolean}
+     */
+    convertThroughUsdt(outputCurrency, inputQuantity) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        var marketX = this.getMarket(Currency.UST);
+        var marketY = Currency.USDT.getMarket(outputCurrency);
+        return marketX && marketY ? Currency.USDT.convertTo(outputCurrency, this.convertToUsdt(inputQuantity)) : false;
+    }
+
+    /**
      * Convert this to the given currency
      * 
      * @param {Currency} outputCurrency
@@ -387,7 +448,7 @@ module.exports = class Currency extends Model {
         var market = this.getMarket(outputCurrency);
         return market ? market.convertPotential(outputCurrency, inputQuantity, price) : false;
     }
-    
+
     /**
      * Convert this to median of the given currency
      * 
@@ -449,6 +510,17 @@ module.exports = class Currency extends Model {
      */
     tradeToBtc(inputQuantity, price) {
         return this === Currency.BTC ? false : this.tradeTo(Currency.BTC, inputQuantity, price);
+    }
+
+    /**
+     * Trade given quantity of this currency to Bitcoin
+     * 
+     * @param {Number} inputQuantity
+     * @param {Number} [price] 
+     * @returns {Number|Boolean}
+     */
+    tradeToUsdt(inputQuantity, price) {
+        return this === Currency.USDT ? false : this.tradeTo(Currency.USDT, inputQuantity, price);
     }
 
     /**

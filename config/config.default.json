@@ -19,11 +19,7 @@
         "allow": [
             "BTC",
             "ETH",
-            "USDT",
-            "XRP",
-            "LTC",
-            "XLM",
-            "ADA"
+            "USDT"
         ],
         "restrict": [
             "BTXCRD"

@@ -4,6 +4,8 @@ $('#tab ul li[data-for="currencies"]').click(function (e) {
 
 function registerCheckboxes() {
     $('table tr').click(function (e) {
-        $(this).find('input').prop('checked', !$(this).find('input').prop('checked'));
+        if($(e.target).attr('type') !== 'checkbox') {
+            $(this).find('input').prop('checked', !$(this).find('input').prop('checked'));
+        }
     });
 }
