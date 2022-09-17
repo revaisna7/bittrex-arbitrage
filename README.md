@@ -142,3 +142,7 @@ Redistribution and use in source and binary forms, with or without modification,
  * All advertising materials mentioning features or use of this software must display the following acknowledgement: This product includes software developed by Christopher Benjamin Hemmens.
  * Neither the name of the Christopher Benjamin Hemmens nor the
  * names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+# Contact
+
+[chrishemmens@hotmail.com](mailto:chrishemmens@hotmail.com)
