@@ -14,7 +14,7 @@ module.exports = class Util {
         var number = Number.parseFloat(number);
         var str = '';
         if (number === 0) {
-            str += ' ';
+            str += '0';
         }
         if (number < 0) {
             str += '<span class="loss">';

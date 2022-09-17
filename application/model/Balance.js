@@ -207,13 +207,15 @@ module.exports = class Balance extends Model {
      * @returns {String}
      */
     static consoleOutput() {
-        var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th>USDT balance</th></tr>";
-        var balancesOutput = '';
-        for (var i in Balance.list) {
-            Balance.list[i].setAccumulateNow(Balance.accumulate(Balance.list[i].getCurrency()));
-            balancesOutput = balancesOutput + "<tr>" + Balance.list[i].consoleOutput() + "</tr>";
+        if (Currency.BTC && Currency.USDT) {
+            var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th><img src=\"" + Currency.USDT.logoUrl + "\"> USDT</th><th><img src=\"" + Currency.BTC.logoUrl + "\"> BTC</th></tr>";
+            var balancesOutput = '';
+            for (var i in Balance.list) {
+                Balance.list[i].setAccumulateNow(Balance.accumulate(Balance.list[i].getCurrency()));
+                balancesOutput = balancesOutput + "<tr>" + Balance.list[i].consoleOutput() + "</tr>";
+            }
+            return output + balancesOutput + "</table>";
         }
-        return output + balancesOutput + "</table>";
     }
 
     /**
@@ -402,6 +404,7 @@ module.exports = class Balance extends Model {
                     , Util.addPlusOrSpace(this.getProfit(), 8)
                     , Util.addPlusOrSpace(this.getProfitFactor() ? this.getProfitFactor() : 0) + '%'
                     , Util.pad(this.getUsdtBalance() ? this.getUsdtBalance() : 0)
+                    , Util.pad(this.getBtcBalance() ? this.getBtcBalance() : 0)
         ].join("</td><td>")) + "</td>";
     }
 }

@@ -18,7 +18,8 @@ table tr th {
     text-transform: uppercase;
     border-bottom: #404D7A 1px solid;
     padding: 10px;
-
+    word-wrap: break-word;
+    word-break: break-all;
 }
 table tr td {
     color: #FFF;
