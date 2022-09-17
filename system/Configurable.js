@@ -71,10 +71,6 @@ module.exports = class Configurable {
     static getConfig(property) {
         return Configurable.configuration[property] || null;
     }
-    
-    static setConfig(property, value) {
-        Configurable.configuration[this.name][property] = value;
-    }
 
     static async getConfigFile(fileName, callback) {
         fileName = fileName || Configurable.configFileName;
@@ -141,15 +137,47 @@ module.exports = class Configurable {
         return Configurable.getConfig(this.name)[property] || null;
     }
     
-    
     /**
+     * Set a config property
+     * 
+     * @param {string} property
+     * @param {Number|String|Array|Boolean|Object|Null} value
+     * @param {function} callback
+     * @returns {undefined}
+     */
+     setConfig(property, value) {
+        Configurable.configuration[this.name][property] = value;
+    }
+    
+        /**
      * Get config for class
      * 
      * @param {String} property Property name
      * @returns {Number|String|Array|Boolean|Object|Null}
      */
-    static updateConfig(property, value, callback) {
-        this.setConfig(property, value) || null;
+    static commitConfig(callback) {
+        return Configurable.commitConfig(callback);
+    }
+    
+    /**
+     * Set a config property
+     * 
+     * @param {string} property
+     * @param {Number|String|Array|Boolean|Object|Null} value
+     * @param {function} callback
+     * @returns {undefined}
+     */
+    static setConfig(property, value) {
+        Configurable.configuration[this.name][property] = value;
+    }
+    
+    /**
+     * Update config file to current configuration
+     * 
+     * @param {function} callback
+     * @returns {undefined}
+     */
+    static commitConfig(callback) {
         this.setConfigFile(Configurable.configFileName, callback);
     }
 

@@ -196,11 +196,11 @@ module.exports = class Market extends Model {
         Object.assign(this, market);
         this.getCurrencies();
         this.orderBook = new OrderBook(this);
-
-        this.baseCurrency.addMarket(this);
-        this.quoteCurrency.addMarket(this);
-
-        return this;
+        if(this.baseCurrency && this.quoteCurrency) {
+            this.baseCurrency.addMarket(this);
+            this.quoteCurrency.addMarket(this);
+            return this;
+        }
     }
 
     /**

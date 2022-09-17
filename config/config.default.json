@@ -15,7 +15,7 @@
         "orderType": "LIMIT"
     },
     "Currency": {
-        "base": "USDT",
+        "base": "BTC",
         "allow": [
             "BTC",
             "ETH",
@@ -69,5 +69,12 @@
     },
     "User": {
         "password" : ""
+    },
+    "Security": {
+        "salt" : "",
+        "pepper" : ""
+    },
+    "Setup": {
+        "doneFirstTime" : ""
     }
 }

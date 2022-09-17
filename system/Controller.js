@@ -1,5 +1,6 @@
 var fs = require('fs');
 var util = require('util');
+var View = require('./View.js');
 var Configurable = require('./Configurable.js');
 
 var existsSync = util.promisify(fs.existsSync);
@@ -67,5 +68,11 @@ module.exports = class Controller extends Configurable {
         socket.emit('request not found.');
         return false;
     }
+    
+    
+    static actionReload(uriParts, request, response) {
+        View.render('util/reload', {}, response);
+    }
+
 
 };
