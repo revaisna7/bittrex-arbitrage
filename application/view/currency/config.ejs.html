@@ -7,6 +7,10 @@
                     <th>Logo</th>
                     <th>Symbol</th>
                     <th>Name</th>
+                    <th>Min Confirmations</th>
+                    <th>notice</th>
+                    <th>Transaction Fee</th>
+                    <th>Markets</th>
                 </tr>
                 <% for(var i=0; i < allCurrencies.length; i++) { %>
                 <tr>
@@ -18,6 +22,10 @@
                     <td><img src="<%= allCurrencies[i].logoUrl %>"></td>
                     <td><%= allCurrencies[i].symbol %></td>
                     <td><%= allCurrencies[i].name %></td>
+                    <td><%= allCurrencies[i].minConfirmations %></td>
+                    <td><%= allCurrencies[i].notice %></td>
+                    <td><%= allCurrencies[i].txFee %></td>
+                    <td><%= allCurrencies[i].markets.length %></td>
                 </tr>
                 <% } %>
             </table>

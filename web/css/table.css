@@ -17,7 +17,7 @@ table tr th {
     font-size: 14px;
     text-transform: uppercase;
     border-bottom: #404D7A 1px solid;
-    padding: 20px;
+    padding: 10px;
 
 }
 table tr td {
@@ -25,8 +25,8 @@ table tr td {
     font-size: 14px;
     text-align: center;
     padding: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 table tr {
 }
