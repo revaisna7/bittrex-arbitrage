@@ -25,6 +25,9 @@ or
 ```
 node bootstrap.js
 ```
+
+![screenshot](https://i.snipboard.io/dob8r5.jpg)
+
 Visit [http://localhost/](http://localhost/) in your browser
 
 # Configuration
