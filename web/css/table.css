@@ -27,9 +27,9 @@ table tr td {
     padding: 10px;
     word-wrap: break-word;
     word-break: break-all;
+    vertical-align: middle;
 }
-table tr {
-}
+
 table tr td:first-child {
     border-radius: 20px 0px 0px 20px;
 }
@@ -44,4 +44,10 @@ table tr td table tr:nth-child(2n+3) {
 }
 table tr td table tr td {
     padding: 0px;
+}
+table tr:not(:has(th)) {
+    cursor: pointer;
+}
+table tr:not(:has(th)):hover {
+    background: #404D7A;
 }

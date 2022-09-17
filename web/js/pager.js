@@ -2,11 +2,15 @@ function init() {
     page('/arbitrage/arbitrage');
 }
 
-function page(action, elementId) {
+function page(action, elementId, callback) {
     var elementId = elementId || 'page';
-    console.log('Load page ' + action );
+    var callback = callback || undefined;
+    console.log('Load page ' + action);
     $.get(action, function(data) {
         render(data, elementId);
+        if(callback) {
+            callback(data);
+        }
     });
 }
 

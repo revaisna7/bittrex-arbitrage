@@ -4,7 +4,6 @@ var Bittrex = require('../../exchange/bittrex/Bittrex.js');
 var View = require('../../system/View.js');
 var User = require('../model/User.js');
 var Security = require('../model/Security.js');
-var UserController = require('./UserController.js');
 
 module.exports = class SecurityController extends Controller {
 

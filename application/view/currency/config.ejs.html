@@ -1,4 +1,5 @@
 <form action="/currency/config" method="post" id="currencyConfig">
+    <h2>Currencies</h2>
     <div class="row">
         <div class="col-xs-24 table-container">
             <table>
@@ -8,9 +9,9 @@
                     <th>Symbol</th>
                     <th>Name</th>
                     <th>Min Confirmations</th>
-                    <th>notice</th>
                     <th>Transaction Fee</th>
                     <th>Markets</th>
+                    <th>Notice</th>
                 </tr>
                 <% for(var i=0; i < allCurrencies.length; i++) { %>
                 <tr>
@@ -23,9 +24,9 @@
                     <td><%= allCurrencies[i].symbol %></td>
                     <td><%= allCurrencies[i].name %></td>
                     <td><%= allCurrencies[i].minConfirmations %></td>
-                    <td><%= allCurrencies[i].notice %></td>
                     <td><%= allCurrencies[i].txFee %></td>
                     <td><%= allCurrencies[i].markets.length %></td>
+                    <td><%= allCurrencies[i].notice %></td>
                 </tr>
                 <% } %>
             </table>
