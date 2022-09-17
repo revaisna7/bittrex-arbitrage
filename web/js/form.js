@@ -9,7 +9,7 @@ function registerForms() {
             data: form.serialize(),
             success: function (data)
             {
-                render(data);
+                render(data, form.attr('id'));
             }
         });
     });

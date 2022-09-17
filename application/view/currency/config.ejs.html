@@ -1,0 +1,31 @@
+<form action="/currency/config" method="post" id="currencyConfig">
+    <div class="row">
+        <div class="col-xs-24 table-container">
+            <table>
+                <tr>
+                    <th>Allow</th>
+                    <th>Logo</th>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                </tr>
+                <% for(var i=0; i < allCurrencies.length; i++) { %>
+                <tr>
+                    <% if(allCurrencies[i].isAllowed()) { %>
+                    <td><input type="checkbox" name="symbol[]" value="<%= allCurrencies[i].symbol %>" checked="checked"></td>
+                    <% } else { %>
+                    <td><input type="checkbox" name="symbol[]" value="<%= allCurrencies[i].symbol %>"></td>
+                    <% } %>
+                    <td><img src="<%= allCurrencies[i].logoUrl %>"></td>
+                    <td><%= allCurrencies[i].symbol %></td>
+                    <td><%= allCurrencies[i].name %></td>
+                </tr>
+                <% } %>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 push-xs-20">
+            <input type="submit" value="Update allowed currencies">
+        </div>
+    </div>
+</form>
