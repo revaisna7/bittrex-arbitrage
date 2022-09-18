@@ -10,7 +10,7 @@ To enable trades the trader must hold enough balance in each currency.
 ![screenshot](https://i.snipboard.io/5qQg4j.jpg)
 
 # Strategy
-Bittrex Arbitrage is based on the principle of Triangular arbitrage in where conflicts in markets prices result in ocassions where currencies are worth more than before you traded them. Bittrex Arbitrage features different strategies. Conflicts happen due to discrepencies in market prices and floating value rouding errors. Bittrex Arbitrage does not base your book on a single currency, rather you must hold enough balance in each currency you want to trade. The strategy should accumulate more of each currency over time.
+Bittrex Arbitrage is based on the principle of Triangular arbitrage in where conflicts in markets prices result in ocassions where currencies are worth more than before you traded them. Bittrex Arbitrage features different strategies. Conflicts happen due to discrepencies in market prices and floating value rounding errors. Bittrex Arbitrage does not base your book on a single currency, rather you must hold enough balance in each currency you want to trade. The strategy should accumulate more of each currency over time.
 
 ## Modes
 ### Instant
