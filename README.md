@@ -10,20 +10,20 @@ To enable trades the trader must hold enough balance in each currency.
 ![screenshot](https://i.snipboard.io/5qQg4j.jpg)
 
 # Strategy
-Bittrex Arbitrage is based on the principle of Triangular arbitrage in where conflicts in markets prices result in ocassions where currencies are worth more than before you traded them. Bittrex Arbitrage features different strategies. Conflicts happen due to discrepencies in market prices and floating value rounding errors. Bittrex Arbitrage does not base your book on a single currency, rather you must hold enough balance in each currency you want to trade. The strategy should accumulate more of each currency over time.
+Bittrex Arbitrage is based on the triangular arbitrage trading strategy in where conflicts in markets prices result in ocassions where currencies are worth more than before you traded them. Conflicts happen due to discrepencies in market prices and floating point rounding errors. Bittrex Arbitrage does not base your book on a single currency, rather you must hold enough balance in each currency you want to trade. The strategy should accumulate more of each currency over time. Bittrex Arbitrage features different strategy modes.
 
 ## Modes
 ### Instant
-Basing it on instant in the now arbs is difficult because it takes somewhere around 5-30 seconds to complete all three trades automatically. They also don't happen often nor hang around long, when they do profits are generally marginal except for exceptional occasions. When there's a big market gap, sometimes it ends in a temporary infinite trading loop and takes quick profits.
+Instant arbs are in the now arbs and are difficult to find because it takes somewhere around 5-30 seconds to complete all three trades automatically. They also don't happen often nor hang around long, when they do profits are generally marginal except for exceptional occasions. When there's a big market gap, sometimes it ends in a temporary infinite trading loop and takes quick profits.
 
 ### Potential
 You can take some more risk, by not seeking instant arbs, but potential arbs by reversing between buy/sell (bid/ask) prices. Your arbs will be slightly more risky and you will need to wait some time to fill, but the price difference from market price is so low they generally fill quite fast, usually within a day. They will be more profitable and happen slightly more often.
 
 ### Fixed
-In fixed mode the prices fixed to make sure they will always guarantee a profit. You can configure the profit you want to fix by. These are much more risky, but really convenient for testing purposes. When these fill you get really good profits, but sometimes they don't fill at all as you are betting that the market goes in the right direction.
+In fixed mode the prices are fixed to make sure they will always guarantee a profit. You can configure the profit you want to fix by. These are much more risky, but really convenient for testing purposes. When these fill you get really good profits, but sometimes they don't fill at all as you are betting that the market goes in the right direction.
 
 # Note
-Keep into account is the amount of volume your trading account makes. When you make enough volume your maker and taker fees go down dramatically as Bittrex gives you lower exchange fees based on the amount of volume your accounts creates over a period of 30 days. The lower you can get the exchange fee the easier it is to find profitable arbs. [more info](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-Bittrex-fees)
+Keep into account the amount of volume your trading account makes. When you make enough volume your maker and taker fees go down drastically as Bittrex gives you lower exchange fees based on the amount of volume your accounts creates over a period of 30 days. The lower you can get the exchange fee the easier it is to find profitable arbs. [more info](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-Bittrex-fees)
 
 # Installation
 Bittrex Arbitrage requires [Node.js](https://nodejs.org/) v12+ to run.
@@ -63,7 +63,7 @@ Login using your password
 ![screenshot](https://i.snipboard.io/kMXKb1.jpg)
 
 # Configuration Parameters
-You may optionally configure in the json file './config/config.json'. This file will be created automatically on initial run.
+You may optionally configure in the json file `./config/config.json`. This file will be created automatically on initial run.
 
 ### Route
 | option | type | description |
@@ -142,7 +142,13 @@ You may optionally configure in the json file './config/config.json'. This file 
 ### User
 | option | type | description |
 | ------ | ------ | ------ |
-| password | strring | Password for login in. |
+| password | string | Password hash for login in. |
+
+### Security
+| option | type | description |
+| ------ | ------ | ------ |
+| salt | string | Salt, regenerated with shake function. |
+| pepper | string | Pepper, regenerated with shake function. |
 
 # Todos
  - Integrate API v3
