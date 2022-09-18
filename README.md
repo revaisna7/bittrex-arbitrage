@@ -14,7 +14,7 @@ Bittrex Arbitrage is based on the triangular arbitrage trading strategy in where
 
 ## Modes
 ### Instant
-Instant arbs are in the now arbs and are difficult to find because it takes somewhere around 5-30 seconds to complete all three trades automatically. They also don't happen often nor hang around long, when they do profits are generally marginal except for exceptional occasions. When there's a big market gap, sometimes it ends in a temporary infinite trading loop and takes quick profits.
+Instant arbs are based on current market prices. Instant arbs are in the now arbs and are difficult to find. It takes somewhere between 5-30 seconds given a decent network connection and decent hardware, to complete all three trades automatically. They also don't happen often nor hang around long, when they do profits are generally marginal except for exceptional occasions. When there's a big market gap, sometimes it ends in a temporary infinite trading loop and takes quick profits.
 
 ### Potential
 You can take some more risk, by not seeking instant arbs, but potential arbs by reversing between buy/sell (bid/ask) prices. Your arbs will be slightly more risky and you will need to wait some time to fill, but the price difference from market price is so low they generally fill quite fast, usually within a day. They will be more profitable and happen slightly more often.
