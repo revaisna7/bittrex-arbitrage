@@ -20,7 +20,7 @@ Instant arbs are based on current market prices. Instant arbs are in the now arb
 You can take some more risk, by not seeking instant arbs, but potential arbs by reversing between buy/sell (bid/ask) prices. Your arbs will be slightly more risky and you will need to wait some time to fill, but the price difference from market price is so low they generally fill quite fast, usually within a day. They will be more profitable and happen slightly more often.
 
 ### Median
-Median is like potential mode, only rather than go complete reverse, the difference between ask/bid prices is divided by half and added/subtracted to the price in which case you will be sitting directly in the middle of the order book at the moment in time the trades are placed. This is slightly less risky but risky none the less.
+Median is like potential mode, only rather than go complete reverse, the difference between ask/bid prices is divided by half and added/subtracted to the price in which case you will be sitting directly in the middle of the order book at the moment in time the trades are placed. This is slightly less risky than median but risky none the less.
 
 ### Fixed
 In fixed mode the prices are fixed to make sure they will always guarantee a profit. You can configure the profit you want to fix by. These are much more risky, but really convenient for testing purposes. When these fill you get really good profits, but sometimes they don't fill at all as you are betting that the market goes in the right direction.
