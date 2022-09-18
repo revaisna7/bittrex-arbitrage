@@ -23,7 +23,7 @@ You can take some more risk, by not seeking instant arbs, but potential arbs by 
 In fixed mode the prices are fixed to make sure they will always guarantee a profit. You can configure the profit you want to fix by. These are much more risky, but really convenient for testing purposes. When these fill you get really good profits, but sometimes they don't fill at all as you are betting that the market goes in the right direction.
 
 # Note
-Keep into account the amount of volume your trading account makes. When you make enough volume your maker and taker fees go down dramatically as Bittrex gives you lower exchange fees based on the amount of volume your accounts creates over a period of 30 days. The lower you can get the exchange fee the easier it is to find profitable arbs. [more info](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-Bittrex-fees)
+Keep into account the amount of volume your trading account makes. When you make enough volume your maker and taker fees go down drastically as Bittrex gives you lower exchange fees based on the amount of volume your accounts creates over a period of 30 days. The lower you can get the exchange fee the easier it is to find profitable arbs. [more info](https://bittrex.zendesk.com/hc/en-us/articles/115000199651-Bittrex-fees)
 
 # Installation
 Bittrex Arbitrage requires [Node.js](https://nodejs.org/) v12+ to run.
