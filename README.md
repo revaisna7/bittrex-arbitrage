@@ -10,17 +10,17 @@ To enable trades the trader must hold enough balance in each currency.
 ![screenshot](https://i.snipboard.io/5qQg4j.jpg)
 
 # Strategy
-Bittrex Arbitrage is based on the triangular arbitrage trading strategy in where conflicts in market prices result in ocassions where currencies are worth more than before you traded them. Conflicts happen due to discrepencies in market prices and floating point rounding errors. Bittrex Arbitrage does not base your book on a single currency, rather you must hold enough balance in each currency you want to trade. The strategy should accumulate more of each currency over time. Bittrex Arbitrage features different strategy modes. The risk you are taking is whehter you can place your orders on time before the conflict in the market is already filled by another trader.
+Bittrex Arbitrage is based on the triangular arbitrage trading strategy in where conflicts in market prices result in ocassions where currencies are worth more than before you traded them. Conflicts happen due to discrepencies in market prices and floating point rounding errors. Bittrex Arbitrage does not base your book on a single currency, rather you must hold enough balance in each currency you want to trade. The strategy should accumulate more of each currency over time. Bittrex Arbitrage features different strategy modes.
 
 ## Modes
 ### Instant
-Instant arbs are based on current market prices. Instant arbs are in the now arbs and are difficult to find. It takes somewhere between 5-30 seconds given a decent network connection and decent hardware, to complete all three trades automatically. They also don't happen often nor hang around long, when they do profits are generally marginal except for exceptional occasions. When there's a big market gap, sometimes it ends in a temporary infinite trading loop and takes quick profits.
+Instant arbs are based on current market prices. Instant arbs are in the now arbs and are difficult to find. It takes somewhere between 5-30 seconds given a decent network connection and decent hardware, to complete all three trades automatically. They also don't happen often nor hang around long, when they do profits are generally marginal except for exceptional occasions. When there's a big market gap, sometimes it ends in a temporary infinite trading loop and takes quick profits. The risk you are taking is whehter you can place your orders on time before the conflict in the market is already filled by another trader.
 
 ### Potential
 You can take some more risk, by not seeking instant arbs, but potential arbs by reversing between buy/sell (bid/ask) prices. Your arbs will be slightly more risky and you will need to wait some time to fill, but the price difference from market price is so low they generally fill quite fast, usually within a day. They will be more profitable and happen slightly more often.
 
 ### Median
-Median is like potential mode, only rather than go complete reverse, the difference between ask/bid prices is divided by half and added/subtracted to the price in which you will be sitting directly in the middle of the order book at the time the trades are placed. This is slightly less risky but risky none the less.
+Median is like potential mode, only rather than go complete reverse, the difference between ask/bid prices is divided by half and added/subtracted to the price in which you will be sitting directly in the middle of the order book at the moment in time the trades are placed. This is slightly less risky but risky none the less.
 
 ### Fixed
 In fixed mode the prices are fixed to make sure they will always guarantee a profit. You can configure the profit you want to fix by. These are much more risky, but really convenient for testing purposes. When these fill you get really good profits, but sometimes they don't fill at all as you are betting that the market goes in the right direction.
