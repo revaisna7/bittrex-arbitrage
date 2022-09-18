@@ -31,7 +31,7 @@
             "USD-USDT",
             "USDT-USD"
         ],
-        "updateInterval" : 2000
+        "updateInterval" : 10000
     },
     "Bittrex": {
         "apikey": "",
@@ -61,14 +61,14 @@
         "webDirectory": "./web"
     },
     "ArbitrageController": {
-        "socketInterval": 100
+        "socketInterval": 333
     },
     "User": {
-        "password" : ""
+        "password" : null
     },
     "Security": {
-        "salt" : "",
-        "pepper" : ""
+        "salt" : null,
+        "pepper" : null
     },
     "Setup": {
         "doneFirstTime" : ""

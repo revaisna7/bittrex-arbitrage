@@ -124,7 +124,9 @@ module.exports = class Balance extends Model {
             }
         }
         for (var i in Balance.list) {
-            this.list[i].setAccumulateStart(this.accumulateStart(this.list[i].getCurrency()));
+            if(this.list[i].accumulateStart === 0) {
+                this.list[i].setAccumulateStart(this.accumulateStart(this.list[i].getCurrency()));
+            }
         }
     }
 
@@ -208,7 +210,7 @@ module.exports = class Balance extends Model {
      */
     static consoleOutput() {
         if (Currency.BTC && Currency.USDT) {
-            var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>Total</th><th>Start</th><th>Profit</th><th>Factor</th><th><img src=\"" + Currency.USDT.logoUrl + "\"> USDT</th><th><img src=\"" + Currency.BTC.logoUrl + "\"> BTC</th></tr>";
+            var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>Now</th><th>Start</th><th>Profit</th><th>Factor</th><th><img src=\"" + Currency.USDT.logoUrl + "\"> USDT</th><th><img src=\"" + Currency.BTC.logoUrl + "\"> BTC</th></tr>";
             var balancesOutput = '';
             for (var i in Balance.list) {
                 Balance.list[i].setAccumulateNow(Balance.accumulate(Balance.list[i].getCurrency()));

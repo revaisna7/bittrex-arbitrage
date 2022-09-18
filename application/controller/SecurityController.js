@@ -15,7 +15,7 @@ module.exports = class SecurityController extends Controller {
     }
 
     static hasPassword() {
-        return User.config('password') !== null;
+        return User.config('password');
     }
 
     static needsPassword(uriParts, request, response) {
@@ -28,7 +28,7 @@ module.exports = class SecurityController extends Controller {
     }
 
     static hasApiSettings() {
-        return Bittrex.config('apikey') !== null || Bittrex.config('apisecret') !== null;
+        return Bittrex.config('apikey') && Bittrex.config('apisecret');
     }
 
     static needsApiSettings(uriParts, request, response) {

@@ -134,7 +134,7 @@ module.exports = class Configurable {
      * @returns {Number|String|Array|Boolean|Object|Null}
      */
     static config(property) {
-        return Configurable.getConfig(this.name)[property] || null;
+        return Configurable.getConfig(this.name) ? Configurable.getConfig(this.name)[property] : null;
     }
     
     /**

@@ -19,4 +19,4 @@ setTimeout(() => {
     if(Bittrex.config('apikey') && Bittrex.config('apisecret')) {
         Arbitrage.start();
     }
-}, 2000);
+}, 5000);
