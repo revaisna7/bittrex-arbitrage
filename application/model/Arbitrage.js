@@ -27,7 +27,7 @@ module.exports = class Arbitrage extends Model {
             setTimeout(() => {
                 console.log('Initializing Routes...');
                 Arbitrage.Route.init();
-            }, 5000);
+            }, 2000);
         }
     }
 

@@ -87,7 +87,7 @@ module.exports = class Market extends Model {
     static list = [];
 
     static tickerInterval = null;
-    
+
     static updateInterval = null;
 
     /**
@@ -190,7 +190,7 @@ module.exports = class Market extends Model {
         Object.assign(this, market);
         this.getCurrencies();
         this.orderBook = new OrderBook(this);
-        if(this.baseCurrency && this.quoteCurrency) {
+        if (this.baseCurrency && this.quoteCurrency) {
             this.baseCurrency.addMarket(this);
             this.quoteCurrency.addMarket(this);
             return this;
@@ -482,7 +482,7 @@ module.exports = class Market extends Model {
         var output = isBase ? inputQuantity / price : price * inputQuantity;
         return  output;
     }
-    
+
     /**
      * Convert the input currency to the output currency at median market price
      * Also calculates commission
@@ -534,7 +534,7 @@ module.exports = class Market extends Model {
             let markets = await Bittrex.markets();
             for (var i in markets) {
                 var market = market.getBySymbol(markets[i].symbol);
-                if(market) {
+                if (market) {
                     market.minTradeSize = markets[i].minTradeSize;
                 }
             }
@@ -542,12 +542,12 @@ module.exports = class Market extends Model {
             console.log(e);
         }
     }
-    
+
     static subscribeTickers() {
         clearInterval(Market.tickerInterval);
         Market.tickerInterval = setInterval(Market.updateTickers, Market.config('updateInterval'));
     }
-    
+
     static async updateTickers() {
         try {
             var tickers = await Bittrex.marketTickers();
@@ -558,21 +558,21 @@ module.exports = class Market extends Model {
                 }
             }
         } catch (e) {
-//            console.log(e);
+            console.log(e);
         }
     }
-    
+
     static subscribeSocket() {
-        
+
         var channels = [];
-        for(var i in Market.list) {
-            if(Market.list[i].routes.length > 0) {
+        for (var i in Market.list) {
+            if (Market.list[i].routes.length > 0) {
                 channels.push("ticker_" + Market.list[i].symbol);
             }
         }
-        this.socket = new BittrexSocket(Bittrex.config('apikey'), Bittrex.config('apisecret'), channels, Market.updateSocketTickers);
+        BittrexSocket.construct(Bittrex.config('apikey'), Bittrex.config('apisecret'), channels, Market.updateSocketTickers);
     }
-    
+
     static subscribeFeesAndMinTradeSizes() {
         clearInterval(Market.updateInterval);
         Market.interval = setInterval(Market.updateFeesAndMinTradeSizes, 5000);
@@ -589,6 +589,5 @@ module.exports = class Market extends Model {
             market.orderBook.update(ticker.askRate, ticker.bidRate, ticker.lastTradeRate);
         }
     }
-    
 
 };

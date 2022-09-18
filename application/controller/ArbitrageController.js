@@ -37,13 +37,13 @@ module.exports = class ArbitrageController extends SecurityController {
 
     static actionArbitrage(uriParts, request, response) {
         if (ArbitrageController.authenticate(uriParts, request, response)) {
-            setTimeout(() => {
+            if(!ArbitrageController.Arbitrage.initialized) {
                 ArbitrageController.Arbitrage.start();
-            }, 1000);
+            }
             console.log("Request abritrage...");
             View.render('arbitrage/routes', {}, response);
         } else {
-            ArbitrageController.actionLogin(uriParts, request, response);
+            ArbitrageController.reload();
         }
     }
 

@@ -15,45 +15,45 @@ const uuid = require('uuid');
 
 module.exports = class BittrexSocket {
 
-    url = 'wss://socket-v3.bittrex.com/signalr';
-    hub = ['c3'];
+    static url = 'wss://socket-v3.bittrex.com/signalr';
+    static hub = ['c3'];
 
-    apikey = '';
-    apisecret = '';
+    static apikey = '';
+    static apisecret = '';
     
-    channels = [];
+    static channels = [];
     static callback = () => {};
 
+    static authFunction = () => {};
+    
     static client;
-    static instance;
     
     static resolveInvocationPromise = () => { };
     
-    constructor(apikey, apisecret, channels, callback) {
+    static construct(apikey, apisecret, channels, callback) {
         console.log('innit bittrex socket')
-        this.apikey = apikey;
-        this.apisecret = apisecret;
-        this.channels = channels;
+        BittrexSocket.apikey = apikey;
+        BittrexSocket.apisecret = apisecret;
+        BittrexSocket.channels = channels || [];
         BittrexSocket.callback = callback;
-        BittrexSocket.instance = this;
-        this.main();
+        BittrexSocket.main();
     }
     
-    async main() {
-        BittrexSocket.client = await this.connect();
-        if (this.apisecret) {
-            await this.authenticate(BittrexSocket.client);
+    static async main() {
+        BittrexSocket.client = await BittrexSocket.connect();
+        BittrexSocket.authFunction = BittrexSocket.authenticate;
+        if (BittrexSocket.apisecret) {
+            await BittrexSocket.authenticate(BittrexSocket.client);
         } else {
             console.log('Authentication skipped because API key was not provided')
         }
         await this.subscribe(BittrexSocket.client);
     }
 
-    async connect() {
-        var _this = this;
+    static async connect() {
         return new Promise((resolve) => {
-            const client = new signalR.client(_this.url, _this.hub);
-            client.serviceHandlers.messageReceived = this.messageReceived;
+            const client = new signalR.client(BittrexSocket.url, BittrexSocket.hub);
+            client.serviceHandlers.messageReceived = BittrexSocket.messageReceived;
             client.serviceHandlers.connected = () => {
                 console.log('Connected');
                 return resolve(client)
@@ -61,14 +61,14 @@ module.exports = class BittrexSocket {
         });
     }
 
-    async authenticate(client) {
+    static async authenticate(client) {
         const timestamp = new Date().getTime()
         const randomContent = uuid.v4()
         const content = `${timestamp}${randomContent}`
-        const signedContent = crypto.createHmac('sha512', this.apisecret).update(content).digest('hex').toUpperCase()
+        const signedContent = crypto.createHmac('sha512', BittrexSocket.apisecret).update(content).digest('hex').toUpperCase()
 
-        const response = await this.invoke(client, 'authenticate',
-                this.apikey,
+        const response = await BittrexSocket.invoke(client, 'authenticate',
+                BittrexSocket.apikey,
                 timestamp,
                 randomContent,
                 signedContent);
@@ -80,11 +80,11 @@ module.exports = class BittrexSocket {
         }
     }
 
-    async subscribe(client) {
-        const channels = this.channels;
-        const response = await this.invoke(client, 'subscribe', channels);
+    static async subscribe(client) {
+        const channels = BittrexSocket.channels;
+        const response = await BittrexSocket.invoke(client, 'subscribe', channels);
 
-        for (var i = 0; i < channels.length; i++) {
+        for (var i = 0; i < BittrexSocket.channels.length; i++) {
             if (response[i]['Success']) {
                 console.log('Subscription to "' + channels[i] + '" successful');
             } else {
@@ -93,12 +93,11 @@ module.exports = class BittrexSocket {
         }
     }
 
-    async invoke(client, method, ...args) {
-        var _this = this;
+    static async invoke(client, method, ...args) {
         return new Promise((resolve, reject) => {
             BittrexSocket.resolveInvocationPromise = resolve; // Promise will be resolved when response message received
 
-            client.call(_this.hub[0], method, ...args)
+            client.call(BittrexSocket.hub[0], method, ...args)
                     .done(function (err) {
                         if (err) {
                             return reject(err);
@@ -107,7 +106,7 @@ module.exports = class BittrexSocket {
         });
     }
 
-    messageReceived(message) {
+    static messageReceived(message) {
         const data = JSON.parse(message.utf8Data);
         if (data['R']) {
             BittrexSocket.resolveInvocationPromise(data.R);
@@ -129,7 +128,7 @@ module.exports = class BittrexSocket {
                         console.log('\u2661');
                     } else if (m.M == 'authenticationExpiring') {
                         console.log('Authentication expiring...');
-                        _this.authenticate(client);
+                        BittrexSocket.authFunction(BittrexSocket.client);
                     }
                 }
             });
