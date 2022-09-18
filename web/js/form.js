@@ -16,3 +16,11 @@ function registerForms() {
         });
     });
 }
+
+function registerCheckboxes() {
+    $('table tr').click(function (e) {
+        if($(e.target).attr('type') !== 'checkbox') {
+            $(this).find('input').prop('checked', !$(this).find('input').prop('checked'));
+        }
+    });
+}

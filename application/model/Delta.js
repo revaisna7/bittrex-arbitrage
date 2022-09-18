@@ -40,7 +40,7 @@ module.exports = class Delta extends Model {
 
     getPrice() {
         this.priceDeviation = Delta.config('priceDeviation') || 0;
-        if (this.getMode() === "speculate") {
+        if (this.getMode() === "potential") {
             this.price = this.market.getPotentialPrice(this.outputCurrency);
         }
         if (this.getMode() === "median") {

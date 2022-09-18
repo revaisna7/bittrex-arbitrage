@@ -80,7 +80,7 @@ You may optionally configure in the json file `./config/config.json`. This file 
 ### Delta
 | option | type | description |
 | ------ | ------ | ------ |
-| mode | string | Calculation mode strategy. Possible modes are: 'speculate', 'medain', 'instant', 'fixed' |
+| mode | string | Calculation mode strategy. Possible modes are: 'instant', 'potential', 'medain', 'fixed' |
 | fix | number | For fixed mode the amount of profit to fix routes by. |
 
 ### Trade

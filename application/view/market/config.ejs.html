@@ -1,0 +1,42 @@
+<form action="/market/config" method="post" id="marketConfig">
+    <h2>Markets (<%= markets.length %>)</h2>
+    <div class="row">
+        <div class="col-xs-24 table-container">
+            <table>
+                <tr>
+                    <th>Restrict</th>
+                    <th>Symbol</th>
+                    <th>baseCurrencySymbol</th>
+                    <th>quoteCurrencySymbol</th>
+                    <th>precision</th>
+                    <th>makerFee</th>
+                    <th>takerFee</th>
+                    <th>status</th>
+                    <th>notice</th>
+                </tr>
+                <% for(var i=0; i < markets.length; i++) { %>
+                    <tr>
+                        <% if(markets[i].isRestricted()) { %>
+                        <td><input type="checkbox" name="symbol[]" value="<%= markets[i].symbol %>" checked="checked"></td>
+                        <% } else { %>
+                        <td><input type="checkbox" name="symbol[]" value="<%= markets[i].symbol %>"></td>
+                        <% } %>
+                        <td><%= markets[i].symbol %></td>
+                        <td><img src="<%= markets[i].baseCurrency ? markets[i].baseCurrency.logoUrl : '' %>"> <%= markets[i].baseCurrencySymbol %></td>
+                        <td><img src="<%= markets[i].quoteCurrency ? markets[i].quoteCurrency.logoUrl : '' %>"> <%= markets[i].quoteCurrencySymbol %></td>
+                        <td><%= markets[i].precision %></td>
+                        <td><%= markets[i].makerFee %></td>
+                        <td><%= markets[i].takerFee %></td>
+                        <td><%= markets[i].status %></td>
+                        <td><%= markets[i].notice %></td>
+                    </tr>
+                <% } %>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 push-xs-20">
+            <input type="submit" value="Update restricted markets">
+        </div>
+    </div>
+</form>

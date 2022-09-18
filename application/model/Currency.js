@@ -324,7 +324,7 @@ module.exports = class Currency extends Model {
      * @param {Currency} currency
      * @returns {Number}
      */
-    getPotentialPrice(currency) {
+    getMedianPrice(currency) {
         return this.getMarket(currency).getMedianPrice(currency);
     }
 
