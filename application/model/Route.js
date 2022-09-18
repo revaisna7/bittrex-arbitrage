@@ -1,5 +1,6 @@
 var Model = require('../../system/Model.js');
 var Balance = require('./Balance.js');
+var Market = require('./Market.js');
 var Currency = require('./Currency.js');
 var Delta = require('./Delta.js');
 var Util = require('../../system/Util.js');
@@ -82,6 +83,7 @@ module.exports = class Route extends Model {
             }
         }
         this.finding = false;
+        Market.subscribeSocket();
     }
 
     static clear() {

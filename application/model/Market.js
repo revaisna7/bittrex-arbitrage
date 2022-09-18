@@ -3,8 +3,11 @@ var Trade = require('./Trade.js');
 var OrderBook = require('./OrderBook.js');
 var Currency = require('./Currency.js');
 var Bittrex = require('../../exchange/bittrex/Bittrex.js');
+var BittrexSocket = require('../../exchange/bittrex/BittrexSocket.js');
 
 module.exports = class Market extends Model {
+
+    static socket = null;
 
     /**
      * @property {String} symbol 
@@ -93,8 +96,9 @@ module.exports = class Market extends Model {
      */
     static async init() {
         console.log('Inititialize Market...');
+        await Market.getAll();
         Market.subscribeTickers();
-        return await Market.getAll();
+        return this;
     }
 
     /**
@@ -121,16 +125,6 @@ module.exports = class Market extends Model {
      */
     static push(market) {
         Market.list.push(market);
-    }
-
-    /**
-     * @TODO
-     * 
-     * @returns {undefined}
-     */
-    static subscribeOrderBooks() {
-        Market.startOrderBooksUpdates();
-        Market.subscribeSockets();
     }
 
     /**
@@ -554,16 +548,6 @@ module.exports = class Market extends Model {
         Market.tickerInterval = setInterval(Market.updateTickers, Market.config('updateInterval'));
     }
     
-    static subscribeFeesAndMinTradeSizes() {
-        clearInterval(Market.updateInterval);
-        Market.interval = setInterval(Market.updateFeesAndMinTradeSizes, 5000);
-    }
-
-    static async updateFeesAndMinTradeSizes() {
-        await Market.updateFees();
-        await Market.updateMinTradeSize();
-    }
-
     static async updateTickers() {
         try {
             var tickers = await Bittrex.marketTickers();
@@ -575,6 +559,34 @@ module.exports = class Market extends Model {
             }
         } catch (e) {
 //            console.log(e);
+        }
+    }
+    
+    static subscribeSocket() {
+        
+        var channels = [];
+        for(var i in Market.list) {
+            if(Market.list[i].routes.length > 0) {
+                channels.push("ticker_" + Market.list[i].symbol);
+            }
+        }
+        this.socket = new BittrexSocket(Bittrex.config('apikey'), Bittrex.config('apisecret'), channels, Market.updateSocketTickers);
+    }
+    
+    static subscribeFeesAndMinTradeSizes() {
+        clearInterval(Market.updateInterval);
+        Market.interval = setInterval(Market.updateFeesAndMinTradeSizes, 5000);
+    }
+
+    static async updateFeesAndMinTradeSizes() {
+        await Market.updateFees();
+        await Market.updateMinTradeSize();
+    }
+
+    static async updateSocketTickers(ticker) {
+        var market = Market.getBySymbol(ticker.symbol);
+        if (market) {
+            market.orderBook.update(ticker.askRate, ticker.bidRate, ticker.lastTradeRate);
         }
     }
     
