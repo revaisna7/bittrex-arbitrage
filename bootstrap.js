@@ -7,7 +7,7 @@ setTimeout(() => {
     // init web server
     var WebServer = require('./system/WebServer.js');
     var SocketServer = require('./system/SocketServer.js');
-    var ArbitrageController = require('./application/controller/ArbitrageController.js');
+    var Arbitrage = require('./application/model/Arbitrage.js');
     var Bittrex = require('./exchange/bittrex/Bittrex.js');
 
     console.log("Initializing webserver");
@@ -17,6 +17,6 @@ setTimeout(() => {
     SocketServer.init();
     
     if(Bittrex.config('apikey') && Bittrex.config('apisecret')) {
-        ArbitrageController.Arbitrage.start();
+        Arbitrage.start();
     }
 }, 2000);

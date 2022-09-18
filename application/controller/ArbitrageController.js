@@ -43,7 +43,7 @@ module.exports = class ArbitrageController extends SecurityController {
             console.log("Request abritrage...");
             View.render('arbitrage/routes', {}, response);
         } else {
-            ArbitrageController.reload();
+            ArbitrageController.actionLogin(uriParts, request, response);
         }
     }
 
