@@ -101,8 +101,8 @@ module.exports = class Util {
 
     }
 
-    static getFormattedTime() {
-        var today = new Date();
+    static getFormattedTime(date) {
+        var today = date || new Date();
         var y = today.getFullYear();
         var m = today.getMonth() + 1;
         var d = today.getDate();

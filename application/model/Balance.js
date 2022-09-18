@@ -10,13 +10,16 @@ module.exports = class Balance extends Model {
     static getting = false;
 
     start = {};
-    accumulateStart = 0;
+    accumulateStart = null;
     accumulateNow = 0;
     currencySymbol = '';
     total = 0;
     available = 0;
     updatedAt = null;
     currency = null;
+
+    static accumulatingStart = false;
+    static startAccumulationTime = null;
 
     /**
      * Initialize balances
@@ -97,7 +100,6 @@ module.exports = class Balance extends Model {
      * @returns {undefined}
      */
     static update(balances) {
-        Balance.list = [];
         for (var i in balances) {
             var balance = Balance.getByCurrencySymbol(balances[i].currencySymbol);
             var currency = Currency.getBySymbol(balances[i].currencySymbol);
@@ -123,10 +125,16 @@ module.exports = class Balance extends Model {
                 Balance.list.push(balance);
             }
         }
-        for (var i in Balance.list) {
-            if(this.list[i].accumulateStart === 0) {
-                this.list[i].setAccumulateStart(this.accumulateStart(this.list[i].getCurrency()));
-            }
+        if (!Balance.accumulatingStart) {
+            Balance.accumulatingStart = true;
+            setTimeout(function () {
+                for (var i in Balance.list) {
+                    if (!Balance.list[i].accumulateStart) {
+                        Balance.list[i].setAccumulateStart(Balance.accumulateStart(Balance.list[i].getCurrency()));
+                    }
+                }
+                Balance.startAccumulationTime = new Date();
+            }, 30000);
         }
     }
 
@@ -210,7 +218,9 @@ module.exports = class Balance extends Model {
      */
     static consoleOutput() {
         if (Currency.BTC && Currency.USDT) {
-            var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>Now</th><th>Start</th><th>Profit</th><th>Factor</th><th><img src=\"" + Currency.USDT.logoUrl + "\"> USDT</th><th><img src=\"" + Currency.BTC.logoUrl + "\"> BTC</th></tr>";
+            var nowStr = Util.getFormattedTime();
+            var startStr = Balance.startAccumulationTime ? Util.getFormattedTime(Balance.startAccumulationTime) : 'Pending...';
+            var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>" + startStr + "</th><th>" + nowStr + "</th><th>Profit</th><th>Factor</th><th><img src=\"" + Currency.USDT.logoUrl + "\"> USDT</th><th><img src=\"" + Currency.BTC.logoUrl + "\"> BTC</th></tr>";
             var balancesOutput = '';
             for (var i in Balance.list) {
                 Balance.list[i].setAccumulateNow(Balance.accumulate(Balance.list[i].getCurrency()));
@@ -401,8 +411,8 @@ module.exports = class Balance extends Model {
             "<img src=\"" + this.getCurrency().logoUrl + "\"/> " + this.currencySymbol + ""
                     , Util.pad(this.total)
                     , Util.pad(this.total - this.available)
-                    , Util.pad(this.accumulateNow)
                     , Util.pad(this.accumulateStart)
+                    , Util.pad(this.accumulateNow)
                     , Util.addPlusOrSpace(this.getProfit(), 8)
                     , Util.addPlusOrSpace(this.getProfitFactor() ? this.getProfitFactor() : 0) + '%'
                     , Util.pad(this.getUsdtBalance() ? this.getUsdtBalance() : 0)

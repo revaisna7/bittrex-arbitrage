@@ -14,20 +14,22 @@
                     <th>Notice</th>
                 </tr>
                 <% for(var i=0; i < allCurrencies.length; i++) { %>
-                <tr>
-                    <% if(allCurrencies[i].isAllowed()) { %>
-                    <td><input type="checkbox" name="symbol[]" value="<%= allCurrencies[i].symbol %>" checked="checked"></td>
-                    <% } else { %>
-                    <td><input type="checkbox" name="symbol[]" value="<%= allCurrencies[i].symbol %>"></td>
+                    <% if( allCurrencies[i].markets.length >= 2) { %>
+                    <tr>
+                        <% if(allCurrencies[i].isAllowed()) { %>
+                        <td><input type="checkbox" name="symbol[]" value="<%= allCurrencies[i].symbol %>" checked="checked"></td>
+                        <% } else { %>
+                        <td><input type="checkbox" name="symbol[]" value="<%= allCurrencies[i].symbol %>"></td>
+                        <% } %>
+                        <td><img src="<%= allCurrencies[i].logoUrl %>"></td>
+                        <td><%= allCurrencies[i].symbol %></td>
+                        <td><%= allCurrencies[i].name %></td>
+                        <td><%= allCurrencies[i].minConfirmations %></td>
+                        <td><%= allCurrencies[i].txFee %></td>
+                        <td><%= allCurrencies[i].markets.length %></td>
+                        <td><%= allCurrencies[i].notice %></td>
+                    </tr>
                     <% } %>
-                    <td><img src="<%= allCurrencies[i].logoUrl %>"></td>
-                    <td><%= allCurrencies[i].symbol %></td>
-                    <td><%= allCurrencies[i].name %></td>
-                    <td><%= allCurrencies[i].minConfirmations %></td>
-                    <td><%= allCurrencies[i].txFee %></td>
-                    <td><%= allCurrencies[i].markets.length %></td>
-                    <td><%= allCurrencies[i].notice %></td>
-                </tr>
                 <% } %>
             </table>
         </div>
