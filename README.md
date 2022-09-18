@@ -142,7 +142,13 @@ You may optionally configure in the json file './config/config.json'. This file 
 ### User
 | option | type | description |
 | ------ | ------ | ------ |
-| password | strring | Password for login in. |
+| password | string | Password hash for login in. |
+
+### Security
+| option | type | description |
+| ------ | ------ | ------ |
+| salt | string | Salt, regenerated with shake function. |
+| pepper | string | Pepper, regenerated with shake function. |
 
 # Todos
  - Integrate API v3
