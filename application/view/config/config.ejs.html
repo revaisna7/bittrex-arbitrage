@@ -1,33 +1,46 @@
 <form action="/config/config" method="post" id="configConfig">
-    <h2>Config</h2>
     <div class="row">
         <div class="col-xs-12 push-xs-6">
+        <h2>Strategy Settings</h2>
             <div class="row">
                 <div class="col-xs-6">
                     <label for="trade" class="text-left">Enable trade</label>
                 </div>
-                <div class="col-xs-18">
+                <div class="col-xs-2">
                     <input type="hidden" name="trade" value="false">
                     <input type="checkbox" name="trade" id="trade" value="true" <%= route.config('trade') ? 'checked="checked"' : '' %>>
                 </div>
-                <div class="col-xs-24">
-                    <label for="minInputBtc" class="text-left">Input BTC</label>
-                    <input type="text" name="minInputBtc" id="minInputBtc" value="<%= route.config('minInputBtc') %>">
-                </div>
-                <div class="col-xs-24">
-                    <label for="minProfitFactor" class="text-left">Min profit factor</label>
-                    <input type="text" name="minProfitFactor" id="minProfitFactor" value="<%= route.config('minProfitFactor') %>">
-                </div>
+            </div>
+            <div class="row">
                 <div class="col-xs-6">
                     <label for="profitAllThree" class="text-left">Profit all three</label>
                 </div>
-                <div class="col-xs-18">
-                    
+                <div class="col-xs-2">
                     <input type="hidden" name="profitAllThree" value="false">
                     <input type="checkbox" name="profitAllThree" value="true" id="profitAllThree" <%= route.config('profitAllThree') ? 'checked="checked"' : '' %>>
                 </div>
-                <div class="col-xs-24">
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <label for="minInputBtc" class="text-left">Input BTC</label>
+                </div>
+                <div class="col-xs-6">
+                    <input type="number" step="0.01" placeholder="0.0001" name="minInputBtc" id="minInputBtc" value="<%= route.config('minInputBtc') %>">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <label for="minProfitFactor" class="text-left">Min profit factor</label>
+                </div>
+                <div class="col-xs-6">
+                    <input type="number" name="minProfitFactor"  step="0.01" placeholder="0.01" id="minProfitFactor" value="<%= route.config('minProfitFactor') %>">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
                     <label for="mode" class="text-left">Mode</label>
+                </div>
+                <div class="col-xs-6">
                     <select name="mode" id="mode">
                         <option value="instant" <%= delta.config('mode') === 'instant' ? 'selected="selected"' : '' %>>instant</option>
                         <option value="potential" <%= delta.config('mode') === 'potential' ? 'selected="selected"' : '' %>>potential</option>
@@ -35,14 +48,18 @@
                         <option value="fixed" <%= delta.config('mode') === 'fixed' ? 'selected="selected"' : '' %>>fixed</option>
                     </select>
                 </div>
-                <div class="col-xs-24">
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
                     <label for="fix" class="text-left">Fix</label>
-                    <input type="text" name="fix" value="<%= delta.config('minProfitFactor') %>" id="fix">
+                </div>
+                <div class="col-xs-6">
+                    <input type="number" name="fix" value="<%= delta.config('minProfitFactor') %>" id="fix">
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-4 push-xs-20">
-                    <input type="submit" value="Update config">
+                    <input type="submit" value="Update settings">
                 </div>
             </div>
         </div>

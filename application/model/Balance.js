@@ -213,28 +213,6 @@ module.exports = class Balance extends Model {
     }
 
     /**
-     * Output that gets logged to console
-     * 
-     * @returns {String}
-     */
-    static consoleOutput() {
-        if (Currency.BTC && Currency.USDT) {
-            var nowStr = "Accumulate<br>" + Util.getFormattedTime();
-            var startStr = "Accumulate<br>" + (Balance.startAccumulationTime ? Util.getFormattedTime(Balance.startAccumulationTime) : 'Pending...');
-            var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>" + startStr + "</th><th>" + nowStr + "</th><th>Profit</th><th>Factor</th><th><img src=\"" + Currency.USDT.logoUrl + "\"> USDT</th><th><img src=\"" + Currency.BTC.logoUrl + "\"> BTC</th></tr>";
-            var balancesOutput = '';
-            for (var i in Balance.list) {
-                Balance.list[i].setAccumulateNow(Balance.accumulate(Balance.list[i].getCurrency()));
-                balancesOutput = balancesOutput + "<tr>" + Balance.list[i].consoleOutput() + "</tr>";
-            }
-            if (Balance.getByCurrencySymbol('USDT') && Balance.getByCurrencySymbol('BTC')) {
-                balancesOutput = balancesOutput + "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>" + Util.pad(Balance.getByCurrencySymbol('USDT').accumulateNow) + "</td><td>" + Util.pad(Balance.getByCurrencySymbol('BTC').accumulateNow) + "</td></tr>";
-            }
-            return output + balancesOutput + "</table>";
-        }
-    }
-
-    /**
      * 
      * @param {type} balance
      * @returns {Balance}
@@ -405,6 +383,32 @@ module.exports = class Balance extends Model {
         return this.getBtcNow() / this.getBtcStart() * 100;
     }
 
+    /**
+     * Output that gets logged to console
+     * 
+     * @returns {String}
+     */
+    static consoleOutput() {
+        if (Currency.BTC && Currency.USDT) {
+            var nowStr = "Accumulate<br>" + Util.getFormattedTime();
+            var startStr = "Accumulate<br>" + (Balance.startAccumulationTime ? Util.getFormattedTime(Balance.startAccumulationTime) : 'Pending...');
+            var output = "<h3>Balances</h3><table><tr><th>Currency</th><th>Balance</th><th>Reserved</th><th>" + startStr + "</th><th>" + nowStr + "</th><th>Profit</th><th>Factor</th><th><img src=\"" + Currency.USDT.logoUrl + "\"> USDT</th><th><img src=\"" + Currency.BTC.logoUrl + "\"> BTC</th></tr>";
+            var balancesOutput = '';
+            
+            var overallProfitFactor = 0;
+            var balances = 0;
+            for (var i in Balance.list) {
+                Balance.list[i].setAccumulateNow(Balance.accumulate(Balance.list[i].getCurrency()));
+                balancesOutput = balancesOutput + "<tr>" + Balance.list[i].consoleOutput() + "</tr>";
+                overallProfitFactor += Balance.list[i].getProfitFactor() ? Balance.list[i].getProfitFactor() : 0;
+                balances++;
+            }
+            if (Balance.getByCurrencySymbol('USDT') && Balance.getByCurrencySymbol('BTC')) {
+                balancesOutput = balancesOutput + "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td>"+Util.addPlusOrSpace(overallProfitFactor/balances ? overallProfitFactor/balances : 0) + '%'+"</td><td>" + Util.pad(Balance.getByCurrencySymbol('USDT').accumulateNow) + "</td><td>" + Util.pad(Balance.getByCurrencySymbol('BTC').accumulateNow) + "</td></tr>";
+            }
+            return output + balancesOutput + "</table>";
+        }
+    }
     /**
      * Output that gets logged to console
      * 
