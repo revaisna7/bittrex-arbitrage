@@ -148,7 +148,7 @@ The table features nine columns
 ![image](https://user-images.githubusercontent.com/1371051/191118530-53f0571e-777d-4fe9-a03d-70a8b8e81e84.png)
 
 #### Restrict markets guide
- 1. If you wish to restrict a market, for example say I no longer want to trade routs that trade XRP against USDT I can check the checkbox and click the update restricted markets butten. ![image](https://user-images.githubusercontent.com/1371051/191119545-319b8f3b-78e7-4cf8-ba92-901d183a7588.png)
+ 1. If you wish to restrict a market, for example say I no longer want to trade arbs that trade XRP against USDT I can check the checkbox and click the update restricted markets butten. ![image](https://user-images.githubusercontent.com/1371051/191119545-319b8f3b-78e7-4cf8-ba92-901d183a7588.png)
 2. You will notice the market will no longer be used in your arbs ![image](https://user-images.githubusercontent.com/1371051/191120017-93e61723-0007-44ab-b064-1bb63bec817c.png)
 
 ### Config
