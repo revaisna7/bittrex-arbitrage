@@ -7,7 +7,7 @@ Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittre
 Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable discrepency in the market.
 To enable trades the trader must hold enough balance in each currency.
 
-![image](https://user-images.githubusercontent.com/1371051/191124318-ebb2d898-de8a-4923-a999-99aa4633d329.png)
+![image](https://user-images.githubusercontent.com/1371051/191124449-6a376ec5-6442-47de-b240-5b7682eaf336.png)
 
 
 # Strategy
