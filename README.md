@@ -7,7 +7,7 @@ Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittre
 Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable discrepency in the market.
 To enable trades the trader must hold enough balance in each currency.
 
-![screenshot](https://i.snipboard.io/5qQg4j.jpg)
+![image](https://user-images.githubusercontent.com/1371051/191123499-dfe78474-33bb-4b04-8434-3280b26c9e52.png)
 
 # Strategy
 Bittrex Arbitrage is based on the triangular arbitrage trading strategy in where conflicts in market prices result in ocassions where currencies are worth more than before you traded them. Conflicts happen due to discrepencies in market prices and floating point rounding errors. Bittrex Arbitrage does not base your book on a single currency, rather you must hold enough balance in each currency you want to trade. The strategy should accumulate more of each currency over time. Bittrex Arbitrage features different strategy modes.
