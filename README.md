@@ -154,8 +154,7 @@ You may optionally configure in the json file `./config/config.json`. This file 
 | pepper | string | Pepper, regenerated with shake function. |
 
 # Todos
- - Integrate API v3
- - Add features to the user interface such as rebalancing, currency configuration, strategy configuration etc.
+ - Book balancer interface.
  - Backtesting feature.
 
 
