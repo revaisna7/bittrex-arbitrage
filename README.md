@@ -116,7 +116,7 @@ The table features nine columns:
 ![screenshot](https://i.snipboard.io/CtiINp.jpg)
 
 ### Currencies
-In the currencies tab you can configure the currencies you want to use in your strategy. Click to row of the currency you want to enable and then click the update allowed currencies. You will be warned that your profits will be recalculated.
+In the currencies tab you can configure the currencies you want to use in your strategy. Click the row of the currency you want to enable and then click the update allowed currencies. You will be warned that your profits will be recalculated.
 The table features eight columns
  * Allow has a checkbox you can check to enable the currency for trade
  * Logo features the currency logo
