@@ -124,7 +124,7 @@ The table features eight columns
  * Name is the currency name
  * Min confirmations is the amount of confirmations it takes to receive balance in that currency when it is deposited to your wallet.
  * Transaction fee is the fee to withdraw the currency.
- * Markets is the amount of markets the currency is used in. You cannot find arbitrages with currencies that feature atleast two or more markets. That's why by default you will see currencies that always have at least two markets.
+ * Markets is the amount of markets the currency is used in. You cannot find arbitrages with currencies that feature atleast two or more markets. That's why by default you will see currencies that always have atleast two markets.
  * Notice is a notice from Bittrex about the currency
  ![screenshot](https://i.snipboard.io/KRjQtP.jpg)
 
