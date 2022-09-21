@@ -13,7 +13,6 @@ module.exports = class ConfigController extends SecurityController {
 
     static actionConfig(uriParts, request, response) {
         if (ConfigController.authenticate(uriParts, request, response)) {
-            console.log(request.body.trade);
             if (request.body.trade !== undefined) {
                 Route.setConfig('trade', Array.isArray(request.body.trade) ? true : false);
             }

@@ -12,7 +12,6 @@ module.exports = class Delta extends Model {
     input = null;
     output = null;
     price = 0;
-    priceDeviation = null;
 
     constructor(route, inputCurrency, outputCurrency) {
         super();
@@ -39,26 +38,22 @@ module.exports = class Delta extends Model {
     }
 
     getPrice() {
-        this.priceDeviation = Delta.config('priceDeviation') || 0;
-        if (this.getMode() === "potential") {
+        if (this.getMode() === 'market') {
+            this.price = this.market.getMarketPrice(this.outputCurrency);
+        }
+        if (this.getMode() === 'potential') {
             this.price = this.market.getPotentialPrice(this.outputCurrency);
         }
-        if (this.getMode() === "median") {
+        if (this.getMode() === 'median') {
             this.price = this.market.getMedianPrice(this.outputCurrency);
         }
-        if (this.getMode() === "instant") {
-            this.price = this.market.getPrice(this.outputCurrency);
+        if (this.getMode() === 'last') {
+            this.price = this.market.getLastPrice(this.outputCurrency);
         }
-        if (this.getMode() === "fixed") {
-            this.price = this.market.getPrice(this.outputCurrency);
+        if (this.getMode() === 'fixed') {
+            this.price = this.market.getMarketPrice(this.outputCurrency);
         }
-        if(Delta.config('deviate')) {
-            if (this.market.isBaseCurrency(this.inputCurrency)) {
-                this.price = this.price + (this.price * this.market.makerFee);
-            } else {
-                this.price = this.price - (this.price * this.market.makerFee);
-            }
-        }
+        
         return this.price = Number.parseFloat(this.price).toFixed(8);
     }
 
@@ -67,11 +62,14 @@ module.exports = class Delta extends Model {
     }
 
     getOuput() {
-        this.priceDeviation = Delta.config('priceDeviation') || 0;
         if(this.price === 0) {
             this.price = this.getPrice();
         }
-        if (this.getMode() === 'speculate') {
+        if(this.getMode() === 'market') {
+            this.output = this.market.convert(this.outputCurrency, this.getInput(), this.price);
+            this.output = this.output - (this.output*this.market.takerFee);
+        }
+        if (this.getMode() === 'potential') {
             this.output = this.market.convertPotential(this.outputCurrency, this.getInput(), this.price);
             this.output = this.output - (this.output*this.market.makerFee);
         }
@@ -79,9 +77,9 @@ module.exports = class Delta extends Model {
             this.output = this.market.convertMedian(this.outputCurrency, this.getInput(), this.price);
             this.output = this.output - (this.output*this.market.makerFee);
         }
-        if(this.getMode() === 'instant') {
-            this.output = this.market.convert(this.outputCurrency, this.getInput(), this.price);
-            this.output = this.output - (this.output*this.market.takerFee);
+        if(this.getMode() === 'last') {
+            this.output = this.market.convertLast(this.outputCurrency, this.getInput(), this.price);
+            this.output = this.output - (this.output*this.market.makerFee);
         }
         if(this.getMode() === 'fixed') {
             this.output = this.market.convertPotential(this.outputCurrency, this.getInput(), this.price);

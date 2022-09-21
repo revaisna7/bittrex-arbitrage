@@ -191,7 +191,7 @@ module.exports = class Order extends Model {
     }
 
     getCurrenctPrice() {
-        return this.getMarket().getPrice(this.getOutputCurrency());
+        return this.getMarket().getMarketPrice(this.getOutputCurrency());
     }
 
     getPriceDifference() {

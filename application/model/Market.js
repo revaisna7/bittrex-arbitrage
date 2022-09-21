@@ -169,6 +169,13 @@ module.exports = class Market extends Model {
         }
     }
 
+    /**
+     * Get a market by its currencies
+     * 
+     * @param {Currency} currencyX
+     * @param {Currency} currencyY
+     * @returns {Market.list}
+     */
     static getByCurrencies(currencyX, currencyY) {
         for (var i in Market.list) {
             if (Market.list[i].symbol === currencyX.symbol + '-' + currencyY.symbol
@@ -313,7 +320,7 @@ module.exports = class Market extends Model {
      * @param {Currency} currency The currency to get the price for
      * @returns {Number}
      */
-    getPrice(currency) {
+    getMarketPrice(currency) {
         var price;
         if (this.isBaseCurrency(currency)) {
             price = this.Ask();
@@ -325,7 +332,7 @@ module.exports = class Market extends Model {
 
     /**
      * Get the current reversed market prices for the given currency
-     * Does the same as getPrice but switches Ask to Bid and Bid to Ask
+     * Does the same as getMarketPrice but switches Ask to Bid and Bid to Ask
      * 
      * @param {Currency} currency The currency to get the price for
      * @returns {Number}
@@ -342,7 +349,7 @@ module.exports = class Market extends Model {
 
     /**
      * Get the current reversed market prices for the given currency
-     * Does the same as getPrice but switches Ask to Bid and Bid to Ask
+     * Does the same as getMarketPrice but switches Ask to Bid and Bid to Ask
      * 
      * @param {Currency} currency The currency to get the price for
      * @returns {Number}
@@ -350,6 +357,16 @@ module.exports = class Market extends Model {
     getMedianPrice(currency) {
         var price = this.Bid() + ((this.Ask() - this.Bid()) / 2);
         return Number.parseFloat(price).toFixed(this.getPrecision());
+    }
+
+    /**
+     * Get last price
+     * 
+     * @param {type} currency
+     * @returns {Number}
+     */
+    getLastPrice(currency) {
+        return Number.parseFloat(this.Last()).toFixed(this.getPrecision());
     }
 
     /**
@@ -393,6 +410,14 @@ module.exports = class Market extends Model {
     }
 
     /**
+     * last price from the order book
+     * 
+     * @returns {Number}
+     */
+    Last() {
+        return Number.parseFloat(this.orderBook.Last());
+    }
+    /**
      * Get quantity available for given currency
      * 
      * @param {Currency} currency
@@ -425,7 +450,7 @@ module.exports = class Market extends Model {
      */
     trade(inputCurrency, outputCurrency, inputQauntity, price) {
         if (!price) {
-            price = this.getPrice(outputCurrency);
+            price = this.getMarketPrice(outputCurrency);
         }
         return new Trade(this, inputCurrency, outputCurrency, inputQauntity, price);
     }
@@ -458,7 +483,7 @@ module.exports = class Market extends Model {
      */
     convert(outputCurrency, inputQuantity, price) {
         if (!price) {
-            price = this.getPrice(outputCurrency);
+            price = this.getMarketPrice(outputCurrency);
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;
@@ -495,6 +520,24 @@ module.exports = class Market extends Model {
     convertMedian(outputCurrency, inputQuantity, price) {
         if (!price) {
             price = this.getMedianPrice(outputCurrency);
+        }
+        var isBase = this.isBaseCurrency(outputCurrency);
+        var output = isBase ? inputQuantity / price : price * inputQuantity;
+        return  output;
+    }
+
+    /**
+     * Convert the input currency to the output currency at last price
+     * Also calculates commission
+     * 
+     * @param {Currency} outputCurrency
+     * @param {Currency} inputQuantity
+     * @param {Number} [price]
+     * @returns {Number}
+     */
+    convertLast(outputCurrency, inputQuantity, price) {
+        if (!price) {
+            price = this.getLastPrice(outputCurrency);
         }
         var isBase = this.isBaseCurrency(outputCurrency);
         var output = isBase ? inputQuantity / price : price * inputQuantity;

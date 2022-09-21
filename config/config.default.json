@@ -7,7 +7,7 @@
         "nextTradeTimeout": 10000
     },
     "Delta": {
-        "mode": "instant",
+        "mode": "market",
         "deviate": false,
         "fix": 0.1
     },

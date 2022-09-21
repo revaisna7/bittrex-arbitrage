@@ -38,7 +38,7 @@ module.exports = class BookBalancer extends Model {
                 continue;
             }
             var balance = BookBalancer.Balance.getByCurrencySymbol(allowedCurrencies[i]);
-            var price = currency.getMarket(BookBalancer.Currency.BTC).getPrice(BookBalancer.Currency.BTC);
+            var price = currency.getMarket(BookBalancer.Currency.BTC).getMarketPrice(BookBalancer.Currency.BTC);
             
             console.log("price: " + balance.getTotal());
             console.log("total: " + balance.getTotal());

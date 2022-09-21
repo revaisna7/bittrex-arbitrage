@@ -20,7 +20,6 @@
     "bit-converter": "^1.0.0",
     "bittrex-node-api": "^1.0.1",
     "body-parser": "^1.20.0",
-    "clear": "0.0.1",
     "cookie-parser": "^1.4.6",
     "crypto": "^1.0.1",
     "ejs": "^3.1.8",
@@ -28,7 +27,6 @@
     "mime": "^2.4.6",
     "node-signalr": "^2.0.5",
     "process": "^0.11.10",
-    "readline": "^1.3.0",
     "signalr-client": "0.0.20",
     "socket.io": "^2.5.0",
     "uuid": "^9.0.0",
@@ -38,6 +36,7 @@
   "main": "bootstrap.js",
   "scripts": {
     "start": "node bootstrap.js",
+    "debug": "DEBUG=pd* nodemon --inspect-brk --harmony --nolazy bootstrap.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

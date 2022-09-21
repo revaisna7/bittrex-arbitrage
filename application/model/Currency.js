@@ -304,8 +304,8 @@ module.exports = class Currency extends Model {
      * @param {Currency} currency
      * @returns {Number}
      */
-    getPrice(currency) {
-        return this.getMarket(currency).getPrice(currency);
+    getMarketPrice(currency) {
+        return this.getMarket(currency).getMarketPrice(currency);
     }
 
     /**
@@ -326,6 +326,16 @@ module.exports = class Currency extends Model {
      */
     getMedianPrice(currency) {
         return this.getMarket(currency).getMedianPrice(currency);
+    }
+    
+    /**
+     * Get last currency price
+     * 
+     * @param {Currency} currency
+     * @returns {Number}
+     */
+    getLastPrice(currency) {
+        return this.getMarket(currency).getLastPrice(currency);
     }
 
     /**
@@ -463,6 +473,22 @@ module.exports = class Currency extends Model {
 
         var market = this.getMarket(outputCurrency);
         return market ? market.convertMedian(outputCurrency, inputQuantity, price) : false;
+    }
+    
+    /**
+     * Convert this to median of the given currency
+     * 
+     * @param {Currency} outputCurrency
+     * @param {Number} inputQuantity
+     * @param {Number} price
+     * @returns {Number|Boolean}
+     */
+    convertLast(outputCurrency, inputQuantity, price) {
+        if (this.symbol === outputCurrency.symbol)
+            return inputQuantity;
+
+        var market = this.getMarket(outputCurrency);
+        return market ? market.convertLast(outputCurrency, inputQuantity, price) : false;
     }
 
     /**

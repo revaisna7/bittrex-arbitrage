@@ -30,16 +30,9 @@ module.exports = class SocketServer extends Configurable {
 
     static start() {
         SocketServer.server = io();
-        SocketServer.listen(SocketServer.getPort());
         SocketServer.server.listen(SocketServer.getPort());
         SocketServer.server.on('connection', SocketServer.route);
         console.log('Socket server avaialbe to serve through port: ' + SocketServer.getPort());
-    }
-
-    static listen() {
-    }
-    
-    static route() {
     }
 
     static onConnection() {

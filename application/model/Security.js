@@ -15,10 +15,8 @@ module.exports = class Security extends Model {
     }
     
     static shake() {
-        var randSalt = "" + (Math.random()*1000000000);
-        var randPepper = "" + (Math.random()*1000000000);
-        Security.setConfig('salt', Security.hash(randSalt, "hex"));
-        Security.setConfig('pepper', Security.hash(randSalt, "base64"));
+        Security.setConfig('salt', Security.hash("" + (Math.random()*1000000000), "hex"));
+        Security.setConfig('pepper', Security.hash("" + (Math.random()*-1000000000), "base64"));
         Security.commitConfig();
     }
     

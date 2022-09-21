@@ -42,10 +42,11 @@ module.exports = class WebServer extends Configurable {
         WebServer.server.use(WebServer.route);
     }
 
-    static route(request, response) {
+    static async route(request, response) {
         if (!Controller.routeAction(request, response)) {
-            if (!File.serve(request, response)) {
-                response.end('404. You have found the nonexistent page. This page exists but yet it does not. Good luck finding it.');
+            if (!await File.serve(request, response)) {
+                console.log('404');
+                response.redirect('/');
             }
         }
     }

@@ -41,20 +41,21 @@
                     <label for="mode" class="text-left">Mode</label>
                 </div>
                 <div class="col-xs-6">
-                    <select name="mode" id="mode">
-                        <option value="instant" <%= delta.config('mode') === 'instant' ? 'selected="selected"' : '' %>>instant</option>
+                    <select name="mode" id="mode" onchange="if($(this).val() === 'fixed') { $('#fixedRow').show() } else { $('#fixedRow').hide() }">
+                        <option value="market" <%= delta.config('mode') === 'market' ? 'selected="selected"' : '' %>>market</option>
                         <option value="potential" <%= delta.config('mode') === 'potential' ? 'selected="selected"' : '' %>>potential</option>
                         <option value="median" <%= delta.config('mode') === 'median' ? 'selected="selected"' : '' %>>median</option>
+                        <option value="last" <%= delta.config('mode') === 'last' ? 'selected="selected"' : '' %>>last</option>
                         <option value="fixed" <%= delta.config('mode') === 'fixed' ? 'selected="selected"' : '' %>>fixed</option>
                     </select>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="display: <%= delta.config('mode') === 'fixed' ? 'block' : 'none' %>" id="fixedRow">
                 <div class="col-xs-6">
                     <label for="fix" class="text-left">Fix</label>
                 </div>
                 <div class="col-xs-6">
-                    <input type="number" name="fix" value="<%= delta.config('minProfitFactor') %>" id="fix">
+                    <input type="number" name="fix"  step="0.01" placeholder="0.01"  value="<%= delta.config('fix') %>" id="fix">
                 </div>
             </div>
             <div class="row">
