@@ -7,7 +7,8 @@ Automatically calculates arbitrage opportunities on [Bittrex.com](https://bittre
 Trades for example, BTC into USD into ETH and back to BTC, when there is a profitable discrepency in the market.
 To enable trades the trader must hold enough balance in each currency.
 
-![screenshot](https://i.snipboard.io/5qQg4j.jpg)
+![image](https://user-images.githubusercontent.com/1371051/191124449-6a376ec5-6442-47de-b240-5b7682eaf336.png)
+
 
 # Strategy
 Bittrex Arbitrage is based on the triangular arbitrage trading strategy in where conflicts in market prices result in ocassions where currencies are worth more than before you traded them. Conflicts happen due to discrepencies in market prices and floating point rounding errors. Bittrex Arbitrage does not base your book on a single currency, rather you must hold enough balance in each currency you want to trade. The strategy should accumulate more of each currency over time. Bittrex Arbitrage features different strategy modes.
@@ -20,7 +21,7 @@ Market arbs are based on current market prices. Market arbs are in the now trian
 With potential mode you can take some more risk, by not seeking market arbs, but potential arbs by reversing between buy/sell (bid/ask) prices. Your arbs will be slightly more risky and you will need to wait some time for your orders to fill, the price difference from market price is generally so low they generally fill quite fast, usually within a day. They will be more profitable and happen slightly more often. You will be betting that the market moves slightly in a certain direction.
 
 ### Median
-Median mode is like potential mode, only rather than go complete reverse, the difference between ask/bid prices is divided by half and added/subtracted to/from the price in which case you will be sitting directly in the middle of the order book at the moment in time the trades are placed. This is slightly less risky than median but risky none the less.
+Median mode is like potential mode, only rather than go complete reverse, the difference between ask and bid prices is divided by half and added to the bid price in which case you will be sitting directly in the middle of the order book at the moment in time the trades are placed. This is slightly less risky than median but risky none the less.
 
 ### Last
 Last mode is when the prices are based on the price of the last trade to fill in the market.
@@ -118,7 +119,7 @@ The table features nine columns:
 ![screenshot](https://i.snipboard.io/CtiINp.jpg)
 
 ### Currencies
-In the currencies tab you can configure the currencies you want to use in your strategy. Click to row of the currency you want to enable and then click the update allowed currencies. You will be warned that your profits will be recalculated.
+In the currencies tab you can configure the currencies you want to use in your strategy. Click the row of the currency you want to enable and then click the update allowed currencies. You will be warned that your profits will be recalculated.
 The table features eight columns
  * Allow has a checkbox you can check to enable the currency for trade
  * Logo features the currency logo
@@ -126,7 +127,7 @@ The table features eight columns
  * Name is the currency name
  * Min confirmations is the amount of confirmations it takes to receive balance in that currency when it is deposited to your wallet.
  * Transaction fee is the fee to withdraw the currency.
- * Markets is the amount of markets the currency is used in. You cannot find arbitrages with currencies that feature atleast two or more markets. That's why by default you will see currencies that always have at least two markets.
+ * Markets is the amount of markets the currency is used in. You cannot find arbitrages with currencies that feature atleast two or more markets. That's why by default you will see currencies that always have atleast two markets.
  * Notice is a notice from Bittrex about the currency
  ![screenshot](https://i.snipboard.io/KRjQtP.jpg)
 
@@ -150,7 +151,7 @@ The table features nine columns
 ![image](https://user-images.githubusercontent.com/1371051/191118530-53f0571e-777d-4fe9-a03d-70a8b8e81e84.png)
 
 #### Restrict markets guide
- 1. If you wish to restrict a market, for example say I no longer want to trade routs that trade XRP against USDT I can check the checkbox and click the update restricted markets butten. ![image](https://user-images.githubusercontent.com/1371051/191119545-319b8f3b-78e7-4cf8-ba92-901d183a7588.png)
+ 1. If you wish to restrict a market, for example say I no longer want to trade arbs that trade XRP against USDT I can check the checkbox and click the update restricted markets butten. ![image](https://user-images.githubusercontent.com/1371051/191119545-319b8f3b-78e7-4cf8-ba92-901d183a7588.png)
 2. You will notice the market will no longer be used in your arbs ![image](https://user-images.githubusercontent.com/1371051/191120017-93e61723-0007-44ab-b064-1bb63bec817c.png)
 
 ### Config
