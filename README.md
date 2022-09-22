@@ -103,7 +103,7 @@ The table features five columns:
  * Currency being the currency that was traded
  * Quantity being the quantity traded
  * Rate being the price
- ![screenshot](https://i.snipboard.io/BX8N1Q.jpg)
+![image](https://user-images.githubusercontent.com/1371051/191837374-b0e5139b-8c05-4fd4-afbd-b4c8ec7dbb70.png)
 
 ### Orders
 The Orders tab features currently open orders.
