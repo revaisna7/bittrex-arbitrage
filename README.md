@@ -116,7 +116,7 @@ The table features nine columns:
  * Target price being the price of the trade order
  * Difference being the difference in current market price and the current order price
  * Factor being the percentage of the difference of market price from order price
-![screenshot](https://i.snipboard.io/CtiINp.jpg)
+![image](https://user-images.githubusercontent.com/1371051/191848773-bb6852d3-2104-4629-b09e-f0f391739f19.png)
 
 ### Currencies
 In the currencies tab you can configure the currencies you want to use in your strategy. Click the row of the currency you want to enable and then click the update allowed currencies. You will be warned that your profits will be recalculated.
