@@ -25,7 +25,7 @@
                     <label for="minInputBtc" class="text-left">Input BTC</label>
                 </div>
                 <div class="col-xs-6">
-                    <input type="number" step="0.01" placeholder="0.0001" name="minInputBtc" id="minInputBtc" value="<%= route.config('minInputBtc') %>">
+                    <input type="text" name="minInputBtc" id="minInputBtc" value="<%= route.config('minInputBtc') %>">
                 </div>
             </div>
             <div class="row">
@@ -33,7 +33,7 @@
                     <label for="minProfitFactor" class="text-left">Min profit factor</label>
                 </div>
                 <div class="col-xs-6">
-                    <input type="number" name="minProfitFactor"  step="0.01" placeholder="0.01" id="minProfitFactor" value="<%= route.config('minProfitFactor') %>">
+                    <input type="text" name="minProfitFactor" id="minProfitFactor" value="<%= route.config('minProfitFactor') %>">
                 </div>
             </div>
             <div class="row">
@@ -41,7 +41,7 @@
                     <label for="mode" class="text-left">Mode</label>
                 </div>
                 <div class="col-xs-6">
-                    <select name="mode" id="mode" onchange="if($(this).val() === 'fixed') { $('#fixedRow').show() } else { $('#fixedRow').hide() }">
+                    <select name="mode" id="mode" onchange="if($(this).val() === 'fixed') { $('#fixedRow').show(); } else { $('#fixedRow').hide(); }">
                         <option value="market" <%= delta.config('mode') === 'market' ? 'selected="selected"' : '' %>>market</option>
                         <option value="potential" <%= delta.config('mode') === 'potential' ? 'selected="selected"' : '' %>>potential</option>
                         <option value="median" <%= delta.config('mode') === 'median' ? 'selected="selected"' : '' %>>median</option>
@@ -55,7 +55,7 @@
                     <label for="fix" class="text-left">Fix</label>
                 </div>
                 <div class="col-xs-6">
-                    <input type="number" name="fix"  step="0.01" placeholder="0.01"  value="<%= delta.config('fix') %>" id="fix">
+                    <input type="text" name="fix"value="<%= delta.config('fix') %>" id="fix">
                 </div>
             </div>
             <div class="row">
